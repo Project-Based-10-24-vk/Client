@@ -1,15 +1,13 @@
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
-import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
+import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 import InfoCard from '~/components/info-card/InfoCard'
-
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { guestRoutes } from '~/router/constants/guestRoutes'
 import learnImg from '~/assets/img/guest-home-page/learnImg.png'
 import teachImg from '~/assets/img/guest-home-page/teachImg.png'
-
 import { UserRoleEnum } from '~/types'
-import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 
 const cardData = [
   {
