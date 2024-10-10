@@ -3,17 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-
 import CardsWithButton from '~/containers/guest-home-page/cards-with-button/CardsWithButton'
 import AppContentSwitcher from '~/components/app-content-switcher/AppContentSwitcher'
-import {
-  tutorCardBoxArray,
-  studentCardBoxArray
-} from '~/containers/guest-home-page/how-it-works/CardBoxArrays'
 import { guestRoutes } from '~/router/constants/guestRoutes'
-
 import { TypographyVariantEnum, UserRoleEnum } from '~/types'
-import { styles } from '~/containers/guest-home-page/how-it-works/HowItWorks.styles'
+import { studentCardBoxArray, tutorCardBoxArray } from './CardBoxArrays'
+import { styles } from './HowItWorks.styles'
 
 const HowItWorks = () => {
   const { t } = useTranslation()

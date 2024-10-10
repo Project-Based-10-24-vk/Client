@@ -8,14 +8,13 @@ import Box from '@mui/material/Box'
 import AppButton from '~/components/app-button/AppButton'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import dots from '~/assets/img/guest-home-page/dots.svg'
-
 import {
   AccordionWithImageItem,
   PositionEnum,
   SizeEnum,
   UserRoleEnum
 } from '~/types'
-import { styles } from '~/containers/guest-home-page/cards-with-button/CardsWithButton.styles'
+import { styles } from './CardsWithButton.styles'
 
 interface CardsWithButtonProps {
   array: AccordionWithImageItem[]
@@ -50,7 +49,7 @@ const CardsWithButton: FC<CardsWithButtonProps> = ({
             <Box className='dots' component='img' src={dots} />
           </Box>
           <TitleWithDescription
-            description={t(item.description)}
+            description={t(item.description ?? '')}
             style={styles[boxSide]}
             title={t(item.title)}
           />
