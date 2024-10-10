@@ -4,5 +4,41 @@
   "singleQuote": true,
   "jsxSingleQuote": true,
   "arrowParens": "always",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "importOrder": [
+    "^(react/(.*)$)|^(react$)",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^~/pages/(.*)$",
+    "^@mui/(.*)$",
+    "^~/containers/(.*)$",
+    "^~/components/(.*)$",
+    "^~/router/(.*)$",
+    "^~/context/(.*)$",
+    "^~/redux/(.*)$",
+    "^~/plugins/(.*)$",
+    "^~/utils/(.*)$",
+    "^~/hooks/(.*)$",
+    "^~/services/(.*)$",
+    "^~/constants",
+    "^~/constants/(.*)",
+    "^~/assets/(.*)$",
+    "^~/types",
+    "^~/tests/(.*)$",
+    "^~/styles/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true,
+  "importOrderBuiltinModulesToTop": true,
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrderMergeDuplicateImports": true,
+  "importOrderCombineTypeAndValueImports": true,
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports"
+  ]
 }
