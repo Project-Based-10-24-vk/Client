@@ -55,6 +55,9 @@
       "startLearning": {
         "title": "Start Learning",
         "description": "After confirming the request, all training opportunities for the chosen course will open for you."
+      },
+      "buttonText": {
+        "title": "Start learning today"
       }
     },
     "tutor": {
@@ -73,6 +76,9 @@
       "receiveFeedbacks": {
         "title": "Receive Feedbacks",
         "description": "Receive positive feedback for your work to become popular and get even more satisfied students."
+      },
+      "buttonText": {
+        "title": "Become a mentor"
       }
     }
   },
