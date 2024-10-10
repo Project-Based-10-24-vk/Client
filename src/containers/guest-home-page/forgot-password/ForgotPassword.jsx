@@ -1,24 +1,22 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { useTranslation } from 'react-i18next'
-
-import { useSnackBarContext } from '~/context/snackbar-context'
-import { useModalContext } from '~/context/modal-context'
-import useForm from '~/hooks/use-form'
-
-import AppTextField from '~/components/app-text-field/AppTextField'
-import LoginDialog from '~/containers/guest-home-page/login-dialog/LoginDialog'
-import AppButton from '~/components/app-button/AppButton'
-import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
-import NotificationModal from '~/containers/guest-home-page/notification-modal/NotificationModal'
-import info from '~/assets/img/guest-home-page/info.svg'
-import { AuthService } from '~/services/auth-service'
-
-import { snackbarVariants } from '~/constants'
-import { email } from '~/utils/validations/login'
 import { styles } from '~/containers/guest-home-page/forgot-password/ForgotPassword.styles'
+import LoginDialog from '~/containers/guest-home-page/login-dialog/LoginDialog'
+import NotificationModal from '~/containers/guest-home-page/notification-modal/NotificationModal'
+import AppButton from '~/components/app-button/AppButton'
+import AppTextField from '~/components/app-text-field/AppTextField'
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
+import { useModalContext } from '~/context/modal-context'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import { email } from '~/utils/validations/login'
+import useForm from '~/hooks/use-form'
+import { AuthService } from '~/services/auth-service'
+import { snackbarVariants } from '~/constants'
+import info from '~/assets/img/guest-home-page/info.svg'
 
 const ForgotPassword = () => {
   const { t } = useTranslation()
@@ -94,7 +92,7 @@ const ForgotPassword = () => {
           onChange={handleInputChange('email')}
           required
           size='large'
-          sx={{ mb: '5px' }}
+          sx={{ margin: '1.5rem 0' }}
           type='email'
           value={data.email}
         />
