@@ -1,20 +1,18 @@
-import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-
-import IconTitleDescription from '~/components/icon-title-description/IconTitleDescription'
+import Typography from '@mui/material/Typography'
+import { styles } from '~/containers/my-resources/questions-container/QuestionsContainer.styles'
 import AppChip from '~/components/app-chip/AppChip'
-
+import IconTitleDescription from '~/components/icon-title-description/IconTitleDescription'
+import { authRoutes } from '~/router/constants/authRoutes'
+import { CheckIcons } from '~/utils/check-icons'
+import { createUrlPath, getFormattedDate } from '~/utils/helper-functions'
 import {
+  AdditionalPropsInterface,
   Question,
   RemoveColumnRules,
   SortEnum,
-  TableColumn,
-  AdditionalPropsInterface
+  TableColumn
 } from '~/types'
-import { createUrlPath, getFormattedDate } from '~/utils/helper-functions'
-import { CheckIcons } from '~/utils/check-icons'
-import { styles } from '~/containers/my-resources/questions-container/QuestionsContainer.styles'
-import { authRoutes } from '~/router/constants/authRoutes'
 
 export const columns: TableColumn<Question>[] = [
   {
@@ -29,10 +27,11 @@ export const columns: TableColumn<Question>[] = [
           createUrlPath(authRoutes.myResources.editQuestion.path, item._id)
         )
       }
+
       return (
         <Box onClick={handleClick} sx={styles.questionContainer}>
           <IconTitleDescription
-            description={'Which word is the antonym of "benevolent"?'}
+            description={item.text}
             icon={<Box sx={styles.iconWrapper}>{CheckIcons(item.type)}</Box>}
             sx={styles.iconTitleDescription}
             title={item.title}
