@@ -1,10 +1,10 @@
 import { ReactElement, ReactNode, useState } from 'react'
-import { SxProps } from '@mui/material'
-import Tooltip from '@mui/material/Tooltip'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 
-import { styles } from '~/components/title-with-description/TitleWithDescription.styles'
+import { SxProps } from '@mui/material'
+import Box from '@mui/material/Box'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import { styles } from './TitleWithDescription.styles'
 
 interface TitleWithDescriptionProps {
   title: string | ReactElement
