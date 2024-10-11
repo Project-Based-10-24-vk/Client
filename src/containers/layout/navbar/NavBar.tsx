@@ -1,33 +1,31 @@
 import { Fragment, useMemo } from 'react'
-import { matchPath, useLocation, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Link, matchPath, useLocation } from 'react-router-dom'
 
-import Typography from '@mui/material/Typography'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import MenuItem from '@mui/material/MenuItem'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-
-import HashLink from '~/components/hash-link/HashLink'
-import Logo from '~/containers/logo/Logo'
+import Typography from '@mui/material/Typography'
+import { styles } from '~/containers/layout/navbar/NavBar.styles'
 import Sidebar from '~/containers/layout/sidebar/Sidebar'
+import Logo from '~/containers/logo/Logo'
 import NavigationIcons from '~/containers/navigation-icons/NavigationIcons'
 import AppDrawer from '~/components/app-drawer/AppDrawer'
-import useMenu from '~/hooks/use-menu'
-import { useDrawer } from '~/hooks/use-drawer'
-import { useAppSelector } from '~/hooks/use-redux'
-import { guestRoutes } from '~/router/constants/guestRoutes'
-import {
-  tutorRoutes,
-  findOffersChildRoutes
-} from '~/router/constants/tutorRoutes'
-import { studentRoutes } from '~/router/constants/studentRoutes'
+import HashLink from '~/components/hash-link/HashLink'
 import { authRoutes } from '~/router/constants/authRoutes'
-
+import { guestRoutes } from '~/router/constants/guestRoutes'
+import { studentRoutes } from '~/router/constants/studentRoutes'
+import {
+  findOffersChildRoutes,
+  tutorRoutes
+} from '~/router/constants/tutorRoutes'
+import { useDrawer } from '~/hooks/use-drawer'
+import useMenu from '~/hooks/use-menu'
+import { useAppSelector } from '~/hooks/use-redux'
 import { SizeEnum, UserRoleEnum } from '~/types'
-import { styles } from '~/containers/layout/navbar/NavBar.styles'
 
 const Navbar = () => {
   const { userRole } = useAppSelector((state) => state.appMain)
@@ -99,10 +97,16 @@ const Navbar = () => {
     )
   })
 
+  const scrollToWelcome = () => {
+    const welcome = document.getElementById(guestRoutes.welcome.route)
+    if (welcome) welcome.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <Box sx={styles.header}>
       <Button
         component={Link}
+        onClick={scrollToWelcome}
         size={SizeEnum.Small}
         sx={styles.logoButton}
         to={guestRoutes.home.path}
