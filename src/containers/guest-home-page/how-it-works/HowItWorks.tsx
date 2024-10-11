@@ -4,11 +4,14 @@ import { useTranslation } from 'react-i18next'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import CardsWithButton from '~/containers/guest-home-page/cards-with-button/CardsWithButton'
+import {
+  studentCardBoxArray,
+  tutorCardBoxArray
+} from '~/containers/guest-home-page/how-it-works/CardBoxArrays'
+import { styles } from '~/containers/guest-home-page/how-it-works/HowItWorks.styles'
 import AppContentSwitcher from '~/components/app-content-switcher/AppContentSwitcher'
 import { guestRoutes } from '~/router/constants/guestRoutes'
 import { TypographyVariantEnum, UserRoleEnum } from '~/types'
-import { studentCardBoxArray, tutorCardBoxArray } from './CardBoxArrays'
-import { styles } from './HowItWorks.styles'
 
 const HowItWorks = () => {
   const { t } = useTranslation()
@@ -45,8 +48,8 @@ const HowItWorks = () => {
           array={isTutor ? tutorCardBoxArray : studentCardBoxArray}
           btnText={
             isTutor
-              ? t('guestHomePage.whatCanYouDo.teach.actionLabel')
-              : t('guestHomePage.whatCanYouDo.learn.actionLabel')
+              ? t('guestHomePage.howItWorks.tutor.buttonText.title')
+              : t('guestHomePage.howItWorks.student.buttonText.title')
           }
           isTutor={isTutor}
           role={isTutor ? UserRoleEnum.Tutor : UserRoleEnum.Student}
