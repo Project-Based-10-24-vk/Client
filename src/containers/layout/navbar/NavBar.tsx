@@ -97,7 +97,7 @@ const Navbar = () => {
     )
   })
 
-  const scrollToWelcome = () => {
+  const scrollToWelcome = (): void => {
     const welcome = document.getElementById(guestRoutes.welcome.route)
     if (welcome) welcome.scrollIntoView({ behavior: 'smooth' })
   }
