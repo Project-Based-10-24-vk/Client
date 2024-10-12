@@ -3,7 +3,6 @@ import { describe, expect, it, vi } from 'vitest'
 
 import AppChipList from '~/components/app-chips-list/AppChipList'
 
-// Замокируем компоненты
 vi.mock('~/components/app-chip/AppChip', () => {
   const MockComponent = (props) => (
     <div data-testid='app-chip' {...props}>
