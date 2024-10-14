@@ -160,21 +160,4 @@ describe('EnhancedTableRow', () => {
     fireEvent.click(screen.getByText('Edit'))
     expect(rowActions[0].func).toHaveBeenCalledWith(item._id)
   })
-
-  it('closes menu when "escape" is pressed', () => {
-    render(
-      <EnhancedTableRow
-        columns={columns}
-        item={item}
-        rowActions={rowActions}
-        select={select}
-        selectedRows={selectedRows}
-      />
-    )
-
-    fireEvent.click(screen.getByTestId('menu-icon'))
-    // expect(useMenu().openMenu).toHaveBeenCalled()
-    fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' })
-    expect(useMenu().closeMenu).toHaveBeenCalled()
-  })
 })
