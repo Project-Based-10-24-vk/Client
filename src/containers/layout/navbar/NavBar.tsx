@@ -97,19 +97,13 @@ const Navbar = () => {
     )
   })
 
-  const scrollToWelcome = (): void => {
-    const welcome = document.getElementById(guestRoutes.welcome.route)
-    if (welcome) welcome.scrollIntoView({ behavior: 'smooth' })
-  }
-
   return (
     <Box sx={styles.header}>
       <Button
-        component={Link}
-        onClick={scrollToWelcome}
+        component={HashLink}
         size={SizeEnum.Small}
         sx={styles.logoButton}
-        to={guestRoutes.home.path}
+        to={guestRoutes.welcome.path}
       >
         <Logo />
       </Button>
