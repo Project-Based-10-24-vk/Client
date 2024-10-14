@@ -4,21 +4,15 @@ import { describe, expect, it, vi } from 'vitest'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 
 vi.mock('~/components/app-chip/AppChip', () => {
-  const MockComponent = (props) => (
-    <div data-testid='app-chip' {...props}>
-      {props.children}
-    </div>
-  )
+  const MockComponent = ({ onDelete, children }) => {
+    return (
+      <div data-testid='app-chip' onClick={onDelete}>
+        {children}
+      </div>
+    )
+  }
   MockComponent.displayName = 'MockAppChip'
-  return MockComponent
-})
-
-vi.mock('~/components/app-popover/AppPopover', () => {
-  const MockComponent = ({ children }) => (
-    <div data-testid='app-popover'>{children}</div>
-  )
-  MockComponent.displayName = 'MockAppPopover'
-  return MockComponent
+  return { default: MockComponent }
 })
 
 describe('AppChipList', () => {
