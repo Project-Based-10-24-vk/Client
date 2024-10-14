@@ -1,7 +1,8 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react'
-import HowItWorks from '~/containers/guest-home-page/how-it-works/HowItWorks'
+import { fireEvent, screen } from '@testing-library/react'
 import { renderWithProviders } from '~tests/test-utils'
 import { vi } from 'vitest'
+
+import HowItWorks from '~/containers/guest-home-page/how-it-works/HowItWorks'
 
 const mockDispatch = vi.fn()
 
@@ -14,17 +15,15 @@ vi.mock('react-redux', async () => {
 })
 
 describe('HowItWorks container', () => {
-  renderWithProviders(<HowItWorks />)
-
   it('should change info by clicking on switch', () => {
+    renderWithProviders(<HowItWorks />)
+
     const checkbox = screen.getByRole('checkbox')
 
-    waitFor(() => checkbox.click())
-
-    fireEvent.change(checkbox, { target: { checked: 'false' } })
+    fireEvent.click(checkbox)
 
     const btnText = screen.getByText(
-      'guestHomePage.whatCanYouDo.teach.actionLabel'
+      'guestHomePage.howItWorks.shareYourExperience'
     )
 
     expect(btnText).toBeInTheDocument()
