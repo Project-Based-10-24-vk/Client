@@ -1,10 +1,11 @@
 import { FC } from 'react'
-import { TypographyProps } from '@mui/material/Typography'
+
 import { Typography } from '@mui/material'
-import { SxProps } from '@mui/system'
-import Tooltip from '@mui/material/Tooltip'
-import Switch from '@mui/material/Switch'
 import Stack from '@mui/material/Stack'
+import Switch from '@mui/material/Switch'
+import Tooltip from '@mui/material/Tooltip'
+import { TypographyProps } from '@mui/material/Typography'
+import { SxProps } from '@mui/system'
 import { defaultStyles } from '~/components/app-content-switcher/AppContentSwitcher.styles'
 import { SwitchContent, SwitchOptions } from '~/types'
 
