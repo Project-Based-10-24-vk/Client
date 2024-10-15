@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import CloseIcon from '@mui/icons-material/Close'
 import { PaperProps } from '@mui/material'
@@ -26,6 +27,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
   const { isMobile } = useBreakpoints()
   const { closeModal } = useModalContext()
   const { openDialog } = useConfirm()
+  const { t } = useTranslation()
 
   const handleMouseOver = () => timerId && clearTimeout(timerId)
   const handleMouseLeave = () => timerId && closeModalAfterDelay()
@@ -33,15 +35,14 @@ const PopupDialog: FC<PopupDialogProps> = ({
   const handleClose = () => {
     openDialog({
       sendConfirm: (confirmed: boolean) => {
-        if (confirmed === true) {
+        if (confirmed) {
           closeModal()
         }
       },
-      message:
-        'Are you sertain you want to close? Any unsaved changes will be lost',
-      title: 'Please Confirm',
-      confirmButton: 'Yes',
-      cancelButton: 'No'
+      title: t('titles.confirmTitle'),
+      message: t('questions.unsavedChanges'),
+      confirmButton: t('common.yes'),
+      cancelButton: t('common.no')
     })
   }
 
