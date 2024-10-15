@@ -1,5 +1,6 @@
-import { SxProps } from '@mui/material'
 import { ReactNode } from 'react'
+
+import { SxProps } from '@mui/material'
 
 export interface AccordionItem {
   title: string

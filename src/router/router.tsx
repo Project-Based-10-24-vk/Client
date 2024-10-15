@@ -1,22 +1,22 @@
 import { lazy } from 'react'
+import App from '~/App'
 import {
-  Route,
-  Navigate,
   createBrowserRouter,
-  createRoutesFromElements
+  createRoutesFromElements,
+  Navigate,
+  Route
 } from 'react-router-dom'
 
-import App from '~/App'
 import AppContent from '~/containers/app-content/AppContent'
-import { guestRoutes } from '~/router/constants/guestRoutes'
 import { authRoutes } from '~/router/constants/authRoutes'
-import { errorRoutes } from '~/router/constants/errorRoutes'
-import { tutorRouter } from '~/router/routes/tutorRouter'
-import { errorRouter } from '~/router/routes/errorRouter'
-import { studentRouter } from '~/router/routes/studentRouter'
-import { guestRouter } from '~/router/routes/guestRouter'
-import { authRouter } from '~/router/routes/authRouter'
 import { home } from '~/router/constants/crumbs'
+import { errorRoutes } from '~/router/constants/errorRoutes'
+import { guestRoutes } from '~/router/constants/guestRoutes'
+import { authRouter } from '~/router/routes/authRouter'
+import { errorRouter } from '~/router/routes/errorRouter'
+import { guestRouter } from '~/router/routes/guestRouter'
+import { studentRouter } from '~/router/routes/studentRouter'
+import { tutorRouter } from '~/router/routes/tutorRouter'
 
 const HomeRoute = lazy(() => import('~/router/helpers/HomeRoute'))
 const Logout = lazy(() => import('~/pages/logout/Logout'))

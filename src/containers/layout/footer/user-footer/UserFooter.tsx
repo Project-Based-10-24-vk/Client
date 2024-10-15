@@ -2,18 +2,16 @@ import { useTranslation } from 'react-i18next'
 
 import FacebookIcon from '@mui/icons-material/Facebook'
 import InstagramIcon from '@mui/icons-material/Instagram'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import Divider from '@mui/material/Divider'
 import Link from '@mui/material/Link'
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-
+import { styles } from '~/containers/layout/footer/user-footer/UserFooter.styles'
 import Logo from '~/containers/logo/Logo'
 import HashLink from '~/components/hash-link/HashLink'
-import useBreakpoints from '~/hooks/use-breakpoints'
-
 import { guestRoutes } from '~/router/constants/guestRoutes'
-import { styles } from '~/containers/layout/footer/user-footer/UserFooter.styles'
+import useBreakpoints from '~/hooks/use-breakpoints'
 
 const UserFooter = () => {
   const { t } = useTranslation()
