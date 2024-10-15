@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
+import { styles } from '~/pages/guest-home-page/GuestHome.styles'
 import Box from '@mui/material/Box'
 import EmailConfirmModal from '~/containers/email-confirm-modal/EmailConfirmModal'
 import FeatureBlock from '~/containers/guest-home-page/FeatureBlock'
@@ -13,7 +14,6 @@ import WhoWeAre from '~/containers/guest-home-page/who-we-are/WhoWeAre'
 import { descriptionTimes } from '~/components/accordion-with-image/accordion-with-image.constants'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import { useModalContext } from '~/context/modal-context'
-import { styles } from './GuestHome.styles'
 
 const GuestHomePage = () => {
   const { openModal } = useModalContext()
