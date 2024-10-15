@@ -6,7 +6,6 @@ import Pagination from '@mui/material/Pagination'
 import TablePagination from '@mui/material/TablePagination'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-
 import { styles } from './EnhancedTablePagination.styles'
 
 const EnhancedTablePagination = ({ pagination }) => {
