@@ -1,20 +1,18 @@
 import { useTranslation } from 'react-i18next'
 
-import { SxProps } from '@mui/material'
 import ReportIcon from '@mui/icons-material/Report'
+import { SxProps } from '@mui/material'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Table, { TableProps } from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
-
 import EnhancedTableHead from '~/components/enhanced-table/enhanced-table-head/EnhancedTableHead'
 import EnhancedTableRow from '~/components/enhanced-table/enhanced-table-row/EnhancedTableRow'
+import { styles } from '~/components/enhanced-table/EnhancedTable.styles'
 import FilterRow from '~/components/enhanced-table/filter-row/FilterRow'
 import Loader from '~/components/loader/Loader'
-
 import { spliceSx } from '~/utils/helper-functions'
-import { styles } from '~/components/enhanced-table/EnhancedTable.styles'
 import {
   TableColumn,
   TableData,
