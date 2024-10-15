@@ -62,12 +62,13 @@ describe('SliderWithInput', () => {
     expect(input).toHaveValue('100')
   })
 
-  it('should not call onChange when input is blurred and value has not changed', async () => {
+  it('should not call onChange when input is blurred and value is equal to defaultValue', async () => {
     render(<SliderWithInput {...defaultProps} />)
     const input = screen.getByRole('textbox')
 
     await act(async () => {
       fireEvent.focus(input)
+      fireEvent.change(input, { target: { value: '50' } })
       fireEvent.blur(input)
     })
 
