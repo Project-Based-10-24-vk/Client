@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -28,6 +29,25 @@ describe('AppChipList', () => {
     'chip9',
     'chip10'
   ]
+
+  const items = ['Chip 1', 'Chip 2', 'Chip 3', 'Chip 4']
+  const defaultQuantity = 2
+
+  const AppChipListWrapper = ({ initialItems }) => {
+    const [chips, setChips] = useState(initialItems)
+
+    const handleChipDelete = (chip) => {
+      setChips(chips.filter((item) => item !== chip))
+    }
+
+    return (
+      <AppChipList
+        defaultQuantity={defaultQuantity}
+        handleChipDelete={handleChipDelete}
+        items={chips}
+      />
+    )
+  }
 
   it('should show chips', () => {
     render(<AppChipList defaultQuantity={5} items={defaultItems} />)
@@ -63,22 +83,32 @@ describe('AppChipList', () => {
     expect(screen.queryByTestId('amount-of-chips')).toBeNull()
   })
 
-  it('should delete 1 chip', () => {
-    const handleChipDelete = vi.fn()
+  // it('should delete 1 chip', () => {
+  //   const handleChipDelete = vi.fn()
 
-    render(
-      <AppChipList
-        defaultQuantity={5}
-        handleChipDelete={handleChipDelete}
-        items={defaultItems}
-      />
-    )
+  //   render(
+  //     <AppChipList
+  //       defaultQuantity={5}
+  //       handleChipDelete={handleChipDelete}
+  //       items={defaultItems}
+  //     />
+  //   )
 
-    const chips = screen.getAllByTestId('app-chip')
-    expect(chips.length).toBe(5)
+  //   const chips = screen.getAllByTestId('app-chip')
+  //   const button = screen.getByTestId('close-btn')
+  //   expect(chips.length).toBe(5)
 
-    fireEvent.click(chips[0])
+  //   fireEvent.click(button)
 
-    expect(handleChipDelete).toHaveBeenCalledWith('chip1')
+  //   expect(handleChipDelete).toHaveBeenCalled()
+  //   expect(chips.length).toBe(4)
+  // })
+
+  it('calls handleChipDelete when a chip is deleted', () => {
+    render(<AppChipListWrapper initialItems={items} />)
+    const deleteButton = screen.getAllByRole('button')[0]
+    fireEvent.click(deleteButton)
+    const renderedChips = screen.getAllByRole('button')
+    expect(renderedChips).toHaveLength(defaultQuantity - 1)
   })
 })
