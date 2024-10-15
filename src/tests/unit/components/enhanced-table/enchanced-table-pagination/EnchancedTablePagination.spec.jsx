@@ -38,7 +38,6 @@ describe('EnhancedTablePagination', () => {
     expect(mockPagination.handleChangePage).toHaveBeenCalled()
   })
 
-  // Additional tests
 
   it('renders without crashing', () => {
     render(<EnhancedTablePagination pagination={mockPagination} />)
