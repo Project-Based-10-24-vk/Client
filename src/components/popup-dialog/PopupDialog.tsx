@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton'
 import { styles } from '~/components/popup-dialog/PopupDialog.styles'
 import { useModalContext } from '~/context/modal-context'
 import useBreakpoints from '~/hooks/use-breakpoints'
+import useConfirm from '~/hooks/use-confirm'
 
 interface PopupDialogProps {
   content: React.ReactNode
@@ -24,8 +25,25 @@ const PopupDialog: FC<PopupDialogProps> = ({
 }) => {
   const { isMobile } = useBreakpoints()
   const { closeModal } = useModalContext()
+  const { openDialog } = useConfirm()
+
   const handleMouseOver = () => timerId && clearTimeout(timerId)
   const handleMouseLeave = () => timerId && closeModalAfterDelay()
+
+  const handleClose = () => {
+    openDialog({
+      sendConfirm: (confirmed: boolean) => {
+        if (confirmed === true) {
+          closeModal()
+        }
+      },
+      message:
+        'Are you sertain you want to close? Any unsaved changes will be lost',
+      title: 'Please Confirm',
+      confirmButton: 'Yes',
+      cancelButton: 'No'
+    })
+  }
 
   return (
     <Dialog
@@ -34,7 +52,6 @@ const PopupDialog: FC<PopupDialogProps> = ({
       disableRestoreFocus
       fullScreen={isMobile}
       maxWidth='xl'
-      onClose={closeModal}
       open
     >
       <Box
@@ -43,7 +60,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
         onMouseOver={handleMouseOver}
         sx={styles.box}
       >
-        <IconButton onClick={() => closeModalAfterDelay(0)} sx={styles.icon}>
+        <IconButton onClick={handleClose} sx={styles.icon}>
           <CloseIcon />
         </IconButton>
         <Box sx={styles.contentWraper}>{content}</Box>
