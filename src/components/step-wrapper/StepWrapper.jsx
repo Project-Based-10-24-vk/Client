@@ -1,15 +1,13 @@
 import { cloneElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Container from '@mui/material/Container'
-import Box from '@mui/material/Box'
-
 import EastIcon from '@mui/icons-material/East'
 import WestIcon from '@mui/icons-material/West'
-
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import AppButton from '~/components/app-button/AppButton'
-import useSteps from '~/hooks/use-steps'
 import { styles } from '~/components/step-wrapper/StepWrapper.styles'
+import useSteps from '~/hooks/use-steps'
 
 const StepWrapper = ({ children, steps }) => {
   const { activeStep, stepErrors, isLastStep, loading, stepOperation } =
@@ -27,7 +25,7 @@ const StepWrapper = ({ children, steps }) => {
       sx={[styles.defaultTab, index === activeStep && styles.activeTab]}
       typography='caption'
     >
-      {t(`step.stepLabels.${step}`)}
+      {t(`${step}`)}
     </Box>
   ))
 
