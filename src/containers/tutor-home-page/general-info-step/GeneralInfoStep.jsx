@@ -4,15 +4,17 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { styles } from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep.styles'
 import AppSelect from '~/components/app-select/AppSelect'
+import AppTextArea from '~/components/app-text-area/AppTextArea'
 import AppTextField from '~/components/app-text-field/AppTextField'
-// import useForm from '~/hooks/use-form'
-// import { useStepContext } from '~/context/step-context'
+import { useStepContext } from '~/context/step-context'
+import useForm from '~/hooks/use-form'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 
 const GeneralInfoStep = ({ btnsBox }) => {
   const { t } = useTranslation()
   const optionsCountry = [{ title: 'errors.UNKNOWN_ERROR', value: '' }]
   const isReadOnly = { readOnly: true }
+  // const { handleSubmit, handleInputChange, errors, data } = useForm()
 
   return (
     <Box sx={styles.container}>
@@ -26,10 +28,21 @@ const GeneralInfoStep = ({ btnsBox }) => {
           </Typography>
 
           <Box sx={styles.form}>
-            <AppTextField fullWidth label={t('common.labels.firstName')} />
+            <AppTextField
+              fullWidth
+              label={t('common.labels.firstName')}
+              // onChange={handleInputChange('firstName')}
+              // value={data.firstName}
+            />
 
-            <AppTextField fullWidth label={t('common.labels.lastName')} />
+            <AppTextField
+              fullWidth
+              label={t('common.labels.lastName')}
+              // onChange={handleInputChange('lastName')}
+              // value={data.lastName}
+            />
           </Box>
+
           <Box sx={styles.form}>
             <AppSelect
               fields={optionsCountry}
@@ -43,14 +56,13 @@ const GeneralInfoStep = ({ btnsBox }) => {
             />
           </Box>
 
-          <AppTextField
+          <AppTextArea
             fullWidth
-            helperText='0/100'
             label={t('becomeTutor.generalInfo.textFieldLabel')}
-            multiline
-            rows={5}
+            maxLength={70}
             sx={styles.textarea}
-            withHelperText
+            // value={data.professionalSummary}
+            // onChange={handleInputChange('professionalSummary')}
           />
         </Box>
         {btnsBox}
