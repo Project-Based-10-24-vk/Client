@@ -1,12 +1,17 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
 import AppChipList from '~/components/app-chips-list/AppChipList'
 
 vi.mock('~/components/app-chip/AppChip', () => {
-  const MockComponent = ({ onDelete, children }) => {
+  const MockComponent = ({ handleDelete, children }) => {
     return (
-      <div data-testid='app-chip' onClick={onDelete}>
+      <div
+        data-testid='app-chip'
+        onClick={() => {
+          handleDelete(children)
+        }}
+      >
         {children}
       </div>
     )
@@ -77,8 +82,7 @@ describe('AppChipList', () => {
     const chips = screen.getAllByTestId('app-chip')
     expect(chips.length).toBe(5)
 
-    const closeButton = within(chips[0]).getByTestId('close-btn')
-    fireEvent.click(closeButton)
+    fireEvent.click(chips[0])
 
     expect(handleChipDelete).toHaveBeenCalledWith('chip1')
   })
