@@ -6,6 +6,7 @@ import Box from '@mui/material/Box'
 import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
 import { styles } from '~/components/popup-dialog/PopupDialog.styles'
+import { useModalContext } from '~/context/modal-context'
 import useBreakpoints from '~/hooks/use-breakpoints'
 
 interface PopupDialogProps {
@@ -22,7 +23,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
   closeModalAfterDelay
 }) => {
   const { isMobile } = useBreakpoints()
-
+  const { closeModal } = useModalContext()
   const handleMouseOver = () => timerId && clearTimeout(timerId)
   const handleMouseLeave = () => timerId && closeModalAfterDelay()
 
@@ -33,6 +34,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
       disableRestoreFocus
       fullScreen={isMobile}
       maxWidth='xl'
+      onClose={closeModal}
       open
     >
       <Box
