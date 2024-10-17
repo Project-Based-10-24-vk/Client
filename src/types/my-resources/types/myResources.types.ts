@@ -1,6 +1,7 @@
-import { NavigateFunction } from 'react-router-dom'
-import { ItemsWithCount, GetResourcesParams } from '~/types'
 import { TFunction } from 'i18next'
+import { NavigateFunction } from 'react-router-dom'
+
+import { GetResourcesParams, ItemsWithCount } from '~/types'
 
 export type ResourcesTableData<T> = {
   response: ItemsWithCount<T>

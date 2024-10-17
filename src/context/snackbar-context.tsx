@@ -7,10 +7,9 @@ import {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Snackbar from '@mui/material/Snackbar'
 import Alert, { AlertColor } from '@mui/material/Alert'
 import Box from '@mui/material/Box'
-
+import Snackbar from '@mui/material/Snackbar'
 import { snackbarVariants } from '~/constants'
 
 interface SnackBarProviderProps {

@@ -1,9 +1,8 @@
-import LanguageIcon from '@mui/icons-material/Language'
-import MenuIcon from '@mui/icons-material/Menu'
-import LoginIcon from '@mui/icons-material/Login'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
+import LanguageIcon from '@mui/icons-material/Language'
+import LoginIcon from '@mui/icons-material/Login'
+import MenuIcon from '@mui/icons-material/Menu'
 import { IconButtonProps } from '@mui/material/IconButton'
-
 import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
 
 type ButtonProps = (props: {
