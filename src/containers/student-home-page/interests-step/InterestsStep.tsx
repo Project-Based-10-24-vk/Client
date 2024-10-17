@@ -6,31 +6,31 @@ import Autocomplete from '@mui/material/Autocomplete'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { styles } from '~/containers/student-home-page/subjects-step/SubjectsStep.styles'
-import img from '~/assets/img/student-home-page/become-student/subject-step.svg'
-import { categoriesMock, languagesMock } from './constants'
+import img from '~/assets/img/student-home-page/become-student/interests-step.svg'
+import { studyCategoryMock, subjectMock } from './constants'
+import { styles } from './InterestsStep.styles'
 
-interface SubjectsStepProps {
+interface InterestsProps {
   btnsBox: React.ReactNode
 }
 
-const SubjectsStep: React.FC<SubjectsStepProps> = ({ btnsBox }) => {
-  const [selectedSubject, setSelectedSubject] = useState<string | null>(null)
-  const [selectedSubjectList, setSelectedSubjectList] = useState<string[]>([])
+const Interests: React.FC<InterestsProps> = ({ btnsBox }) => {
+  const [selectedInterest, setselectedInterest] = useState<string | null>(null)
+  const [selectedInterestList, setselectedInterestList] = useState<string[]>([])
 
   const onHandleAddMoreSubjectClick = () => {
-    if (selectedSubject === null) {
+    if (selectedInterest === null) {
       return
     }
 
-    if (selectedSubjectList.includes(selectedSubject)) {
+    if (selectedInterestList.includes(selectedInterest)) {
       return
     }
-    setSelectedSubjectList([...selectedSubjectList, selectedSubject])
+    setselectedInterestList([...selectedInterestList, selectedInterest])
   }
 
   const onHandleDelete = (item: string) => {
-    setSelectedSubjectList(selectedSubjectList.filter((el) => el !== item))
+    setselectedInterestList(selectedInterestList.filter((el) => el !== item))
   }
 
   const CustomListItem: React.FC<ListItemProps> = ({ items }) => {
@@ -66,7 +66,7 @@ const SubjectsStep: React.FC<SubjectsStepProps> = ({ btnsBox }) => {
           <Box sx={styles.optionInputContainer}>
             <Autocomplete
               disablePortal
-              options={categoriesMock.map((option) => option.name)}
+              options={studyCategoryMock.map((option) => option.study_category)}
               renderInput={(params) => (
                 <TextField {...params} label='Study Category' />
               )}
@@ -76,8 +76,8 @@ const SubjectsStep: React.FC<SubjectsStepProps> = ({ btnsBox }) => {
           <Box sx={styles.optionInputContainer}>
             <Autocomplete
               disablePortal
-              onChange={(event, value) => setSelectedSubject(value)}
-              options={languagesMock.map((option) => option.name)}
+              onChange={(event, value) => setselectedInterest(value)}
+              options={subjectMock.map((option) => option.subject)}
               renderInput={(params) => (
                 <TextField {...params} label='Subject' />
               )}
@@ -87,11 +87,10 @@ const SubjectsStep: React.FC<SubjectsStepProps> = ({ btnsBox }) => {
           <Button
             onClick={onHandleAddMoreSubjectClick}
             sx={styles.addMoreSubjectButton}
-            variant='contained'
           >
             Add one more subject
           </Button>
-          <CustomListItem items={selectedSubjectList} />
+          <CustomListItem items={selectedInterestList} />
         </Box>
         {btnsBox}
       </Box>
@@ -99,4 +98,4 @@ const SubjectsStep: React.FC<SubjectsStepProps> = ({ btnsBox }) => {
   )
 }
 
-export default SubjectsStep
+export default Interests

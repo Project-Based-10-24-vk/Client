@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 
-import SubjectsStep from '~/containers/student-home-page/subjects-step/SubjectsStep'
+import Interests from '~/containers/student-home-page/interests-step/InterestsStep'
 import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
 import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep'
 import LanguageStep from '~/containers/tutor-home-page/language-step/LanguageStep'
@@ -33,7 +33,7 @@ const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
       key='1'
       setIsUserFetched={setIsUserFetched}
     />,
-    <SubjectsStep key='2' />,
+    <Interests key='2' />,
     <LanguageStep key='3' />,
     <AddPhotoStep key='4' />
   ]
