@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-restricted-imports */
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import { RootState, AppDispatch } from '~/redux/store'
+
+import { AppDispatch, RootState } from '~/redux/store'
 
 type DispatchFunc = () => AppDispatch
 

@@ -1,10 +1,9 @@
 import { FC, ReactElement } from 'react'
 
 import Box from '@mui/material/Box'
-import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { SxProps } from '@mui/system'
-
 import { styles } from '~/components/img-title-description/ImgTitleDescription.styles'
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 
 interface ImgTitleDescriptionProps {
   img?: string

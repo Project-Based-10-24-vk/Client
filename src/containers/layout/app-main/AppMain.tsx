@@ -1,16 +1,15 @@
 import { Suspense, useLayoutEffect, useRef } from 'react'
 import { Outlet, useNavigation } from 'react-router-dom'
-import Box from '@mui/material/Box'
 
-import { useAppDispatch, useAppSelector } from '~/hooks/use-redux'
-import ScrollToTop from '~/components/scroll-to-top/ScrollToTop'
+import Box from '@mui/material/Box'
+import { styles } from '~/containers/app-content/AppContent.styles'
 import AppBreadCrumbs from '~/containers/layout/app-breadcrumbs/AppBreadCrumbs'
 import Footer from '~/containers/layout/footer/Footer'
-import ScrollToTopButton from '~/components/scroll-to-top-button/ScrollToTopButton'
 import Loader from '~/components/loader/Loader'
+import ScrollToTopButton from '~/components/scroll-to-top-button/ScrollToTopButton'
+import ScrollToTop from '~/components/scroll-to-top/ScrollToTop'
 import { checkAuth } from '~/redux/reducer'
-
-import { styles } from '~/containers/app-content/AppContent.styles'
+import { useAppDispatch, useAppSelector } from '~/hooks/use-redux'
 
 const AppMain = () => {
   const mainWithFooter = useRef(null)

@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { styles } from '~/containers/email-confirm-modal/EmailConfirmModal.styles'

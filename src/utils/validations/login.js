@@ -1,4 +1,4 @@
-import { helperTextHandler, nameField, emptyField } from './common'
+import { emptyField, helperTextHandler, nameField } from './common'
 
 export const email = (value) => {
   return helperTextHandler(value, 'email')

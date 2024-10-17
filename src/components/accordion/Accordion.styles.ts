@@ -1,9 +1,9 @@
-import {
-  mainShadow,
-  commonShadow,
-  commonHoverShadow
-} from '~/styles/app-theme/custom-shadows'
 import { AccordionSx } from '~/types'
+import {
+  commonHoverShadow,
+  commonShadow,
+  mainShadow
+} from '~/styles/app-theme/custom-shadows'
 
 const noIconTitleStyles = {
   fontSize: { typography: { xs: 'body2', md: 'h6', sm: 'body2' } },

@@ -1,9 +1,9 @@
 import { FC, ReactElement } from 'react'
-import { Box } from '@mui/material'
 
-import ImgTitleDescription from '~/components/img-title-description/ImgTitleDescription'
-import AppButton from '~/components/app-button/AppButton'
+import { Box } from '@mui/material'
 import { styles } from '~/containers/guest-home-page/notification-modal/NotificationModal.styles'
+import AppButton from '~/components/app-button/AppButton'
+import ImgTitleDescription from '~/components/img-title-description/ImgTitleDescription'
 
 interface ConfirmEmailModal {
   description: string | ReactElement

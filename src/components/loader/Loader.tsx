@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { SxProps } from '@mui/system'
+
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
-
-import { spliceSx } from '~/utils/helper-functions'
+import { SxProps } from '@mui/system'
 import { styles } from '~/components/loader/Loader.styles'
+import { spliceSx } from '~/utils/helper-functions'
 
 interface LoaderProps {
   size?: number
