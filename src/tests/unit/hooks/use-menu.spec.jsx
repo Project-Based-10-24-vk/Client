@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react'
+
 import useMenu from '~/hooks/use-menu'
 
 describe('Use menu custom hook', () => {
@@ -28,5 +29,14 @@ describe('Use menu custom hook', () => {
     })
 
     expect(typeof result.current.renderMenu).toBe('function')
+  })
+
+  it('should close menu when "escape" is pressed', () => {
+    act(() => result.current.openMenu(fakeEvent))
+
+    const event = new KeyboardEvent('keydown', { key: 'Escape' })
+    document.dispatchEvent(event)
+
+    expect(result.current.anchorEl).toEqual({})
   })
 })
