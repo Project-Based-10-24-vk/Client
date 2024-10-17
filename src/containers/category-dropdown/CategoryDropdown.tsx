@@ -1,17 +1,17 @@
 import { HTMLAttributes, SyntheticEvent, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import AddIcon from '@mui/icons-material/Add'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
-import AddIcon from '@mui/icons-material/Add'
-
-import useAxios from '~/hooks/use-axios'
+import { styles } from '~/containers/category-dropdown/CategoryDropdown.styles'
+import AddCategoriesModal from '~/containers/my-resources/add-categories-modal/AddCategoriesModal'
+import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
+import DropdownButton from '~/components/dropdown-add-btn/DropdownButton'
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
+import useAxios from '~/hooks/use-axios'
 import { ResourceService } from '~/services/resource-service'
-import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
-import AddCategoriesModal from '~/containers/my-resources/add-categories-modal/AddCategoriesModal'
-import DropdownButton from '~/components/dropdown-add-btn/DropdownButton'
-
 import { snackbarVariants } from '~/constants'
 import {
   Categories,
@@ -20,7 +20,6 @@ import {
   CreateCategoriesParams,
   ErrorResponse
 } from '~/types'
-import { styles } from '~/containers/category-dropdown/CategoryDropdown.styles'
 
 interface CategoryDropdownInterface {
   category: string | null
@@ -28,17 +27,22 @@ interface CategoryDropdownInterface {
     _: SyntheticEvent,
     value: CategoryNameInterface | null
   ) => void
+  authorizedCreateCategory: boolean | null
+  label?: string
 }
 
 const CategoryDropdown = ({
   category,
-  onCategoryChange
+  onCategoryChange,
+  authorizedCreateCategory,
+  label
 }: CategoryDropdownInterface) => {
   const { t } = useTranslation()
   const { setAlert } = useSnackBarContext()
   const { openModal, closeModal } = useModalContext()
   const [isFetched, setIsFetched] = useState<boolean>(false)
   const [isFetchedOnFocus, setIsFetchedOnFocus] = useState<boolean>(false)
+  const renderLabel = label || t('myResourcesPage.categories.categoryDropdown')
 
   const handleResponseError = (error: ErrorResponse) => {
     setAlert({
@@ -100,7 +104,7 @@ const CategoryDropdown = ({
     index: number
   ) => (
     <Box key={index}>
-      {index === 0 && (
+      {authorizedCreateCategory && index === 0 && (
         <Box>
           <DropdownButton
             handleOnClick={onCreateCategory}
@@ -135,7 +139,7 @@ const CategoryDropdown = ({
         }
         service={getCategories}
         textFieldProps={{
-          label: t('myResourcesPage.categories.categoryDropdown')
+          label: renderLabel
         }}
         value={category}
         valueField='_id'
