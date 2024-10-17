@@ -81,7 +81,7 @@ const EmailConfirmModal = ({ confirmToken, openModal }) => {
         style={styles}
         title={t('modals.emailConfirm')}
       />
-      <Button onClick={closeModal} sx={styles.button} variant='contained'>
+      <Button onClick={openLoginDialog} sx={styles.button} variant='contained'>
         {t('button.goToLogin')}
       </Button>
     </Box>
