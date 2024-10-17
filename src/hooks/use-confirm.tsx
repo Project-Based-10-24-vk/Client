@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+
 import { ConfirmationDialogContext } from '~/context/confirm-context'
 
 interface ConfirmationDialogProps {
@@ -26,6 +27,7 @@ interface UseConfirmResult {
     confirmButton,
     cancelButton
   }: OpenDialogProps) => void
+  needConfirmation: boolean
 }
 
 const useConfirm = (): UseConfirmResult => {
@@ -61,7 +63,12 @@ const useConfirm = (): UseConfirmResult => {
     return true
   }
 
-  return { checkConfirmation, setNeedConfirmation, openDialog }
+  return {
+    checkConfirmation,
+    setNeedConfirmation,
+    openDialog,
+    needConfirmation
+  }
 }
 
 export default useConfirm

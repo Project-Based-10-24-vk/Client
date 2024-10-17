@@ -26,24 +26,26 @@ const PopupDialog: FC<PopupDialogProps> = ({
 }) => {
   const { isMobile } = useBreakpoints()
   const { closeModal } = useModalContext()
-  const { openDialog } = useConfirm()
+  const { openDialog, needConfirmation } = useConfirm()
   const { t } = useTranslation()
 
   const handleMouseOver = () => timerId && clearTimeout(timerId)
   const handleMouseLeave = () => timerId && closeModalAfterDelay()
 
   const handleClose = () => {
-    openDialog({
-      sendConfirm: (confirmed: boolean) => {
-        if (confirmed) {
-          closeModal()
-        }
-      },
-      title: t('titles.confirmTitle'),
-      message: t('questions.unsavedChanges'),
-      confirmButton: t('common.yes'),
-      cancelButton: t('common.no')
-    })
+    needConfirmation
+      ? openDialog({
+          sendConfirm: (confirmed: boolean) => {
+            if (confirmed) {
+              closeModal()
+            }
+          },
+          title: t('titles.confirmTitle'),
+          message: t('questions.unsavedChanges'),
+          confirmButton: t('common.yes'),
+          cancelButton: t('common.no')
+        })
+      : closeModal()
   }
 
   return (
