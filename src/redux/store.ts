@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { setupListeners } from '@reduxjs/toolkit/query/react'
 import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore'
+import { setupListeners } from '@reduxjs/toolkit/query/react'
 
 import { appApi } from '~/redux/apiSlice'
 import appMainReducer from '~/redux/reducer'

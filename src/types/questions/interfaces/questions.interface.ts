@@ -4,6 +4,7 @@ import {
   CommonEntityFields,
   QuestionTypesEnum
 } from '~/types'
+
 export interface Answer {
   text: string
   isCorrect: boolean

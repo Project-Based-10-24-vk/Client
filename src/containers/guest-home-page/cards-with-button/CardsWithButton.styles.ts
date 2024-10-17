@@ -1,6 +1,6 @@
 import {
-  slidesRightAnimation,
-  slidesLeftAnimation
+  slidesLeftAnimation,
+  slidesRightAnimation
 } from '~/styles/app-theme/custom-animations'
 
 const side = {
@@ -28,7 +28,7 @@ const side = {
     marginBottom: '8px'
   },
   description: {
-    typography: { xs: 'subtitle2' }
+    typography: { xs: 'body2' }
   }
 }
 

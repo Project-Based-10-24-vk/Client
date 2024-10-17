@@ -1,16 +1,16 @@
 import { SxProps, Theme } from '@mui/material'
 import {
   Breakpoints,
+  Categories,
   ConvertedSize,
   FormatedDate,
-  TableColumn,
-  UserRole,
-  UserRoleEnum,
   GroupedByDateItems,
   Question,
-  Categories,
+  RemoveColumnRules,
   ScreenBasedLimits,
-  RemoveColumnRules
+  TableColumn,
+  UserRole,
+  UserRoleEnum
 } from '~/types'
 
 export const parseJwt = <T,>(token: string): T => {

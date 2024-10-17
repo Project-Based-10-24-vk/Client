@@ -1,7 +1,7 @@
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import NavBar from '~/containers/layout/navbar/NavBar'
 import { styles } from '~/containers/layout/app-header/AppHeader.styles'
+import NavBar from '~/containers/layout/navbar/NavBar'
 
 const AppHeader = () => {
   return (

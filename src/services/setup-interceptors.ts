@@ -1,9 +1,10 @@
 import {
   AxiosError,
-  InternalAxiosRequestConfig,
   AxiosHeaders,
-  AxiosResponse
+  AxiosResponse,
+  InternalAxiosRequestConfig
 } from 'axios'
+
 import { axiosClient } from '~/plugins/axiosClient'
 import i18n from '~/plugins/i18n'
 import { authService } from '~/services/auth-service'
