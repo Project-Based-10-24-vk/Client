@@ -25,9 +25,11 @@ export const styles = {
     flex: 1,
     maxWidth: '432px',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     gap: '20px',
     m: { md: 0, xs: '0 auto' },
     pt: 0
+  },
+  btnsBox: {
+    mt: 'auto'
   }
 }
