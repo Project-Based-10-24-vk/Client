@@ -38,7 +38,6 @@ describe('EnhancedTablePagination', () => {
     expect(mockPagination.handleChangePage).toHaveBeenCalled()
   })
 
-
   it('renders without crashing', () => {
     render(<EnhancedTablePagination pagination={mockPagination} />)
     expect(screen.getByText('table.numberOfRows')).toBeInTheDocument()

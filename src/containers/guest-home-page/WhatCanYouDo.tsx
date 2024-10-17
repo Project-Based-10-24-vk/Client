@@ -5,9 +5,11 @@ import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 import InfoCard from '~/components/info-card/InfoCard'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { guestRoutes } from '~/router/constants/guestRoutes'
+import { useModalContext } from '~/context/modal-context'
 import learnImg from '~/assets/img/guest-home-page/learnImg.png'
 import teachImg from '~/assets/img/guest-home-page/teachImg.png'
 import { UserRoleEnum } from '~/types'
+import LoginDialog from './login-dialog/LoginDialog'
 
 const cardData = [
   {
@@ -28,10 +30,13 @@ const cardData = [
 
 const WhatCanYouDo = () => {
   const { t } = useTranslation()
+  const { openModal } = useModalContext()
 
   const cards = cardData.map((item) => (
     <InfoCard
-      action={() => {}}
+      action={() => {
+        openModal({ component: <LoginDialog /> })
+      }}
       actionLabel={t(item.actionLabel)}
       cardWidth={460}
       description={t(item.description)}
