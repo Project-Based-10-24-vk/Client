@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+
 import { ConfirmationDialogContext } from '~/context/confirm-context'
 
 interface ConfirmationDialogProps {

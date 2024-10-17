@@ -1,13 +1,13 @@
 import {
-  CreatedAt,
-  LastLogin,
   Address,
-  UserRole,
+  CreatedAt,
+  DataByRole,
+  Faq,
+  LastLogin,
   RequestParams,
   SubjectInterface,
   SubjectNameInterface,
-  Faq,
-  DataByRole
+  UserRole
 } from '~/types'
 
 export interface LocalStorage {

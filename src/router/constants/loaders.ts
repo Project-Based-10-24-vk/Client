@@ -1,4 +1,5 @@
-import { LoaderFunctionArgs, defer } from 'react-router-dom'
+import { defer, LoaderFunctionArgs } from 'react-router-dom'
+
 import { userService } from '~/services/user-service'
 import { UserRoleEnum } from '~/types'
 

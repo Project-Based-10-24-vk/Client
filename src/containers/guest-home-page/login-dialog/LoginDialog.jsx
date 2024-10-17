@@ -1,18 +1,17 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import { useTranslation } from 'react-i18next'
 
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import GoogleLogin from '~/containers/guest-home-page/google-login/GoogleLogin'
+import styles from '~/containers/guest-home-page/login-dialog/LoginDialog.styles'
 import LoginForm from '~/containers/guest-home-page/login-form/LoginForm'
-import useForm from '~/hooks/use-form'
-import { useLoginMutation } from '~/services/auth-service'
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import { email } from '~/utils/validations/login'
-import loginImg from '~/assets/img/login-dialog/login.svg'
+import useForm from '~/hooks/use-form'
+import { useLoginMutation } from '~/services/auth-service'
 import { login, snackbarVariants } from '~/constants'
-
-import styles from '~/containers/guest-home-page/login-dialog/LoginDialog.styles'
+import loginImg from '~/assets/img/login-dialog/login.svg'
 
 const LoginDialog = () => {
   const { t } = useTranslation()

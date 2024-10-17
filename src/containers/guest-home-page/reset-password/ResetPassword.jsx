@@ -1,26 +1,22 @@
 import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useForm from '~/hooks/use-form'
-import useAxios from '~/hooks/use-axios'
-import useInputVisibility from '~/hooks/use-input-visibility'
-
-import { AuthService } from '~/services/auth-service'
-import { useSnackBarContext } from '~/context/snackbar-context'
-
-import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
-
+import Button from '@mui/material/Button'
 import AppTextField from '~/components/app-text-field/AppTextField'
-import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
-import LoginDialog from '../login-dialog/LoginDialog'
-import Loader from '~/components/loader/Loader'
 import ImgTitleDescription from '~/components/img-title-description/ImgTitleDescription'
-
+import Loader from '~/components/loader/Loader'
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
+import { useSnackBarContext } from '~/context/snackbar-context'
 import { confirmPassword, password } from '~/utils/validations/login'
+import useAxios from '~/hooks/use-axios'
+import useForm from '~/hooks/use-form'
+import useInputVisibility from '~/hooks/use-input-visibility'
+import { AuthService } from '~/services/auth-service'
 import { snackbarVariants } from '~/constants'
-import { styles } from './ResetPassword.styles'
 import imgSuccess from '~/assets/img/email-confirmation-modals/success-icon.svg'
+import LoginDialog from '../login-dialog/LoginDialog'
+import { styles } from './ResetPassword.styles'
 
 const ResetPassword = ({ resetToken, openModal }) => {
   const { t } = useTranslation()

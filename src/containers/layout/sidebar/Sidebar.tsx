@@ -1,16 +1,14 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import Divider from '@mui/material/Divider'
-
+import Typography from '@mui/material/Typography'
+import { styles } from '~/containers/layout/sidebar/Sidebar.styles'
 import HashLink from '~/components/hash-link/HashLink'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { RouteItem } from '~/types/common/interfaces/common.interfaces'
-
-import { styles } from '~/containers/layout/sidebar/Sidebar.styles'
 
 interface SidebarProps {
   onClose: () => void

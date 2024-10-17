@@ -3,7 +3,6 @@ import { AxiosResponse } from 'axios'
 import { appApi } from '~/redux/apiSlice'
 import { logout, setUser } from '~/redux/reducer'
 import { axiosClient } from '~/plugins/axiosClient'
-
 import { createUrlPath } from '~/utils/helper-functions'
 import { URLs } from '~/constants/request'
 import {

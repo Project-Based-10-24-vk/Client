@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import Typography from '@mui/material/Typography'
+
 import TextField, { TextFieldProps } from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
-
+import Typography from '@mui/material/Typography'
 import { styles } from '~/components/app-text-field/AppTextField.styles'
 import { TypographyVariantEnum } from '~/types'
 

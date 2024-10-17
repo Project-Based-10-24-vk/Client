@@ -3,7 +3,6 @@ import { FC } from 'react'
 import AppButton from '~/components//app-button/AppButton'
 import AppCard from '~/components/app-card/AppCard'
 import ImgTitleDescription from '~/components/img-title-description/ImgTitleDescription'
-
 import { styles } from '~/components/info-card/InfoCard.styles'
 
 interface InfoCardProps {

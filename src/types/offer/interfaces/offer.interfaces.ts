@@ -1,14 +1,14 @@
 import { ButtonProps } from '@mui/material/Button'
 import {
-  ProficiencyLevelEnum,
-  CommonEntityFields,
-  UserResponse,
-  SubjectNameInterface,
-  LanguagesEnum,
-  Faq,
-  UserRoleEnum,
   CategoryInterface,
-  StatusEnum
+  CommonEntityFields,
+  Faq,
+  LanguagesEnum,
+  ProficiencyLevelEnum,
+  StatusEnum,
+  SubjectNameInterface,
+  UserResponse,
+  UserRoleEnum
 } from '~/types'
 
 export interface Offer extends CommonEntityFields {

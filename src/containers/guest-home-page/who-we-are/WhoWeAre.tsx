@@ -1,13 +1,11 @@
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
-
-import { guestRoutes } from '~/router/constants/guestRoutes'
+import { styles } from '~/containers/guest-home-page/who-we-are/WhoWeAre.styles.js'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import VideoBox from '~/components/video-box/VideoBox'
+import { guestRoutes } from '~/router/constants/guestRoutes'
 import videoImg from '~/assets/img/guest-home-page/videoImg.png'
-
-import { styles } from '~/containers/guest-home-page/who-we-are/WhoWeAre.styles.js'
 
 const WhoWeAre = () => {
   const { t } = useTranslation()
