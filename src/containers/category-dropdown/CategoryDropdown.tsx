@@ -28,7 +28,7 @@ interface CategoryDropdownInterface {
     value: CategoryNameInterface | null
   ) => void
   authorizedCreateCategory: boolean | null
-  label: string | null
+  label?: string
 }
 
 const CategoryDropdown = ({
