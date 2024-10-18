@@ -27,6 +27,7 @@ interface UseConfirmResult {
     confirmButton,
     cancelButton
   }: OpenDialogProps) => void
+  needConfirmation: boolean
 }
 
 const useConfirm = (): UseConfirmResult => {
@@ -62,7 +63,12 @@ const useConfirm = (): UseConfirmResult => {
     return true
   }
 
-  return { checkConfirmation, setNeedConfirmation, openDialog }
+  return {
+    checkConfirmation,
+    setNeedConfirmation,
+    openDialog,
+    needConfirmation
+  }
 }
 
 export default useConfirm
