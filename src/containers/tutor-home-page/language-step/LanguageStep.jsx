@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
 import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.styles'
@@ -7,9 +8,9 @@ import img from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
 import { languagesMock } from '../subjects-step/constants'
 
 const LanguageStep = ({ btnsBox }) => {
+  const { t } = useTranslation()
   const [language, setLanguage] = useState('')
 
-  // Подготовка полей для AppSelect
   const languageFields = languagesMock.map((language) => ({
     title: language.name,
     value: language.name
@@ -22,10 +23,7 @@ const LanguageStep = ({ btnsBox }) => {
       </Box>
       <Box sx={styles.rigthBox}>
         <Box sx={styles.contentBox}>
-          <Box sx={styles.textBox}>
-            Please select the language in which you would like to study and
-            cooperate.
-          </Box>
+          <Box sx={styles.textBox}>{t('becomeTutor.languages.title')}</Box>
 
           <AppSelect
             MenuProps={{
@@ -36,7 +34,7 @@ const LanguageStep = ({ btnsBox }) => {
               }
             }}
             fields={languageFields}
-            label='Your native language'
+            label={t('becomeTutor.languages.autocompleteLabel')}
             setValue={setLanguage}
             value={language}
           />
