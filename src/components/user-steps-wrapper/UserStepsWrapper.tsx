@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 
 import AddPhotoStep from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep'
 import GeneralInfoStep from '~/containers/tutor-home-page/general-info-step/GeneralInfoStep'
@@ -10,6 +10,7 @@ import {
   studentStepLabels,
   tutorStepLabels
 } from '~/components/user-steps-wrapper/constants'
+import { ConfirmationDialogContext } from '~/context/confirm-context'
 import { StepProvider } from '~/context/step-context'
 import { markFirstLoginComplete } from '~/redux/reducer'
 import { useAppDispatch } from '~/hooks/use-redux'
@@ -22,6 +23,8 @@ interface UserStepsWrapperProps {
 const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
   const [isUserFetched, setIsUserFetched] = useState(false)
   const dispatch = useAppDispatch()
+  const { setNeedConfirmation } = useContext(ConfirmationDialogContext)
+  setNeedConfirmation(true)
 
   useEffect(() => {
     dispatch(markFirstLoginComplete())
