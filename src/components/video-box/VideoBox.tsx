@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import Box from '@mui/material/Box'
 
-import titleBar from '~/assets/img/guest-home-page/title-bar.png'
+import Box from '@mui/material/Box'
 import { styles } from '~/components/video-box/VideoBox.styles'
+import titleBar from '~/assets/img/guest-home-page/title-bar.png'
 
 interface VideoBoxProps {
   video: string

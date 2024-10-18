@@ -1,7 +1,8 @@
 import { AxiosResponse } from 'axios'
+
 import { axiosClient } from '~/plugins/axiosClient'
-import { URLs } from '~/constants/request'
 import { createUrlPath } from '~/utils/helper-functions'
+import { URLs } from '~/constants/request'
 import {
   GetUsersParams,
   UpdateUserParams,

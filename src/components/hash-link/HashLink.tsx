@@ -1,5 +1,6 @@
-import { Ref, MouseEvent, forwardRef } from 'react'
-import { Link, useHref, useLinkClickHandler, LinkProps } from 'react-router-dom'
+import { forwardRef, MouseEvent, Ref } from 'react'
+import { Link, LinkProps, useHref, useLinkClickHandler } from 'react-router-dom'
+
 import { scrollToHash } from '~/utils/hash-scroll'
 
 const HashLink = (

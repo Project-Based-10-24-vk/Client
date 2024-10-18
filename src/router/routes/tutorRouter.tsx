@@ -1,8 +1,8 @@
 import { lazy } from 'react'
 import { Route } from 'react-router-dom'
 
-import PrivateRoute from '~/router/helpers/PrivateRoute'
 import { guestRoutes } from '~/router/constants/guestRoutes'
+import PrivateRoute from '~/router/helpers/PrivateRoute'
 import { UserRoleEnum } from '~/types'
 
 const TutorHome = lazy(() => import('~/pages/tutor-home/TutorHome'))

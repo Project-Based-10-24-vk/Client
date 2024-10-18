@@ -3,15 +3,14 @@ import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import useBreakpoints from '~/hooks/use-breakpoints'
-import HashLink from '~/components/hash-link/HashLink'
+import { styles } from '~/containers/guest-home-page/styles/Welcome.styles.js'
 import AppButton from '~/components/app-button/AppButton'
-
+import HashLink from '~/components/hash-link/HashLink'
+import { guestRoutes } from '~/router/constants/guestRoutes'
+import useBreakpoints from '~/hooks/use-breakpoints'
 import titleMd from '~/assets/img/guest-home-page/titleMd.svg'
 import titleSm from '~/assets/img/guest-home-page/titleSm.svg'
 import titleXs from '~/assets/img/guest-home-page/titleXs.svg'
-import { guestRoutes } from '~/router/constants/guestRoutes'
-import { styles } from '~/containers/guest-home-page/styles/Welcome.styles.js'
 
 const Welcome = () => {
   const { t } = useTranslation()

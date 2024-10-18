@@ -1,15 +1,13 @@
 import { FC, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
 import Accordion, { AccordionProps } from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import Box from '@mui/material/Box'
 import { Variant } from '@mui/material/styles/createTypography'
-
+import Typography from '@mui/material/Typography'
 import { styles } from '~/components/accordion/Accordion.styles'
-
 import { AccordionItem, AccordionSx } from '~/types'
 
 interface AccordionsProps

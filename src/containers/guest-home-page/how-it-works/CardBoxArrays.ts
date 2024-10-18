@@ -1,12 +1,11 @@
-import howItWorksTutorFirst from '~/assets/img/guest-home-page/howItWorksTutorFirst.svg'
-import howItWorksTutorSecond from '~/assets/img/guest-home-page/howItWorksTutorSecond.svg'
-import howItWorksTutorThird from '~/assets/img/guest-home-page/howItWorksTutorThird.svg'
-import howItWorksTutorFourth from '~/assets/img/guest-home-page/howItWorksTutorFourth.svg'
-
 import howItWorksStudentFirst from '~/assets/img/guest-home-page/howItWorksStudentFirst.svg'
+import howItWorksStudentFourth from '~/assets/img/guest-home-page/howItWorksStudentFourth.svg'
 import howItWorksStudentSecond from '~/assets/img/guest-home-page/howItWorksStudentSecond.svg'
 import howItWorksStudentThird from '~/assets/img/guest-home-page/howItWorksStudentThird.svg'
-import howItWorksStudentFourth from '~/assets/img/guest-home-page/howItWorksStudentFourth.svg'
+import howItWorksTutorFirst from '~/assets/img/guest-home-page/howItWorksTutorFirst.svg'
+import howItWorksTutorFourth from '~/assets/img/guest-home-page/howItWorksTutorFourth.svg'
+import howItWorksTutorSecond from '~/assets/img/guest-home-page/howItWorksTutorSecond.svg'
+import howItWorksTutorThird from '~/assets/img/guest-home-page/howItWorksTutorThird.svg'
 
 export const tutorCardBoxArray = [
   {

@@ -7,6 +7,7 @@ import SubjectsStep from '~/containers/tutor-home-page/subjects-step/SubjectsSte
 import StepWrapper from '~/components/step-wrapper/StepWrapper'
 import {
   initialValues,
+  studentStepLabels,
   tutorStepLabels
 } from '~/components/user-steps-wrapper/constants'
 import { ConfirmationDialogContext } from '~/context/confirm-context'
@@ -40,7 +41,7 @@ const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
     <AddPhotoStep key='4' />
   ]
 
-  const stepLabels = userRole === student ? '' : tutorStepLabels
+  const stepLabels = userRole === student ? studentStepLabels : tutorStepLabels
 
   return (
     <StepProvider initialValues={initialValues} stepLabels={stepLabels}>

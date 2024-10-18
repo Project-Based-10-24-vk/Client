@@ -1,8 +1,8 @@
 import { Link, useMatches } from 'react-router-dom'
-import { Breadcrumbs, Typography, Container } from '@mui/material'
 
-import { Matches } from '~/types'
+import { Breadcrumbs, Container, Typography } from '@mui/material'
 import { styles } from '~/containers/layout/app-breadcrumbs/AppBreadCrumbs.styles'
+import { Matches } from '~/types'
 
 const AppBreadCrumbs = () => {
   const matches = useMatches() as Matches[]

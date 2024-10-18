@@ -1,8 +1,8 @@
 import { lazy } from 'react'
 import { Route } from 'react-router-dom'
 
-import { guestRoutes } from '~/router/constants/guestRoutes'
 import { privacyPolicy } from '~/router/constants/crumbs'
+import { guestRoutes } from '~/router/constants/guestRoutes'
 
 const CookiePolicy = lazy(() => import('~/pages/cookie-policy/CookiePolicy'))
 

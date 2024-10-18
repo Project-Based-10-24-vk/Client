@@ -1,14 +1,13 @@
 import { useCallback, useEffect } from 'react'
 import { useHref } from 'react-router-dom'
 
-import { useGoogleAuthMutation } from '~/services/auth-service'
+import { styles } from '~/containers/guest-home-page/google-button/GoogleButton.styles'
 import { useModalContext } from '~/context/modal-context'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import { scrollToHash } from '~/utils/hash-scroll'
 import useBreakpoints from '~/hooks/use-breakpoints'
-
+import { useGoogleAuthMutation } from '~/services/auth-service'
 import { snackbarVariants } from '~/constants'
-import { styles } from '~/containers/guest-home-page/google-button/GoogleButton.styles'
 
 const GoogleButton = ({ role, route, buttonWidth, type }) => {
   const ref = useHref(route)
