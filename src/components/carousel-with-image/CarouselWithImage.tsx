@@ -5,9 +5,8 @@ import SwipeableViews from 'react-swipeable-views'
 import Box from '@mui/material/Box'
 import MobileStepper from '@mui/material/MobileStepper'
 import Typography from '@mui/material/Typography'
-
-import { AccordionWithImageItem } from '~/types'
 import { styles } from '~/components/carousel-with-image/CarouselWithImage.styles'
+import { AccordionWithImageItem } from '~/types'
 
 interface CarouselWithImageProps {
   items: AccordionWithImageItem[]

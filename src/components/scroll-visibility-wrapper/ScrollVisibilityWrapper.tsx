@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, ReactElement } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 
 interface ScrollVisibilityWrapperProps {
   pageRef: React.RefObject<HTMLDivElement> | null

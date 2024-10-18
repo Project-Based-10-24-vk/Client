@@ -1,8 +1,8 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react'
-import { renderWithProviders, mockAxiosClient } from '~tests/test-utils'
-import { URLs } from '~/constants/request'
+import { mockAxiosClient, renderWithProviders } from '~tests/test-utils'
 
 import CategoryDropdown from '~/containers/category-dropdown/CategoryDropdown'
+import { URLs } from '~/constants/request'
 
 const categoriesNamesMock = [
   { _id: '650c27618a9fbf234b8bb4cf', name: 'New category in resources!' },
@@ -16,7 +16,7 @@ describe('CategoryDropdown test', () => {
 
   beforeEach(async () => {
     await waitFor(() => {
-      renderWithProviders(<CategoryDropdown />)
+      renderWithProviders(<CategoryDropdown authorizedCreateCategory />)
     })
   })
 

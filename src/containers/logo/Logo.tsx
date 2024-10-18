@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import logo from '~/assets/logo.svg'
-import logoLight from '~/assets/logo-light.svg'
+
 import Box, { BoxProps } from '@mui/material/Box'
+import logoLight from '~/assets/logo-light.svg'
+import logo from '~/assets/logo.svg'
 import { ComponentEnum } from '~/types'
 
 interface LogoProps extends BoxProps {

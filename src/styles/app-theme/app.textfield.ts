@@ -1,5 +1,5 @@
-import palette from './app.pallete'
 import { textfieldScrollbar } from '~/styles/app-theme/custom-scrollbar'
+import palette from './app.pallete'
 
 export const textField = {
   styleOverrides: {
