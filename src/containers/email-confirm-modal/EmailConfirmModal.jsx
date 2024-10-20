@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { styles } from '~/containers/email-confirm-modal/EmailConfirmModal.styles'
@@ -11,6 +10,7 @@ import { useModalContext } from '~/context/modal-context'
 import useAxios from '~/hooks/use-axios'
 import { AuthService } from '~/services/auth-service'
 import imgReject from '~/assets/img/email-confirmation-modals/not-success-icon.svg'
+import imgSuccess from '~/assets/img/email-confirmation-modals/success-icon.svg'
 
 const EmailConfirmModal = ({ confirmToken, openModal }) => {
   const { t } = useTranslation()
@@ -72,6 +72,19 @@ const EmailConfirmModal = ({ confirmToken, openModal }) => {
       </Box>
     )
   }
+
+  return (
+    <Box sx={styles.box}>
+      <ImgTitleDescription
+        img={imgSuccess}
+        style={styles}
+        title={t('modals.emailConfirm')}
+      />
+      <Button onClick={openLoginDialog} sx={styles.button} variant='contained'>
+        {t('button.goToLogin')}
+      </Button>
+    </Box>
+  )
 }
 
 export default EmailConfirmModal
