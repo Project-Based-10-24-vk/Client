@@ -1,12 +1,15 @@
 import { FC } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import CloseIcon from '@mui/icons-material/Close'
+import { PaperProps } from '@mui/material'
 import Box from '@mui/material/Box'
 import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
-import CloseIcon from '@mui/icons-material/Close'
-import { PaperProps } from '@mui/material'
-
-import useBreakpoints from '~/hooks/use-breakpoints'
 import { styles } from '~/components/popup-dialog/PopupDialog.styles'
+import { useModalContext } from '~/context/modal-context'
+import useBreakpoints from '~/hooks/use-breakpoints'
+import useConfirm from '~/hooks/use-confirm'
 
 interface PopupDialogProps {
   content: React.ReactNode
@@ -22,9 +25,28 @@ const PopupDialog: FC<PopupDialogProps> = ({
   closeModalAfterDelay
 }) => {
   const { isMobile } = useBreakpoints()
+  const { closeModal } = useModalContext()
+  const { openDialog, needConfirmation } = useConfirm()
+  const { t } = useTranslation()
 
   const handleMouseOver = () => timerId && clearTimeout(timerId)
   const handleMouseLeave = () => timerId && closeModalAfterDelay()
+
+  const handleClose = () => {
+    needConfirmation
+      ? openDialog({
+          sendConfirm: (confirmed: boolean) => {
+            if (confirmed) {
+              closeModal()
+            }
+          },
+          title: t('titles.confirmTitle'),
+          message: t('questions.unsavedChanges'),
+          confirmButton: t('common.yes'),
+          cancelButton: t('common.no')
+        })
+      : closeModal()
+  }
 
   return (
     <Dialog
@@ -41,7 +63,7 @@ const PopupDialog: FC<PopupDialogProps> = ({
         onMouseOver={handleMouseOver}
         sx={styles.box}
       >
-        <IconButton sx={styles.icon}>
+        <IconButton onClick={handleClose} sx={styles.icon}>
           <CloseIcon />
         </IconButton>
         <Box sx={styles.contentWraper}>{content}</Box>

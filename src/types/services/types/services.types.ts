@@ -1,5 +1,6 @@
-import { Sort } from '~/types'
 import { AxiosResponse } from 'axios'
+
+import { Sort } from '~/types'
 
 export interface RequestParams {
   limit: number

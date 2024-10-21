@@ -1,10 +1,8 @@
 import Box from '@mui/material/Box'
-
-import { useAppSelector } from '~/hooks/use-redux'
-import UserFooter from '~/containers/layout/footer/user-footer/UserFooter'
-import GuestFooter from '~/containers/layout/footer/guest-footer/GuestFooter'
-
 import { styles } from '~/containers/layout/footer/Footer.styles'
+import GuestFooter from '~/containers/layout/footer/guest-footer/GuestFooter'
+import UserFooter from '~/containers/layout/footer/user-footer/UserFooter'
+import { useAppSelector } from '~/hooks/use-redux'
 import { ComponentEnum } from '~/types'
 
 const Footer = () => {

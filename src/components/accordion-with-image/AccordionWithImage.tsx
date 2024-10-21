@@ -1,9 +1,8 @@
 import { FC, useState } from 'react'
 
-import Accordions from '~/components/accordion/Accordions'
 import Box from '@mui/material/Box'
-
 import { styles } from '~/components/accordion-with-image/AccordionWithImage.styles'
+import Accordions from '~/components/accordion/Accordions'
 import { AccordionWithImageItem, TypographyVariantEnum } from '~/types'
 
 interface AccordionWithImageProps {

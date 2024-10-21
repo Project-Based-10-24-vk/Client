@@ -2,14 +2,13 @@ import { FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
-
 import LoginDialog from '~/containers/guest-home-page/login-dialog/LoginDialog'
+import { guestIcons } from '~/containers/navigation-icons/NavigationIcons.constants'
+import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
 import AppButton from '~/components/app-button/AppButton'
 import NavigationIcon from '~/components/navigation-icon/NavigationIcon'
 import { useModalContext } from '~/context/modal-context'
-import { guestIcons } from '~/containers/navigation-icons/NavigationIcons.constants'
 import { SizeEnum } from '~/types'
-import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
 
 interface GuestIconsProps {
   setSidebarOpen: () => void

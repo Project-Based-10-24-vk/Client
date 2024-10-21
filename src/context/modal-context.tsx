@@ -1,13 +1,14 @@
 import {
-  FC,
   createContext,
+  FC,
   useCallback,
   useContext,
   useMemo,
   useState
 } from 'react'
-import PopupDialog from '~/components/popup-dialog/PopupDialog'
+
 import { PaperProps } from '@mui/material/Paper'
+import PopupDialog from '~/components/popup-dialog/PopupDialog'
 
 interface Component {
   component: React.ReactElement

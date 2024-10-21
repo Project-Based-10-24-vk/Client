@@ -1,17 +1,18 @@
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
-import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
+import SignupStudentDialog from '~/containers/guest-home-page/signup-dialog/SignupStudentDialog'
+import SignupTutorDialog from '~/containers/guest-home-page/signup-dialog/SignupTutorDialog'
+import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 import InfoCard from '~/components/info-card/InfoCard'
 import LoginDialog from './login-dialog/LoginDialog'
 import { useModalContext } from '~/context/modal-context'
-
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { guestRoutes } from '~/router/constants/guestRoutes'
+import { useModalContext } from '~/context/modal-context'
 import learnImg from '~/assets/img/guest-home-page/learnImg.png'
 import teachImg from '~/assets/img/guest-home-page/teachImg.png'
-
 import { UserRoleEnum } from '~/types'
-import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 
 const cardData = [
   {
@@ -19,14 +20,16 @@ const cardData = [
     title: 'guestHomePage.whatCanYouDo.learn.title',
     description: 'guestHomePage.whatCanYouDo.learn.description',
     actionLabel: 'guestHomePage.whatCanYouDo.learn.actionLabel',
-    actionType: UserRoleEnum.Student
+    actionType: UserRoleEnum.Student,
+    openSignupDialog: <SignupStudentDialog />
   },
   {
     img: teachImg,
     title: 'guestHomePage.whatCanYouDo.teach.title',
     description: 'guestHomePage.whatCanYouDo.teach.description',
     actionLabel: 'guestHomePage.whatCanYouDo.teach.actionLabel',
-    actionType: UserRoleEnum.Tutor
+    actionType: UserRoleEnum.Tutor,
+    openSignupDialog: <SignupTutorDialog />
   }
 ]
 
@@ -37,7 +40,7 @@ const WhatCanYouDo = () => {
   const cards = cardData.map((item) => (
     <InfoCard
       action={() => {
-        openModal({ component: <LoginDialog /> })
+        openModal({ component: item.openSignupDialog })
       }}
       actionLabel={t(item.actionLabel)}
       cardWidth={460}

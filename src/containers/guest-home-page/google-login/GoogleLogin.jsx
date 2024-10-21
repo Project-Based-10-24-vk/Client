@@ -1,13 +1,12 @@
 import { useTranslation } from 'react-i18next'
+
 import { Box, Typography } from '@mui/material'
-import HashLink from '~/components/hash-link/HashLink'
-
-import { useModalContext } from '~/context/modal-context'
-import { guestRoutes } from '~/router/constants/guestRoutes'
-import LoginDialog from '~/containers/guest-home-page/login-dialog/LoginDialog'
 import GoogleButton from '~/containers/guest-home-page/google-button/GoogleButton'
-
 import { styles } from '~/containers/guest-home-page/google-login/GoogleLogin.styles'
+import LoginDialog from '~/containers/guest-home-page/login-dialog/LoginDialog'
+import HashLink from '~/components/hash-link/HashLink'
+import { guestRoutes } from '~/router/constants/guestRoutes'
+import { useModalContext } from '~/context/modal-context'
 
 const GoogleLogin = ({ type, buttonWidth, role }) => {
   const { t } = useTranslation()

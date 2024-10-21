@@ -1,9 +1,9 @@
 import { FC, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import Box, { BoxProps } from '@mui/material/Box'
 
-import { spliceSx } from '~/utils/helper-functions'
+import Box, { BoxProps } from '@mui/material/Box'
 import { styles } from '~/components/app-card/AppCard.styles'
+import { spliceSx } from '~/utils/helper-functions'
 
 interface AppCardProps extends BoxProps {
   children: ReactNode

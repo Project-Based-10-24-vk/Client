@@ -4,13 +4,13 @@ import { Route } from 'react-router-dom'
 import { authRoutes } from '~/router/constants/authRoutes'
 import {
   categories,
-  subjects,
+  editQuestion,
+  findOffers,
   myProfile,
   myResources,
-  userProfile,
   newQuestion,
-  editQuestion,
-  findOffers
+  subjects,
+  userProfile
 } from '~/router/constants/crumbs'
 import PrivateRoute from '~/router/helpers/PrivateRoute'
 import { UserRoleEnum } from '~/types'

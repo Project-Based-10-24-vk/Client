@@ -1,7 +1,8 @@
 import { FC, ReactElement } from 'react'
+
+import Badge from '@mui/material/Badge'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import Badge from '@mui/material/Badge'
 
 interface NavigationIconProps {
   tooltip: string

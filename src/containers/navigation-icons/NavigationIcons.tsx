@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { useAppSelector } from '~/hooks/use-redux'
 
 import GuestIcons from '~/containers/navigation-icons/guest-icons/GuestIcons'
 import UserIcons from '~/containers/navigation-icons/user-icons/UserIcons'
+import { useAppSelector } from '~/hooks/use-redux'
 
 interface NavigationIconsProps {
   setSidebarOpen: () => void

@@ -1,13 +1,11 @@
-import { useState, useRef, FC } from 'react'
+import { FC, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
-
-import NavigationIcon from '~/components/navigation-icon/NavigationIcon'
-import { userIcons } from '~/containers/navigation-icons/NavigationIcons.constants'
-
-import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
 import AccountMenu from '~/containers/layout/account-menu/AccountMenu'
+import { userIcons } from '~/containers/navigation-icons/NavigationIcons.constants'
+import { styles } from '~/containers/navigation-icons/NavigationIcons.styles'
+import NavigationIcon from '~/components/navigation-icon/NavigationIcon'
 
 interface UserIconsProps {
   setSidebarOpen: () => void
