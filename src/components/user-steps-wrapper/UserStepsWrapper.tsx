@@ -25,7 +25,6 @@ const UserStepsWrapper: FC<UserStepsWrapperProps> = ({ userRole }) => {
   const [isUserFetched, setIsUserFetched] = useState(false)
   const dispatch = useAppDispatch()
   const { setNeedConfirmation } = useContext(ConfirmationDialogContext)
-  setNeedConfirmation(true)
 
   useEffect(() => {
     setNeedConfirmation(true)
