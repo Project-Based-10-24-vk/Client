@@ -1,32 +1,29 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, test, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import SearchFilterInput from '~/components/search-filter-input/SearchFilterInput'
 
 describe('Component SearchFilterInput', () => {
   const updateFilterMock = vi.fn()
 
-  const renderComponent = () => {
-    return render(
+  beforeEach(() => {
+    render(
       <SearchFilterInput textFieldProps={{}} updateFilter={updateFilterMock} />
     )
-  }
+  })
 
-  test('should render component with input in it', () => {
-    renderComponent()
+  it('should render component with input in it', () => {
     const input = screen.getByRole('textbox')
     expect(input).toBeInTheDocument()
   })
 
-  test('should render typed text correctly', () => {
-    renderComponent()
+  it('should render typed text correctly', () => {
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'Test' } })
     expect(input).toHaveValue('Test')
   })
 
-  test('should delete typed text when delete button is clicked', async () => {
-    renderComponent()
+  it('should delete typed text when delete button is clicked', async () => {
     const input = screen.getByRole('textbox')
 
     fireEvent.change(input, { target: { value: 'Delete Test' } })
@@ -39,8 +36,7 @@ describe('Component SearchFilterInput', () => {
     expect(updateFilterMock).toHaveBeenLastCalledWith('')
   })
 
-  test('should call updateFilter function on button click', () => {
-    renderComponent()
+  it('should call updateFilter function on button click', () => {
     const input = screen.getByRole('textbox')
     const searchButton = screen.getByRole('button', { name: 'common.search' })
 
@@ -50,8 +46,7 @@ describe('Component SearchFilterInput', () => {
     expect(updateFilterMock).toHaveBeenCalledWith('Search Test')
   })
 
-  test('should call updateFilter function when Enter is pressed', () => {
-    renderComponent()
+  it('should call updateFilter function when Enter is pressed', () => {
     const input = screen.getByRole('textbox')
 
     fireEvent.change(input, { target: { value: 'Key Enter Test' } })
