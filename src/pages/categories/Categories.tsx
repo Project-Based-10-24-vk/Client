@@ -67,7 +67,7 @@ const Categories = () => {
         />
       </AppToolbar>
 
-      {/* just show how single card for category appears */}
+      {/* just show how single card for category looks */}
       <CardWithLink
         description='new card'
         img={serviceIcon}
