@@ -1,20 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
 import { styles } from '~/containers/tutor-home-page/language-step/LanguageStep.styles'
 import AppSelect from '~/components/app-select/AppSelect'
+import { useStepContext } from '~/context/step-context'
 import img from '~/assets/img/tutor-home-page/become-tutor/languages.svg'
 import { languagesMock } from '../subjects-step/constants'
 
-const LanguageStep = ({ btnsBox }) => {
+const LanguageStep = ({ btnsBox, stepLabel }) => {
   const { t } = useTranslation()
   const [language, setLanguage] = useState('')
+  const { handleStepData } = useStepContext()
 
   const languageFields = languagesMock.map((language) => ({
     title: language.name,
     value: language.name
   }))
+
+  useEffect(() => {
+    handleStepData(stepLabel, language, {})
+  }, [language, stepLabel, handleStepData])
 
   return (
     <Box sx={styles.container}>
