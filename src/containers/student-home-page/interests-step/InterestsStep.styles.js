@@ -6,7 +6,6 @@ export const styles = {
     justifyContent: 'space-between',
     gap: '40px',
     height: { sm: '485px' },
-    paddingBottom: { xs: '30px', sm: '0px' },
     ...fadeAnimation
   },
   imgContainer: {
@@ -21,21 +20,29 @@ export const styles = {
     m: { sm: 0, xs: '0 auto' }
   },
   rigthBox: {
-    fontFamily: ['Rubik', '-apple-system', 'Arial', 'sans-serif'].join(','),
-    display: 'flex',
-    flex: 1,
     maxWidth: '432px',
+    display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
     m: { md: 0, xs: '0 auto' },
     pt: 0
   },
-
-  selectsBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px'
+  title: {
+    fontFamily: 'Rubik, sans-serif',
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '18.96px',
+    letterSpacing: '0.15px'
   },
+  optionsContainer: {
+    flexGrow: 1
+  },
+  optionInputContainer: {
+    mt: '20px'
+  },
+  option: {
+    width: '100%'
+  },
+
   addMoreSubjectButton: {
     background: '#ECEFF1',
     color: '#263238',
@@ -47,7 +54,18 @@ export const styles = {
       color: '##ECEFF1'
     }
   },
-  btnsBox: {
-    mt: 'auto'
+  subjectsList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    mt: '20px'
+  },
+
+  subjectItem: {
+    width: 'fit-content',
+    background: '#ECEFF1',
+    borderRadius: '10px',
+    ml: '4px',
+    mt: '10px',
+    height: '34px'
   }
 }
