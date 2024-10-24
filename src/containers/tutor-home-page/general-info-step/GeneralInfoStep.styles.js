@@ -30,7 +30,8 @@ export const styles = {
   form: {
     display: 'flex',
     flexDirection: { xs: 'column', sm: 'row' },
-    gap: { xs: '0', sm: '16px' }
+    gap: { xs: '0', sm: '16px' },
+    mb: '5px'
   },
   textblock: {
     mb: '16px'
