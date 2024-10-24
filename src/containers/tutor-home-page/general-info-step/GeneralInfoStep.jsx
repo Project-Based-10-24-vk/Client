@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
@@ -7,15 +8,24 @@ import AppTextArea from '~/components/app-text-area/AppTextArea'
 import AppTextField from '~/components/app-text-field/AppTextField'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import { useStepContext } from '~/context/step-context'
-import useForm from '~/hooks/use-form'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 
-const GeneralInfoStep = ({ btnsBox }) => {
-  const { stepData } = useStepContext()
+const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
+  const { stepData, handleStepData } = useStepContext()
   const { t } = useTranslation()
-  const { handleInputChange, data } = useForm({
-    initialValues: stepData.generalInfo.data
-  })
+
+  const [data, setData] = useState(stepData.generalInfo.data)
+
+  useEffect(() => {
+    handleStepData(stepLabel, data, {})
+  }, [data, stepLabel, handleStepData])
+
+  const handleInputChange = (field) => (event) => {
+    setData((prevData) => ({
+      ...prevData,
+      [field]: event.target.value
+    }))
+  }
 
   return (
     <Box sx={styles.container}>
