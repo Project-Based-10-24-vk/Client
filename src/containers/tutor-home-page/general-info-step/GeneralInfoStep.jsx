@@ -34,7 +34,7 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
     } else {
       setIsValidated(false)
     }
-  }, [data])
+  }, [data, setIsValidated])
 
   const handleInputChange = (field) => (event) => {
     const value = event.target.value
