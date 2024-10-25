@@ -9,14 +9,20 @@ import AppChipList from '~/components/app-chips-list/AppChipList'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
+import { student } from '~/constants'
 import img from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
 
-const SubjectsStep = ({ btnsBox }) => {
+const SubjectsStep = ({ btnsBox, userRole }) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedSubject, setSelectedSubject] = useState(null)
   const [selectedItems, setSelectedItems] = useState([])
   const [error, setError] = useState('')
   const { t } = useTranslation()
+
+  const label =
+    userRole === student
+      ? t('becomeTutor.categories.mainInterestsLabel')
+      : t('becomeTutor.categories.mainSubjectsLabel')
 
   const handleCategoryChange = useCallback((event, category) => {
     setSelectedCategory(category)
@@ -63,7 +69,7 @@ const SubjectsStep = ({ btnsBox }) => {
             onChange={handleCategoryChange}
             service={categoryService.getCategories}
             textFieldProps={{
-              label: t('becomeTutor.categories.mainSubjectsLabel')
+              label: label
             }}
             value={selectedCategory}
           />
