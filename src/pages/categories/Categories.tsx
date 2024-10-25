@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { styles } from '~/pages/categories/Categories.styles'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import Box from '@mui/material/Box'
+import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import CategoriesList from '~/components/categories-list/CategoriesList'
 import DirectionLink from '~/components/direction-link/DirectionLink'
@@ -44,6 +45,7 @@ const Categories = () => {
 
   return (
     <PageWrapper>
+      <OfferRequestBlock />
       <TitleWithDescription
         description={t('categoriesPage.description')}
         style={styles.titleWithDescription}
