@@ -3,24 +3,24 @@ import { useCallback } from 'react'
 import useAxios from '~/hooks/use-axios'
 import { categoryService } from '~/services/category-service'
 import { defaultResponses } from '~/constants'
-import { CategoryNameInterface } from '~/types'
+import { CategoryNameInterface, ItemsWithCount } from '~/types'
 
 interface UseCategoriesNamesProps<T> {
   fetchOnMount?: boolean
-  transform?: (data: CategoryNameInterface[]) => T[]
+  transform?: (data: ItemsWithCount<CategoryNameInterface>) => T[]
 }
 
 const useCategoriesNames = <T = CategoryNameInterface,>({
   fetchOnMount = true,
   transform
-}: UseCategoriesNamesProps<T> = {}) => {
+}: UseCategoriesNamesProps<T>) => {
   const getCategoriesNames = useCallback(
     () => categoryService.getCategoriesNames(),
     []
   )
 
   const { loading, response, fetchData, error } = useAxios<
-    CategoryNameInterface[],
+    ItemsWithCount<CategoryNameInterface>,
     undefined,
     T[]
   >({

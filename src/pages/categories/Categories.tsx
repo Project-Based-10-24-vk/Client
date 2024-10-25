@@ -5,7 +5,7 @@ import { styles } from '~/pages/categories/Categories.styles'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import Box from '@mui/material/Box'
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
-import CardWithLink from '~/components/card-with-link/CardWithLink'
+import CategoriesList from '~/components/categories-list/CategoriesList'
 import DirectionLink from '~/components/direction-link/DirectionLink'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
@@ -13,8 +13,7 @@ import TitleWithDescription from '~/components/title-with-description/TitleWithD
 import { authRoutes } from '~/router/constants/authRoutes'
 import { mapArrayByField } from '~/utils/map-array-by-field'
 import useCategoriesNames from '~/hooks/use-categories-names'
-import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
-import { CategoryNameInterface, SizeEnum } from '~/types'
+import { CategoryNameInterface, ItemsWithCount, SizeEnum } from '~/types'
 
 const Categories = () => {
   const [match, setMatch] = useState<string>('')
@@ -22,7 +21,10 @@ const Categories = () => {
   const { t } = useTranslation()
 
   const transform = useCallback(
-    (data: CategoryNameInterface[]): string[] => mapArrayByField(data, 'name'),
+    (data: ItemsWithCount<CategoryNameInterface>) => {
+      const names = data.items
+      return mapArrayByField(names, 'name')
+    },
     []
   )
 
@@ -66,15 +68,7 @@ const Categories = () => {
           }}
         />
       </AppToolbar>
-
-      {/* just show how single card for category looks */}
-      <CardWithLink
-        description='new card'
-        img={serviceIcon}
-        key='1'
-        link={authRoutes.subjects.path}
-        title='New card'
-      />
+      <CategoriesList query={match} />
     </PageWrapper>
   )
 }
