@@ -34,7 +34,6 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
 
   useEffect(() => {
     void fetchCategories()
-    console.log(params)
   }, [params])
 
   const cardElements =
