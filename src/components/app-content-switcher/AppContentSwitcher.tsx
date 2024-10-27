@@ -9,7 +9,7 @@ import { SxProps } from '@mui/system'
 import { defaultStyles } from '~/components/app-content-switcher/AppContentSwitcher.styles'
 import { SwitchContent, SwitchOptions } from '~/types'
 
-interface SwitcherProps {
+export interface SwitcherProps {
   active: boolean
   onChange: () => void
   switchOptions: SwitchOptions
