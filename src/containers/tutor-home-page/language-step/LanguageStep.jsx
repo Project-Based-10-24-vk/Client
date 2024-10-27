@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
@@ -10,18 +9,16 @@ import { languagesMock } from '../subjects-step/constants'
 
 const LanguageStep = ({ btnsBox, stepLabel }) => {
   const { t } = useTranslation()
-  const [language, setLanguage] = useState('')
-  const { handleStepData } = useStepContext()
+  const { stepData, handleStepData } = useStepContext()
 
   const languageFields = languagesMock.map((language) => ({
     title: language.name,
     value: language.name
   }))
 
-  useEffect(() => {
-    handleStepData(stepLabel, language, {})
-  }, [language, stepLabel, handleStepData])
-
+  const handleInputChange = (event) => {
+    handleStepData(stepLabel, event.target.value, {})
+  }
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -41,8 +38,8 @@ const LanguageStep = ({ btnsBox, stepLabel }) => {
             }}
             fields={languageFields}
             label={t('becomeTutor.languages.autocompleteLabel')}
-            setValue={setLanguage}
-            value={language}
+            onChange={handleInputChange}
+            value={stepData[stepLabel]}
           />
         </Box>
 
