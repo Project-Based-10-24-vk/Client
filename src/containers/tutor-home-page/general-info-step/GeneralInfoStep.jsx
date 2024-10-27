@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
@@ -14,19 +13,14 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
   const { stepData, handleStepData } = useStepContext()
   const { t } = useTranslation()
 
-  const [data, setData] = useState(stepData.generalInfo.data)
-
-  useEffect(() => {
-    handleStepData(stepLabel, data, {})
-  }, [data, stepLabel, handleStepData])
-
   const handleInputChange = (field) => (event) => {
-    setData((prevData) => ({
-      ...prevData,
-      [field]: event.target.value
-    }))
+    handleStepData(
+      stepLabel,
+      { ...stepData[stepLabel].data, [field]: event.target.value },
+      {}
+    )
   }
-
+  console.log(stepData)
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -43,14 +37,14 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
               fullWidth
               label={t('common.labels.firstName')}
               onChange={handleInputChange('firstName')}
-              value={data.firstName}
+              value={stepData[stepLabel].data.firstName}
             />
 
             <AppTextField
               fullWidth
               label={t('common.labels.lastName')}
               onChange={handleInputChange('lastName')}
-              value={data.lastName}
+              value={stepData[stepLabel].data.lastName}
             />
           </Box>
 
@@ -58,13 +52,13 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
             <AsyncAutocomplete
               fullWidth
               textFieldProps={{ label: t('common.labels.country') }}
-              value={data.country}
+              value={stepData[stepLabel].data.country}
             />
 
             <AsyncAutocomplete
               fullWidth
               textFieldProps={{ label: t('common.labels.city') }}
-              value={data.city}
+              value={stepData[stepLabel].data.city}
             />
           </Box>
 
@@ -74,7 +68,7 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
             maxLength={70}
             onChange={handleInputChange('professionalSummary')}
             sx={styles.textarea}
-            value={data.professionalSummary}
+            value={stepData[stepLabel].data.professionalSummary}
           />
         </Box>
         {btnsBox}
