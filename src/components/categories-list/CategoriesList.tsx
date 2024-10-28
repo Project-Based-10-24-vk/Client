@@ -9,9 +9,11 @@ import { authRoutes } from '~/router/constants/authRoutes'
 import { categoryService } from '~/services/category-service'
 import { CategoryInterface } from '~/types'
 
+const INITIAL_VISIBLE_CARDS = 4
+
 const CategoriesList: FC = () => {
   const [categories, setCategories] = useState<CategoryInterface[]>([])
-  const [visibleCards, setVisibleCards] = useState(4)
+  const [visibleCards, setVisibleCards] = useState(INITIAL_VISIBLE_CARDS)
 
   const { t } = useTranslation()
 
@@ -49,7 +51,7 @@ const CategoriesList: FC = () => {
   const handleLoadMore = () => {
     setTimeout(() => {
       setVisibleCards((prev) => {
-        const newValue = prev + 4
+        const newValue = prev + INITIAL_VISIBLE_CARDS
         return newValue
       })
     }, 1000)
