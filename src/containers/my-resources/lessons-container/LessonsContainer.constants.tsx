@@ -13,11 +13,7 @@ import {
   TableColumn
 } from '~/types'
 
-export const columns = (
-  selectedItemId: string,
-  onSave: (name: string) => Promise<void>,
-  onCancel: () => void
-): TableColumn<Lessons>[] => [
+export const columns: TableColumn<Lessons>[] = [
   {
     label: 'myResourcesPage.lessons.title',
     field: 'title',
@@ -25,7 +21,11 @@ export const columns = (
       <Box sx={styles.lessonContainer}>
         <IconTitleDescription
           description={item.description}
-          icon={<Box sx={styles.iconWrapper}><img src={lessonIcon} /></Box>}
+          icon={
+            <Box sx={styles.iconWrapper}>
+              <img src={lessonIcon} />
+            </Box>
+          }
           sx={styles.iconTitleDescription}
           title={item.title}
         />
