@@ -5,6 +5,13 @@ export interface Categories extends CommonEntityFields {
   author: string
 }
 
+export interface Lessons extends CommonEntityFields {
+  title: string
+  category: Categories | null
+  author: string
+  description: string
+}
+
 export interface GetResourcesParams extends Partial<RequestParams> {
   title?: string
   fileName?: string
