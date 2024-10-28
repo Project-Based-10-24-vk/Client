@@ -5,8 +5,6 @@ import SignupStudentDialog from '~/containers/guest-home-page/signup-dialog/Sign
 import SignupTutorDialog from '~/containers/guest-home-page/signup-dialog/SignupTutorDialog'
 import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 import InfoCard from '~/components/info-card/InfoCard'
-import LoginDialog from './login-dialog/LoginDialog'
-import { useModalContext } from '~/context/modal-context'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { guestRoutes } from '~/router/constants/guestRoutes'
 import { useModalContext } from '~/context/modal-context'
@@ -58,7 +56,6 @@ const WhatCanYouDo = () => {
         style={styles.titleWithDescription}
         title={t('guestHomePage.whatCanYouDo.title')}
       />
-
       <Box sx={styles.cards}>{cards}</Box>
     </Box>
   )
