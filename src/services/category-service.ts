@@ -1,18 +1,17 @@
-import { axiosClient } from '~/plugins/axiosClient'
 import { AxiosResponse } from 'axios'
 
+import { axiosClient } from '~/plugins/axiosClient'
 import { URLs } from '~/constants/request'
 import {
-  CategoryInterface,
-  CategoryNameInterface,
   CategoriesParams,
-  ItemsWithCount
+  CategoryInterface,
+  CategoryNameInterface
 } from '~/types'
 
 export const categoryService = {
   getCategories: (
     params?: Partial<CategoriesParams>
-  ): Promise<AxiosResponse<ItemsWithCount<CategoryInterface>>> => {
+  ): Promise<AxiosResponse<CategoryInterface[]>> => {
     return axiosClient.get(URLs.categories.get, { params })
   },
   getCategoriesNames: (): Promise<AxiosResponse<CategoryNameInterface[]>> => {
