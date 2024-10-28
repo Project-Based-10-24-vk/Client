@@ -11,7 +11,12 @@ export const styles = {
     display: { xs: 'flex' },
     flexDirection: { xs: 'column' },
     height: { xs: '100vh', sm: 'auto' },
-    p: { lg: '50px 90px', sm: '40px 50px', xs: '40px 15px' }
+    p: {
+      lg: '50px 90px',
+      sm: '40px 50px',
+      xs: '40px 15px',
+      textTransform: 'capitalize'
+    }
   },
   defaultTab: {
     display: 'flex',

@@ -1,43 +1,41 @@
 import { useCallback, useMemo, useState } from 'react'
+import { AxiosResponse } from 'axios'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
-import Box from '@mui/material/Box'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { styles } from '~/pages/subjects/Subjects.styles'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-
-import { useAppSelector } from '~/hooks/use-redux'
-import useLoadMore from '~/hooks/use-load-more'
-import useSubjectsNames from '~/hooks/use-subjects-names'
-import { subjectService } from '~/services/subject-service'
-import { categoryService } from '~/services/category-service'
-import { useModalContext } from '~/context/modal-context'
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import Box from '@mui/material/Box'
+import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
+import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
+import AppToolbar from '~/components/app-toolbar/AppToolbar'
+import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
+import CardWithLink from '~/components/card-with-link/CardWithLink'
+import CardsList from '~/components/cards-list/CardsList'
+import DirectionLink from '~/components/direction-link/DirectionLink'
+import NotFoundResults from '~/components/not-found-results/NotFoundResults'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
-import NotFoundResults from '~/components/not-found-results/NotFoundResults'
-import CardsList from '~/components/cards-list/CardsList'
-import CardWithLink from '~/components/card-with-link/CardWithLink'
-import DirectionLink from '~/components/direction-link/DirectionLink'
-import CreateSubjectModal from '~/containers/find-offer/create-new-subject/CreateNewSubject'
-import AppToolbar from '~/components/app-toolbar/AppToolbar'
-import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
-import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
-import useBreakpoints from '~/hooks/use-breakpoints'
-import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
+import { authRoutes } from '~/router/constants/authRoutes'
+import { useModalContext } from '~/context/modal-context'
 import { getOpositeRole, getScreenBasedLimit } from '~/utils/helper-functions'
 import { mapArrayByField } from '~/utils/map-array-by-field'
-
+import useBreakpoints from '~/hooks/use-breakpoints'
+import useLoadMore from '~/hooks/use-load-more'
+import { useAppSelector } from '~/hooks/use-redux'
+import useSubjectsNames from '~/hooks/use-subjects-names'
+// import { categoryService } from '~/services/category-service';
+import { subjectService } from '~/services/subject-service'
+import { itemsLoadLimit } from '~/constants'
+import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
 import {
   CategoryNameInterface,
   SizeEnum,
   SubjectInterface,
   SubjectNameInterface
 } from '~/types'
-import { itemsLoadLimit } from '~/constants'
-import { authRoutes } from '~/router/constants/authRoutes'
-import { styles } from '~/pages/subjects/Subjects.styles'
 
 const Subjects = () => {
   const [match, setMatch] = useState<string>('')
@@ -133,7 +131,16 @@ const Subjects = () => {
       axiosProps={{ onResponse: onResponseCategory }}
       labelField='name'
       onChange={onCategoryChange}
-      service={categoryService.getCategoriesNames}
+      // service={categoryService.getCategoriesNames}
+      service={() =>
+        Promise.resolve({
+          data: [] as CategoryNameInterface[],
+          status: 200,
+          statusText: 'OK',
+          headers: {},
+          config: {}
+        } as AxiosResponse<CategoryNameInterface[]>)
+      }
       sx={styles.categoryInput}
       textFieldProps={{
         label: t('breadCrumbs.categories')

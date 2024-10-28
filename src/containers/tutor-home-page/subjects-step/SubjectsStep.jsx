@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
@@ -6,35 +6,41 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import AppChipList from '~/components/app-chips-list/AppChipList'
-import AppSelect from '~/components/app-select/AppSelect'
+import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
+import { categoryService } from '~/services/category-service'
+import { subjectService } from '~/services/subject-service'
 import img from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
-import { categoriesMock, languagesMock } from './constants'
 
 const SubjectsStep = ({ btnsBox }) => {
-  const { t } = useTranslation()
-
-  const fieldsCategories = categoriesMock.map((category) => ({
-    title: category.name,
-    value: category.name
-  }))
-
-  const fieldsSubjects = languagesMock.map((category) => ({
-    title: category.name,
-    value: category.name
-  }))
-
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const [selectedSubject, setSelectedSubject] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedSubject, setSelectedSubject] = useState(null)
   const [selectedItems, setSelectedItems] = useState([])
   const [error, setError] = useState('')
+  const { t } = useTranslation()
+
+  const handleCategoryChange = useCallback((event, category) => {
+    setSelectedCategory(category)
+    setSelectedSubject(null)
+  }, [])
+
+  const handleSubjectChange = useCallback((event, subject) => {
+    setSelectedSubject(subject)
+  }, [])
+
+  const fetchSubjects = useCallback(() => {
+    if (selectedCategory) {
+      return subjectService.getSubjects(null, selectedCategory._id)
+    }
+    return []
+  }, [selectedCategory])
 
   const handleAddItem = () => {
     if (selectedSubject) {
-      if (selectedItems.includes(selectedSubject)) {
+      if (selectedItems.some((item) => item._id === selectedSubject._id)) {
         setError(t('becomeTutor.categories.sameSubject'))
       } else {
         setSelectedItems((prevItems) => [...prevItems, selectedSubject])
-        setSelectedSubject('')
+        setSelectedSubject(null)
         setError('')
       }
     }
@@ -52,24 +58,25 @@ const SubjectsStep = ({ btnsBox }) => {
       <Box sx={styles.rigthBox}>
         {t('becomeTutor.categories.title')}
         <Box sx={styles.selectsBox}>
-          <AppSelect
-            fields={fieldsCategories}
-            label={t('becomeTutor.categories.mainSubjectsLabel')}
-            setValue={setSelectedCategory}
+          <AsyncAutocomplete
+            labelField='name'
+            onChange={handleCategoryChange}
+            service={categoryService.getCategories}
+            textFieldProps={{
+              label: t('becomeTutor.categories.mainSubjectsLabel')
+            }}
             value={selectedCategory}
           />
 
-          <AppSelect
-            MenuProps={{
-              PaperProps: {
-                style: {
-                  maxHeight: 250
-                }
-              }
+          <AsyncAutocomplete
+            disabled={!selectedCategory}
+            fetchCondition={!!selectedCategory}
+            labelField='name'
+            onChange={handleSubjectChange}
+            service={fetchSubjects}
+            textFieldProps={{
+              label: t('becomeTutor.categories.subjectLabel')
             }}
-            fields={fieldsSubjects}
-            label={t('becomeTutor.categories.subjectLabel')}
-            setValue={setSelectedSubject}
             value={selectedSubject}
           />
         </Box>

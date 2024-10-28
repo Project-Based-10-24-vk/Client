@@ -56,7 +56,6 @@ const WhatCanYouDo = () => {
         style={styles.titleWithDescription}
         title={t('guestHomePage.whatCanYouDo.title')}
       />
-
       <Box sx={styles.cards}>{cards}</Box>
     </Box>
   )
