@@ -20,7 +20,6 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
       {}
     )
   }
-  console.log(stepData)
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
