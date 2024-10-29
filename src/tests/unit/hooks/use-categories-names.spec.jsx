@@ -1,5 +1,6 @@
-import { vi } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
+import { vi } from 'vitest'
+
 import useCategoriesNames from '~/hooks/use-categories-names'
 import { categoryService } from '~/services/category-service'
 
@@ -22,7 +23,9 @@ describe('useCategoriesNames', () => {
       data: mockCategoriesNames
     })
 
-    const { result } = renderHook(() => useCategoriesNames())
+    const { result } = renderHook(() =>
+      useCategoriesNames({ fetchOnMount: true })
+    )
 
     expect(result.current.loading).toBe(true)
     expect(result.current.response).toEqual([])
@@ -40,7 +43,9 @@ describe('useCategoriesNames', () => {
       response: { data: mockError }
     })
 
-    const { result } = renderHook(() => useCategoriesNames())
+    const { result } = renderHook(() =>
+      useCategoriesNames({ fetchOnMount: true })
+    )
 
     expect(result.current.loading).toBe(true)
     expect(result.current.response).toEqual([])

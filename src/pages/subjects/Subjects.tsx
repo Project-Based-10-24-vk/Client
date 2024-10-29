@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from 'react'
-import { AxiosResponse } from 'axios'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
@@ -26,12 +25,13 @@ import useBreakpoints from '~/hooks/use-breakpoints'
 import useLoadMore from '~/hooks/use-load-more'
 import { useAppSelector } from '~/hooks/use-redux'
 import useSubjectsNames from '~/hooks/use-subjects-names'
-// import { categoryService } from '~/services/category-service';
+import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import { itemsLoadLimit } from '~/constants'
 import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
 import {
   CategoryNameInterface,
+  ItemsWithCount,
   SizeEnum,
   SubjectInterface,
   SubjectNameInterface
@@ -53,7 +53,10 @@ const Subjects = () => {
   const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
 
   const transform = useCallback(
-    (data: SubjectNameInterface[]): string[] => mapArrayByField(data, 'name'),
+    (data: ItemsWithCount<SubjectNameInterface>) => {
+      const names = data.items
+      return mapArrayByField(names, 'name')
+    },
     []
   )
 
@@ -126,21 +129,20 @@ const Subjects = () => {
     setCategoryName(category?.name ?? '')
   }
 
+  const getNames = useCallback(
+    (data: ItemsWithCount<CategoryNameInterface>) => {
+      const names = data.items
+      return names
+    },
+    []
+  )
+
   const autoCompleteCategories = (
     <AsyncAutocomplete
-      axiosProps={{ onResponse: onResponseCategory }}
+      axiosProps={{ onResponse: onResponseCategory, transform: getNames }}
       labelField='name'
       onChange={onCategoryChange}
-      // service={categoryService.getCategoriesNames}
-      service={() =>
-        Promise.resolve({
-          data: [] as CategoryNameInterface[],
-          status: 200,
-          statusText: 'OK',
-          headers: {},
-          config: {}
-        } as AxiosResponse<CategoryNameInterface[]>)
-      }
+      service={categoryService.getCategoriesNames}
       sx={styles.categoryInput}
       textFieldProps={{
         label: t('breadCrumbs.categories')
