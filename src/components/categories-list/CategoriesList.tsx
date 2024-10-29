@@ -20,19 +20,18 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
 
   const { t } = useTranslation()
 
-  const fetchCategories = async () => {
-    try {
-      const response: AxiosResponse<ItemsWithCount<CategoryInterface>> =
-        await categoryService.getCategories(params)
-
-      setCategories(response.data.items)
-    } catch (error) {
-      console.error('error', error)
-      setCategories([])
-    }
-  }
-
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response: AxiosResponse<ItemsWithCount<CategoryInterface>> =
+          await categoryService.getCategories(params)
+
+        setCategories(response.data.items)
+      } catch (error) {
+        console.error('error', error)
+        setCategories([])
+      }
+    }
     void fetchCategories()
   }, [params])
 
