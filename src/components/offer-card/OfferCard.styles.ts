@@ -22,6 +22,14 @@ export const styles = {
     gap: '20px',
     alignItems: 'center'
   },
+  avatar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '50%',
+    height: '100px',
+    width: '100px'
+  },
   userInfo: {
     display: 'flex',
     flexDirection: 'column',
@@ -50,12 +58,19 @@ export const styles = {
     lineHeight: '20px',
     letterSpacing: '0.0025em'
   },
-  avatar: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '50%',
-    height: '100px',
-    width: '100px'
+  subject: {
+    fontSize: '18px',
+    fontWeight: 600,
+    wordBreak: 'break-word',
+    overflow: 'hidden',
+    color: 'primary.700'
+  },
+  addIcon: {
+    cursor: 'pointer',
+    display: 'inline-flex',
+    position: 'absolute',
+    top: '-5px',
+    right: '-5px',
+    color: 'basic.black'
   }
 }
