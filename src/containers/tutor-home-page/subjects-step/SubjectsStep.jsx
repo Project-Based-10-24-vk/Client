@@ -39,7 +39,7 @@ const SubjectsStep = ({ btnsBox }) => {
       if (selectedItems.some((item) => item._id === selectedSubject._id)) {
         setError(t('becomeTutor.categories.sameSubject'))
       } else {
-        setSelectedItems((prevItems) => [...prevItems, selectedSubject])
+        setSelectedItems((prevItems) => [...prevItems, selectedSubject.name])
         setSelectedSubject(null)
         setError('')
       }
