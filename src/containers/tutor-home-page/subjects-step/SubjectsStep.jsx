@@ -7,14 +7,15 @@ import Typography from '@mui/material/Typography'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
+import { useStepContext } from '~/context/step-context'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import img from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
 
-const SubjectsStep = ({ btnsBox }) => {
+const SubjectsStep = ({ btnsBox, stepLabel }) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedSubject, setSelectedSubject] = useState(null)
-  const [selectedItems, setSelectedItems] = useState([])
+  const { stepData, handleStepData } = useStepContext()
   const [error, setError] = useState('')
   const { t } = useTranslation()
 
@@ -36,18 +37,33 @@ const SubjectsStep = ({ btnsBox }) => {
 
   const handleAddItem = () => {
     if (selectedSubject) {
-      if (selectedItems.some((item) => item._id === selectedSubject._id)) {
+      if (
+        stepData[stepLabel].some((item) => item._id === selectedSubject._id)
+      ) {
         setError(t('becomeTutor.categories.sameSubject'))
       } else {
-        setSelectedItems((prevItems) => [...prevItems, selectedSubject.name])
         setSelectedSubject(null)
         setError('')
+        handleStepData(
+          stepLabel,
+          [
+            ...stepData[stepLabel],
+            { id: selectedSubject._id, name: selectedSubject.name }
+          ],
+          {}
+        )
       }
     }
   }
 
   const handleChipDelete = (item) => {
-    setSelectedItems((prevItems) => prevItems.filter((i) => i !== item))
+    handleStepData(
+      stepLabel,
+      stepData[stepLabel].filter((subj) => {
+        return subj.name !== item
+      }),
+      {}
+    )
   }
 
   return (
@@ -94,7 +110,7 @@ const SubjectsStep = ({ btnsBox }) => {
         <AppChipList
           defaultQuantity={4}
           handleChipDelete={handleChipDelete}
-          items={selectedItems}
+          items={stepData[stepLabel].map((subj) => `${subj.name}`)}
         />
 
         <Box sx={styles.btnsBox}>{btnsBox}</Box>
