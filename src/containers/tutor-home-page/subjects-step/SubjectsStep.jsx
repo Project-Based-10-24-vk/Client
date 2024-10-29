@@ -27,9 +27,9 @@ const SubjectsStep = ({ btnsBox }) => {
     setSelectedSubject(subject)
   }, [])
 
-  const fetchSubjects = useCallback(() => {
+  const fetchSubjects = useCallback(async () => {
     if (selectedCategory) {
-      return subjectService.getSubjects(null, selectedCategory._id)
+      return await subjectService.getSubjects(null, selectedCategory._id)
     }
     return []
   }, [selectedCategory])
@@ -61,7 +61,7 @@ const SubjectsStep = ({ btnsBox }) => {
           <AsyncAutocomplete
             labelField='name'
             onChange={handleCategoryChange}
-            service={categoryService.getCategories}
+            service={categoryService.getCategoriesNames}
             textFieldProps={{
               label: t('becomeTutor.categories.mainSubjectsLabel')
             }}

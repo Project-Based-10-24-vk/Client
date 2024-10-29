@@ -4,28 +4,42 @@ import { AutocompleteProps } from '@mui/material/Autocomplete'
 import { TextFieldProps } from '@mui/material/TextField'
 import AppAutoComplete from '~/components/app-auto-complete/AppAutoComplete'
 import useAxios, { UseAxiosProps } from '~/hooks/use-axios'
-import { defaultResponses } from '~/constants'
-import { Category, ServiceFunction } from '~/types'
+import {
+  CategoriesParams,
+  Category,
+  CategoryInterface,
+  ItemsWithCount,
+  ServiceFunction
+} from '~/types'
 
-interface AsyncAutocompleteProps<T, F extends boolean | undefined>
-  extends Omit<
-    AutocompleteProps<T, undefined, undefined, F>,
+interface AsyncAutocompleteProps<
+  T extends ItemsWithCount<CategoryInterface>,
+  F extends boolean | undefined
+> extends Omit<
+    AutocompleteProps<T['items'][number], undefined, undefined, F>,
     'value' | 'options' | 'renderInput'
   > {
-  service: ServiceFunction<T[]>
-  valueField?: keyof T
-  labelField?: keyof T
-  value: T[keyof T] | null | Category
+  service: ServiceFunction<T, CategoriesParams>
+  valueField?: keyof T['items'][number]
+  labelField?: keyof T['items'][number]
+  value: T['items'][number][keyof T['items'][number]] | null | Category
   fetchCondition?: boolean
   textFieldProps?: TextFieldProps
   fetchOnFocus?: boolean
   axiosProps?: Pick<
-    UseAxiosProps<T[]>,
+    UseAxiosProps<
+      ItemsWithCount<CategoryInterface>,
+      CategoriesParams,
+      ItemsWithCount<CategoryInterface>
+    >,
     'onResponse' | 'onResponseError' | 'transform'
   >
 }
 
-const AsyncAutocomplete = <T, F extends boolean | undefined = undefined>({
+const AsyncAutocomplete = <
+  T extends ItemsWithCount<CategoryInterface>,
+  F extends boolean | undefined = undefined
+>({
   fetchOnFocus,
   fetchCondition,
   textFieldProps,
@@ -36,41 +50,55 @@ const AsyncAutocomplete = <T, F extends boolean | undefined = undefined>({
   axiosProps,
   ...props
 }: AsyncAutocompleteProps<T, F>) => {
-  const { loading, response, fetchData } = useAxios<T[]>({
+  const { loading, response, fetchData } = useAxios<
+    ItemsWithCount<CategoryInterface>,
+    CategoriesParams
+  >({
     service,
     fetchOnMount: false,
-    defaultResponse: defaultResponses.array,
+    defaultResponse: { count: 0, items: [] },
     ...axiosProps
   })
 
-  useEffect(() => {
-    !fetchOnFocus && (fetchCondition ?? true) && void fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [service])
-
   const valueOption = useMemo(
     () =>
-      response.find(
-        (option) => (valueField ? option[valueField] : option) === value
-      ) || null,
+      response.items?.find((option) => {
+        if (valueField) {
+          return option[valueField as keyof typeof option] === value
+        }
+        return option === value
+      }) || null,
     [response, value, valueField]
   )
 
-  const getOptionLabel = useMemo(
-    () => (option: T) => (labelField ? option[labelField] : option) || '',
-    [labelField]
-  )
+  useEffect(() => {
+    !fetchOnFocus && (fetchCondition ?? true) && void fetchData()
+  }, [service])
 
-  const isOptionEqualToValue = (option: T, value: T) => {
+  const getOptionLabel = useMemo(() => {
+    return (option: T['items'][number]) => {
+      if (labelField) {
+        return option[labelField] || ''
+      }
+      return (option as unknown as string) || ''
+    }
+  }, [labelField])
+
+  const isOptionEqualToValue = (
+    option: T['items'][number],
+    value: T['items'][number] | null
+  ) => {
     if (valueField) {
-      return option?.[valueField] === value?.[valueField]
+      return option[valueField] === value?.[valueField]
     }
     return option === value
   }
 
   const handleFocus = () => {
-    const fetchFocusCondition = fetchCondition ?? !response.length
-    fetchOnFocus && fetchFocusCondition && void fetchData()
+    const fetchFocusCondition = fetchCondition ?? response.count === 0
+    if (fetchOnFocus && fetchFocusCondition) {
+      void fetchData()
+    }
   }
 
   return (
@@ -79,7 +107,7 @@ const AsyncAutocomplete = <T, F extends boolean | undefined = undefined>({
       isOptionEqualToValue={isOptionEqualToValue}
       loading={loading}
       onFocus={handleFocus}
-      options={response}
+      options={response.items || []}
       textFieldProps={textFieldProps}
       value={valueOption}
       {...props}
