@@ -1,26 +1,29 @@
 import { AxiosResponse } from 'axios'
 
-import { axiosClient } from '~/plugins/axiosClient'
 import { appApi } from '~/redux/apiSlice'
-
+import { axiosClient } from '~/plugins/axiosClient'
+import { createUrlPath } from '~/utils/helper-functions'
 import { URLs } from '~/constants/request'
 import {
-  GetResourcesParams,
-  GetResourcesCategoriesParams,
-  ItemsWithCount,
-  Question,
+  ApiMethodEnum,
   Categories,
-  CreateQuestionData,
   CategoryNameInterface,
   CreateCategoriesParams,
-  UpdateQuestionParams,
+  CreateQuestionData,
   GetQuestion,
+  GetResourcesCategoriesParams,
+  GetResourcesParams,
+  ItemsWithCount,
+  Question,
+  UpdateQuestionParams,
   UpdateResourceCategory,
-  ApiMethodEnum
+  type Lesson
 } from '~/types'
-import { createUrlPath } from '~/utils/helper-functions'
 
 export const ResourceService = {
+  getLesson: async (id?: string): Promise<AxiosResponse<Lesson>> => {
+    return await axiosClient.get(createUrlPath(URLs.resources.lessons.get, id))
+  },
   getQuestions: (
     params?: GetResourcesParams
   ): Promise<AxiosResponse<ItemsWithCount<Question>>> => {

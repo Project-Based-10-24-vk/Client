@@ -15,6 +15,7 @@ import footer from './footer.json'
 import guestHomePage from './guest-home-page.json'
 import header from './header.json'
 import iconsTooltip from './icons-tooltip.json'
+import lesson from './lesson.json'
 import login from './login.json'
 import myResourcesPage from './my-resources-page.json'
 import offerDetailsPage from './offer-details-page.json'
@@ -60,7 +61,8 @@ const ua = {
     cookiePolicyPage,
     guestHomePage,
     table,
-    subjectsPage
+    subjectsPage,
+    lesson
   }
 }
 
