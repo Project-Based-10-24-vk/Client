@@ -100,7 +100,6 @@ const Categories = () => {
         <NotFoundResults
           buttonText={t('errorMessages.buttonRequest', { name: 'category' })}
           description={t('errorMessages.tryAgainText', { name: 'category' })}
-          // onClick={()=> alert('Hello')}
         />
       )}
       <CategoriesList query={match} />
