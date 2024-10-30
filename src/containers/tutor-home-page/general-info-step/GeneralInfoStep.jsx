@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
@@ -7,9 +8,11 @@ import AppTextArea from '~/components/app-text-area/AppTextArea'
 import AppTextField from '~/components/app-text-field/AppTextField'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import { useStepContext } from '~/context/step-context'
+import { locationService } from '~/services/location-service'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 
 const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
+  const [countryCode, setCountryCode] = useState(null)
   const { stepData, handleStepData } = useStepContext()
   const { t } = useTranslation()
 
@@ -19,7 +22,27 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
       { ...stepData[stepLabel].data, [field]: event.target.value },
       {}
     )
+    setCountryCode('AF')
   }
+
+  const handleLocationChange = (field) => (event, newValue) => {
+    handleStepData(
+      stepLabel,
+      { ...stepData[stepLabel].data, [field]: newValue.name },
+      {}
+    )
+    setCountryCode('AF')
+  }
+
+  const fetchCities = useCallback(async () => {
+    if (countryCode) {
+      return await locationService.getCities(countryCode)
+    }
+    return []
+  }, [countryCode])
+
+  console.log(stepData)
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -50,12 +73,20 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
           <Box sx={styles.form}>
             <AsyncAutocomplete
               fullWidth
+              labelField='name'
+              onChange={handleLocationChange('country')}
+              service={locationService.getCountries}
               textFieldProps={{ label: t('common.labels.country') }}
               value={stepData[stepLabel].data.country}
             />
 
             <AsyncAutocomplete
+              disabled={!countryCode}
+              fetchCondition={!!countryCode}
               fullWidth
+              labelField='name'
+              onChange={handleLocationChange('city')}
+              service={fetchCities}
               textFieldProps={{ label: t('common.labels.city') }}
               value={stepData[stepLabel].data.city}
             />
