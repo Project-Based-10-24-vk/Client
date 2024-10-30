@@ -73,7 +73,7 @@ const useSteps = ({ steps }) => {
         city: city ?? ''
       },
       professionalSummary: professionalSummary,
-      mainSubjects: stepData.subjects.map((subj) => `${subj.id}`),
+      mainSubjects: stepData.subjects,
       nativeLanguage: stepData.language ?? ''
     }
 

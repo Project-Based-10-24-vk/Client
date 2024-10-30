@@ -7,15 +7,14 @@ import Typography from '@mui/material/Typography'
 import { styles } from '~/containers/tutor-home-page/subjects-step/SubjectsStep.styles'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
-import { useStepContext } from '~/context/step-context'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import img from '~/assets/img/tutor-home-page/become-tutor/study-category.svg'
 
-const SubjectsStep = ({ btnsBox, stepLabel }) => {
+const SubjectsStep = ({ btnsBox }) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedSubject, setSelectedSubject] = useState(null)
-  const { stepData, handleStepData } = useStepContext()
+  const [selectedItems, setSelectedItems] = useState([])
   const [error, setError] = useState('')
   const { t } = useTranslation()
 
@@ -28,42 +27,27 @@ const SubjectsStep = ({ btnsBox, stepLabel }) => {
     setSelectedSubject(subject)
   }, [])
 
-  const fetchSubjects = useCallback(async () => {
+  const fetchSubjects = useCallback(() => {
     if (selectedCategory) {
-      return await subjectService.getSubjects(null, selectedCategory._id)
+      return subjectService.getSubjects(null, selectedCategory._id)
     }
     return []
   }, [selectedCategory])
 
   const handleAddItem = () => {
     if (selectedSubject) {
-      if (
-        stepData[stepLabel].some((item) => item._id === selectedSubject._id)
-      ) {
+      if (selectedItems.some((item) => item._id === selectedSubject._id)) {
         setError(t('becomeTutor.categories.sameSubject'))
       } else {
+        setSelectedItems((prevItems) => [...prevItems, selectedSubject])
         setSelectedSubject(null)
         setError('')
-        handleStepData(
-          stepLabel,
-          [
-            ...stepData[stepLabel],
-            { id: selectedSubject._id, name: selectedSubject.name }
-          ],
-          {}
-        )
       }
     }
   }
 
   const handleChipDelete = (item) => {
-    handleStepData(
-      stepLabel,
-      stepData[stepLabel].filter((subj) => {
-        return subj.name !== item
-      }),
-      {}
-    )
+    setSelectedItems((prevItems) => prevItems.filter((i) => i !== item))
   }
 
   return (
@@ -75,10 +59,9 @@ const SubjectsStep = ({ btnsBox, stepLabel }) => {
         {t('becomeTutor.categories.title')}
         <Box sx={styles.selectsBox}>
           <AsyncAutocomplete
-            axiosProps={{ transform: (data) => data.items }}
             labelField='name'
             onChange={handleCategoryChange}
-            service={categoryService.getCategoriesNames}
+            service={categoryService.getCategories}
             textFieldProps={{
               label: t('becomeTutor.categories.mainSubjectsLabel')
             }}
@@ -86,7 +69,6 @@ const SubjectsStep = ({ btnsBox, stepLabel }) => {
           />
 
           <AsyncAutocomplete
-            axiosProps={{ transform: (data) => data.items }}
             disabled={!selectedCategory}
             fetchCondition={!!selectedCategory}
             labelField='name'
@@ -112,7 +94,7 @@ const SubjectsStep = ({ btnsBox, stepLabel }) => {
         <AppChipList
           defaultQuantity={4}
           handleChipDelete={handleChipDelete}
-          items={stepData[stepLabel].map((subj) => `${subj.name}`)}
+          items={selectedItems}
         />
 
         <Box sx={styles.btnsBox}>{btnsBox}</Box>
