@@ -6,6 +6,19 @@
     "attachments": "Вкладення",
     "categories": "Категорії"
   },
+  "lessons": {
+    "addBtn": "Новий урок",
+    "add": "Додати Урок",
+    "title": "Заголовок",
+    "titleWithCategory": "Заголовок & Категорія",
+    "updated": "Останнє оновлення",
+    "emptyItems": "У вас ще немає уроків",
+    "confirmDeletionTitle": "Ви підтверджуєте видалення уроку?",
+    "successDeletion": "Урок було успішно видалено",
+    "successDuplication": "Урок було успішно продубльовано",
+    "successEditedQuestion":"Урок було успішно відредаговано",
+    "successAddedQuestion":"Урок було успішно створено"
+  },
   "questions": {
     "addBtn": "Нове запитання",
     "add": "Додати Питання",

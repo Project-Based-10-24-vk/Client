@@ -6,6 +6,19 @@
     "attachments": "Attachments",
     "categories": "Categories"
   },
+  "lessons": {
+    "addBtn": "New lesson",
+    "add": "Add Lessons",
+    "title": "Title",
+    "titleWithCategory": "Title & Category",
+    "updated": "Last updates",
+    "emptyItems": "You have no lessons yet",
+    "confirmDeletionTitle": "Do you confirm lesson deletion?",
+    "successDeletion": "Lesson was deleted successfully",
+    "successDuplication": "Lesson was successfully duplicated",
+    "successEditedQuestion":"Lesson was successfully edited",
+    "successAddedQuestion":"Lesson was successfully added"
+  },
   "questions": {
     "addBtn": "New question",
     "add": "Add Questions",

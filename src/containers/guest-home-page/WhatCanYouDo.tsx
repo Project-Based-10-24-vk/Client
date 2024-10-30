@@ -7,7 +7,6 @@ import { styles } from '~/containers/guest-home-page/styles/WhatCanYouDo.styles'
 import InfoCard from '~/components/info-card/InfoCard'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { guestRoutes } from '~/router/constants/guestRoutes'
-import { useModalContext } from '~/context/modal-context'
 import learnImg from '~/assets/img/guest-home-page/learnImg.png'
 import teachImg from '~/assets/img/guest-home-page/teachImg.png'
 import { UserRoleEnum } from '~/types'
@@ -56,7 +55,6 @@ const WhatCanYouDo = () => {
         style={styles.titleWithDescription}
         title={t('guestHomePage.whatCanYouDo.title')}
       />
-
       <Box sx={styles.cards}>{cards}</Box>
     </Box>
   )

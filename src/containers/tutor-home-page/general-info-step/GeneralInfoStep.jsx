@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
@@ -14,42 +14,31 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
   const { stepData, handleStepData } = useStepContext()
   const { t } = useTranslation()
 
-  const [data, setData] = useState(stepData.generalInfo.data)
 
   useEffect(() => {
-    handleStepData(stepLabel, data, data.errors)
-  }, [data, stepLabel, handleStepData])
-
-  useEffect(() => {
-    if (data.errors === undefined) {
+    if (stepData[stepLabel].errors === undefined) {
       return
     }
 
-    const allFieldsAreValid = Object.entries(data).every(
+    const allFieldsAreValid = Object.entries(stepData.generalInfo.data).every(
       ([key, value]) => key === 'city' || key === 'country' || value !== ''
     )
 
     setIsValidated(allFieldsAreValid)
-  }, [data, setIsValidated])
+
+  }, [setIsValidated, stepData, stepData.generalInfo.data])
 
   const handleInputChange = (field) => (event) => {
     const value = event.target.value
-    const errorMessage = `${field} can't be empty`
+    const errorMessage = value.length === 0 ? `${field} can't be empty` : null
 
-    setData((prevData) =>
-      value.length === 0
-        ? {
-            ...prevData,
-            [field]: value,
-            errors: { ...prevData.errors, [field]: errorMessage }
-          }
-        : {
-            ...prevData,
-            [field]: value,
-            errors: { ...prevData.errors, [field]: null }
-          }
+    handleStepData(
+      stepLabel,
+      { ...stepData[stepLabel].data, [field]: value },
+      { ...stepData[stepLabel].errors, [field]: errorMessage }
     )
   }
+
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -63,9 +52,9 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
 
           <Box sx={styles.form}>
             <AppTextField
-              error={data.errors?.firstName}
+              error={stepData[stepLabel].errors?.firstName}
               errorMsg={
-                data.errors?.firstName
+                stepData[stepLabel].errors?.firstName
                   ? t('step.generalInfoFields.firstName')
                   : ''
               }
@@ -76,9 +65,9 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
             />
 
             <AppTextField
-              error={!!data.errors?.lastName}
+              error={!!stepData[stepLabel].errors?.lastName}
               errorMsg={
-                data.errors?.lastName
+                stepData[stepLabel].errors?.lastName
                   ? t('step.generalInfoFields.lastname')
                   : ''
               }
@@ -91,7 +80,7 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
 
           <Box sx={styles.form}>
             <AsyncAutocomplete
-              error={!!data.errors?.country}
+              error={!!stepData[stepLabel].errors?.country}
               fullWidth
               onChange={handleInputChange('country')}
               textFieldProps={{ label: t('common.labels.country') }}
@@ -99,7 +88,7 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
             />
 
             <AsyncAutocomplete
-              error={!!data.errors?.city}
+              error={!!stepData[stepLabel].errors?.city}
               fullWidth
               onChange={handleInputChange('country')}
               textFieldProps={{ label: t('common.labels.city') }}
@@ -108,9 +97,9 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
           </Box>
 
           <AppTextArea
-            error={!!data.errors?.professionalSummary}
+            error={!!stepData[stepLabel].errors?.professionalSummary}
             errorMsg={
-              data.errors?.professionalSummary
+              stepData[stepLabel].errors?.professionalSummary
                 ? t('becomeTutor.experience.title')
                 : ''
             }
