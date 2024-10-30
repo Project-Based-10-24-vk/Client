@@ -25,15 +25,11 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
       return
     }
 
-    const allFieldsAreValid = data.errors
-      ? Object.values(data.errors).every((value) => value === null)
-      : true
+    const allFieldsAreValid = Object.entries(data).every(
+      ([key, value]) => key === 'city' || key === 'country' || value !== ''
+    )
 
-    if (allFieldsAreValid) {
-      setIsValidated(true)
-    } else {
-      setIsValidated(false)
-    }
+    setIsValidated(allFieldsAreValid)
   }, [data, setIsValidated])
 
   const handleInputChange = (field) => (event) => {
@@ -54,7 +50,6 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
           }
     )
   }
-
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -77,7 +72,7 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
               fullWidth
               label={t('common.labels.firstName')}
               onChange={handleInputChange('firstName')}
-              value={data.firstName}
+              value={stepData[stepLabel].data.firstName}
             />
 
             <AppTextField
@@ -90,7 +85,7 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
               fullWidth
               label={t('common.labels.lastName')}
               onChange={handleInputChange('lastName')}
-              value={data.lastName}
+              value={stepData[stepLabel].data.lastName}
             />
           </Box>
 
@@ -100,7 +95,7 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
               fullWidth
               onChange={handleInputChange('country')}
               textFieldProps={{ label: t('common.labels.country') }}
-              value={data.country}
+              value={stepData[stepLabel].data.country}
             />
 
             <AsyncAutocomplete
@@ -108,7 +103,7 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
               fullWidth
               onChange={handleInputChange('country')}
               textFieldProps={{ label: t('common.labels.city') }}
-              value={data.city}
+              value={stepData[stepLabel].data.city}
             />
           </Box>
 
@@ -124,7 +119,7 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
             maxLength={70}
             onChange={handleInputChange('professionalSummary')}
             sx={styles.textarea}
-            value={data.professionalSummary}
+            value={stepData[stepLabel].data.professionalSummary}
           />
         </Box>
         {btnsBox}

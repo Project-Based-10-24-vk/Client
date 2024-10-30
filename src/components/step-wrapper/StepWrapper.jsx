@@ -25,7 +25,7 @@ const StepWrapper = ({ children, steps }) => {
           setActiveStep(index)
         }
       : () => {},
-    [isValidated]
+    [isValidated, setActiveStep]
   )
 
   const stepLabels = steps.map((step, index) => (
