@@ -2,6 +2,7 @@ import { SxProps, Theme } from '@mui/material'
 import {
   Breakpoints,
   Categories,
+  Lessons,
   ConvertedSize,
   FormatedDate,
   GroupedByDateItems,
@@ -116,7 +117,7 @@ export const getScreenBasedLimit = (
   }
 }
 
-export const ajustColumns = <T extends Question | Categories>(
+export const ajustColumns = <T extends Question | Categories | Lessons>(
   breakpoints: Breakpoints,
   columns: TableColumn<T>[],
   rules: RemoveColumnRules<T>
