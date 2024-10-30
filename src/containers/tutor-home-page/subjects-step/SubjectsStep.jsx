@@ -75,6 +75,7 @@ const SubjectsStep = ({ btnsBox, stepLabel }) => {
         {t('becomeTutor.categories.title')}
         <Box sx={styles.selectsBox}>
           <AsyncAutocomplete
+            axiosProps={{ transform: (data) => data.items }}
             labelField='name'
             onChange={handleCategoryChange}
             service={categoryService.getCategoriesNames}
@@ -85,6 +86,7 @@ const SubjectsStep = ({ btnsBox, stepLabel }) => {
           />
 
           <AsyncAutocomplete
+            axiosProps={{ transform: (data) => data.items }}
             disabled={!selectedCategory}
             fetchCondition={!!selectedCategory}
             labelField='name'
