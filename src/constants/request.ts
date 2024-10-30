@@ -28,6 +28,9 @@ export const URLs = {
     getNames: '/subjects/names'
   },
   resources: {
+    lessons: {
+      get: '/lessons'
+    },
     questions: {
       get: '/questions',
       delete: '/questions',

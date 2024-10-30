@@ -24,3 +24,5 @@ export type Sort = {
   order: SortEnum
   orderBy: string
 }
+
+export type ResourceType = 'lessons' | 'attachments' | 'questions' | 'quizzes'
