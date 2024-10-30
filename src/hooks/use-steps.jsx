@@ -69,8 +69,8 @@ const useSteps = ({ steps }) => {
       firstName,
       lastName,
       address: {
-        country: country ?? '',
-        city: city ?? ''
+        country: country ? country.name : '',
+        city: city ? city.name : ''
       },
       professionalSummary: professionalSummary,
       mainSubjects: stepData.subjects,

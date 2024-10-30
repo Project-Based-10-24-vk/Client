@@ -1,4 +1,3 @@
-import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
@@ -12,34 +11,20 @@ import { locationService } from '~/services/location-service'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 
 const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
-  const [countryCode, setCountryCode] = useState(null)
   const { stepData, handleStepData } = useStepContext()
   const { t } = useTranslation()
 
-  const handleInputChange = (field) => (event) => {
+  const handleInputChange = (field) => (event, newValue) => {
     handleStepData(
       stepLabel,
-      { ...stepData[stepLabel].data, [field]: event.target.value },
+      {
+        ...stepData[stepLabel].data,
+        [field]: newValue,
+        ...(field === 'country' ? { city: {} } : {})
+      },
       {}
     )
-    setCountryCode('AF')
   }
-
-  const handleLocationChange = (field) => (event, newValue) => {
-    handleStepData(
-      stepLabel,
-      { ...stepData[stepLabel].data, [field]: newValue.name },
-      {}
-    )
-    setCountryCode('AF')
-  }
-
-  const fetchCities = useCallback(async () => {
-    if (countryCode) {
-      return await locationService.getCities(countryCode)
-    }
-    return []
-  }, [countryCode])
 
   return (
     <Box sx={styles.container}>
@@ -56,14 +41,18 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
             <AppTextField
               fullWidth
               label={t('common.labels.firstName')}
-              onChange={handleInputChange('firstName')}
+              onChange={(event) =>
+                handleInputChange('firstName')(event, event.target.value)
+              }
               value={stepData[stepLabel].data.firstName}
             />
 
             <AppTextField
               fullWidth
               label={t('common.labels.lastName')}
-              onChange={handleInputChange('lastName')}
+              onChange={(event) =>
+                handleInputChange('lastName')(event, event.target.value)
+              }
               value={stepData[stepLabel].data.lastName}
             />
           </Box>
@@ -72,21 +61,29 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
             <AsyncAutocomplete
               fullWidth
               labelField='name'
-              onChange={handleLocationChange('country')}
+              onChange={(event, newValue) =>
+                handleInputChange('country')(event, newValue)
+              }
               service={locationService.getCountries}
               textFieldProps={{ label: t('common.labels.country') }}
-              value={stepData[stepLabel].data.country}
+              value={stepData[stepLabel].data.country?.name}
+              valueField='name'
             />
 
             <AsyncAutocomplete
-              disabled={!countryCode}
-              fetchCondition={!!countryCode}
+              disabled={!stepData[stepLabel].data.country?.iso2}
+              fetchCondition={!!stepData[stepLabel].data.country?.iso2}
               fullWidth
               labelField='name'
-              onChange={handleLocationChange('city')}
-              service={fetchCities}
+              onChange={(event, newValue) =>
+                handleInputChange('city')(event, newValue)
+              }
+              service={() =>
+                locationService.getCities(stepData[stepLabel].data.country.iso2)
+              }
               textFieldProps={{ label: t('common.labels.city') }}
-              value={stepData[stepLabel].data.city}
+              value={stepData[stepLabel].data.city?.name}
+              valueField='name'
             />
           </Box>
 
@@ -94,7 +91,12 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
             fullWidth
             label={t('becomeTutor.generalInfo.textFieldLabel')}
             maxLength={70}
-            onChange={handleInputChange('professionalSummary')}
+            onChange={(event) =>
+              handleInputChange('professionalSummary')(
+                event,
+                event.target.value
+              )
+            }
             sx={styles.textarea}
             value={stepData[stepLabel].data.professionalSummary}
           />
