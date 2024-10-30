@@ -10,24 +10,27 @@ import {
   removeColumnRules
 } from '~/containers/my-resources/lessons-container/LessonsContainer.constants'
 import MyResourcesTable from '~/containers/my-resources/my-resources-table/MyResourcesTable'
+import AppButton from '~/components/app-button/AppButton'
 import Loader from '~/components/loader/Loader'
+import { useSnackBarContext } from '~/context/snackbar-context'
 import { ajustColumns, getScreenBasedLimit } from '~/utils/helper-functions'
 import usePagination from '~/hooks/table/use-pagination'
 import useSort from '~/hooks/table/use-sort'
 import useAxios from '~/hooks/use-axios'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { ResourceService } from '~/services/resource-service'
-import { defaultResponses } from '~/constants'
+import { defaultResponses, snackbarVariants } from '~/constants'
 import {
+  ErrorResponse,
   GetResourcesCategoriesParams,
   ItemsWithCount,
   Lessons,
   ResourcesTabsEnum
 } from '~/types'
 
+//this will be replaced with handlers that redirect to apropriate page/component
 const mockEdit = (id: string) => console.log(`edit lesson ${id}`)
-
-const mockFetch = () => Promise.resolve()
+const mockAdd = () => console.log(`add new lesson`)
 
 const LessonsContainer = () => {
   const { t } = useTranslation()
@@ -35,9 +38,20 @@ const LessonsContainer = () => {
   const { page, handleChangePage } = usePagination()
   const sortOptions = useSort({ initialSort })
   const breakpoints = useBreakpoints()
+  const { setAlert } = useSnackBarContext()
   const [selectedItems, setSelectedItems] = useState<string[]>([])
   const itemsPerPage = getScreenBasedLimit(breakpoints, itemsLoadLimit)
   const { sort } = sortOptions
+
+  const onResponseError = useCallback(
+    (error: ErrorResponse) => {
+      setAlert({
+        severity: snackbarVariants.error,
+        message: error ? `${error.message}` : ''
+      })
+    },
+    [setAlert]
+  )
 
   const getLessons = useCallback(
     () =>
@@ -60,7 +74,8 @@ const LessonsContainer = () => {
     GetResourcesCategoriesParams
   >({
     service: getLessons,
-    defaultResponse: defaultResponses.itemsWithCount
+    defaultResponse: defaultResponses.itemsWithCount,
+    onResponseError
   })
 
   const columnsToShow = ajustColumns<Lessons>(
@@ -84,7 +99,12 @@ const LessonsContainer = () => {
     <Box>
       <AddResourceWithInput
         btnText={t('myResourcesPage.lessons.addBtn')}
-        fetchData={mockFetch}
+        button={
+          <AppButton onClick={mockAdd}>
+            {t('myResourcesPage.categories.addBtn')}
+          </AppButton>
+        }
+        fetchData={fetchData}
         link={''}
         searchRef={searchTitle}
         selectedItems={selectedItems}

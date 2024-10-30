@@ -1,34 +1,35 @@
 import { AxiosResponse } from 'axios'
 
-import { axiosClient } from '~/plugins/axiosClient'
 import { appApi } from '~/redux/apiSlice'
-
+import { axiosClient } from '~/plugins/axiosClient'
+import { createUrlPath } from '~/utils/helper-functions'
 import { URLs } from '~/constants/request'
 import {
-  GetResourcesParams,
-  GetResourcesCategoriesParams,
-  ItemsWithCount,
-  Question,
+  ApiMethodEnum,
   Categories,
-  CreateQuestionData,
   CategoryNameInterface,
   CreateCategoriesParams,
-  UpdateQuestionParams,
-  GetQuestion,
-  UpdateResourceCategory,
-  ApiMethodEnum,
-  Lessons,
   CreateLessonData,
+  CreateQuestionData,
+  GetLessonsParams,
+  GetQuestion,
+  GetResourcesCategoriesParams,
+  GetResourcesParams,
+  ItemsWithCount,
+  Lessons,
+  Question,
   UpdateLessonParams,
-  GetLessonsParams
+  UpdateQuestionParams,
+  UpdateResourceCategory
 } from '~/types'
-import { createUrlPath } from '~/utils/helper-functions'
 
 export const ResourceService = {
-  getLessons: (
+  getLessons: async (
     params?: GetLessonsParams
   ): Promise<AxiosResponse<ItemsWithCount<Lessons>>> => {
-    return axiosClient.get(URLs.resources.lessons.get, { params })
+    return await axiosClient.get(createUrlPath(URLs.resources.lessons.get), {
+      params
+    })
   },
   getLesson: async (id?: string): Promise<AxiosResponse<Lessons>> =>
     await axiosClient.get(createUrlPath(URLs.resources.lessons.get, id)),
@@ -41,9 +42,7 @@ export const ResourceService = {
       params
     ),
   deleteLesson: async (id: string): Promise<AxiosResponse> =>
-    await axiosClient.delete(
-      createUrlPath(URLs.resources.lessons.delete, id)
-    ),
+    await axiosClient.delete(createUrlPath(URLs.resources.lessons.delete, id)),
   getQuestions: (
     params?: GetResourcesParams
   ): Promise<AxiosResponse<ItemsWithCount<Question>>> => {

@@ -1,42 +1,40 @@
 import { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Box from '@mui/material/Box'
-import AddIcon from '@mui/icons-material/Add'
 
-import Loader from '~/components/loader/Loader'
-import AppButton from '~/components/app-button/AppButton'
+import AddIcon from '@mui/icons-material/Add'
+import Box from '@mui/material/Box'
 import AddCategoriesModal from '~/containers/my-resources/add-categories-modal/AddCategoriesModal'
 import AddResourceWithInput from '~/containers/my-resources/add-resource-with-input/AddResourceWithInput'
+import {
+  columns,
+  initialSort,
+  itemsLoadLimit,
+  removeColumnRules
+} from '~/containers/my-resources/categories-container/CategoriesContainer.constansts'
+import { styles } from '~/containers/my-resources/categories-container/CategoriesContainer.style'
+import MyResourcesTable from '~/containers/my-resources/my-resources-table/MyResourcesTable'
+import AppButton from '~/components/app-button/AppButton'
+import Loader from '~/components/loader/Loader'
+import { useModalContext } from '~/context/modal-context'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import { ajustColumns, getScreenBasedLimit } from '~/utils/helper-functions'
+import usePagination from '~/hooks/table/use-pagination'
+import useSort from '~/hooks/table/use-sort'
+import useAxios from '~/hooks/use-axios'
+import useBreakpoints from '~/hooks/use-breakpoints'
 import {
   ResourceService,
   useUpdateResourceCategoryMutation
 } from '~/services/resource-service'
-import MyResourcesTable from '~/containers/my-resources/my-resources-table/MyResourcesTable'
-import useAxios from '~/hooks/use-axios'
-import useSort from '~/hooks/table/use-sort'
-import useBreakpoints from '~/hooks/use-breakpoints'
-import usePagination from '~/hooks/table/use-pagination'
-import { useSnackBarContext } from '~/context/snackbar-context'
-import { useModalContext } from '~/context/modal-context'
-
 import { defaultResponses, snackbarVariants } from '~/constants'
 import {
-  initialSort,
-  itemsLoadLimit,
-  columns,
-  removeColumnRules
-} from '~/containers/my-resources/categories-container/CategoriesContainer.constansts'
-import {
   Categories,
-  ItemsWithCount,
-  GetResourcesCategoriesParams,
+  CreateCategoriesParams,
   ErrorResponse,
-  ResourcesTabsEnum,
-  CreateCategoriesParams
+  GetResourcesCategoriesParams,
+  ItemsWithCount,
+  ResourcesTabsEnum
 } from '~/types'
-import { ajustColumns, getScreenBasedLimit } from '~/utils/helper-functions'
-
-import { styles } from '~/containers/my-resources/categories-container/CategoriesContainer.style'
 
 const CategoriesContainer = () => {
   const { t } = useTranslation()
@@ -106,7 +104,7 @@ const CategoriesContainer = () => {
     defaultResponse: defaultResponses.itemsWithCount,
     onResponseError
   })
-
+  console.log(response)
   const onCategoryUpdate = useCallback(() => void fetchData(), [fetchData])
   const onCategoryCreate = useCallback(
     (response: Categories | null) => {
