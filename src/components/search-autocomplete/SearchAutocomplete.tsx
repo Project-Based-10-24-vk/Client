@@ -34,7 +34,6 @@ interface SearchAutocompleteProps
   extends Omit<AutocompleteProps<string, false, true, true>, 'renderInput'> {
   search: string
   setSearch: Dispatch<SetStateAction<string>>
-  setInputValue: Dispatch<SetStateAction<string>>
   onSearchChange?: () => void
   textFieldProps: TextFieldProps
   renderInput?: (params: AutocompleteRenderInputParams) => ReactNode
@@ -44,7 +43,6 @@ const SearchAutocomplete = ({
   search,
   setSearch,
   onSearchChange,
-  setInputValue,
   textFieldProps,
   ...props
 }: SearchAutocompleteProps) => {
@@ -63,7 +61,6 @@ const SearchAutocomplete = ({
 
   const onInputChange = (_: ChangeEvent<HTMLInputElement>, value: string) => {
     setSearchInput(value)
-    setInputValue(value)
   }
 
   const handleAutoCompleteChange = (_: SyntheticEvent, value: string) => {

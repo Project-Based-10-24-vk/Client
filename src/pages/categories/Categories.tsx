@@ -23,7 +23,6 @@ const Categories = () => {
   const [isSearchButtonClicked, setIsSearhButtonClicked] =
     useState<boolean>(false)
   const [isCategoryFound, setIsCategoryFound] = useState<boolean>(false)
-  const [inputValue, setInputValue] = useState<string>('')
   const { t } = useTranslation()
 
   const transform = useCallback(
@@ -59,13 +58,10 @@ const Categories = () => {
         setIsCategoryFound(false)
       }
     }
-  }, [isSearchButtonClicked])
-
-  useEffect(() => {
-    if (!inputValue || !match) {
+    if (!match) {
       setIsCategoryFound(false)
     }
-  }, [inputValue, match])
+  }, [isSearchButtonClicked])
 
   return (
     <PageWrapper>
@@ -89,7 +85,6 @@ const Categories = () => {
           onSearchChange={() => setIsSearhButtonClicked(!isSearchButtonClicked)}
           options={categoriesNamesItems}
           search={match}
-          setInputValue={setInputValue}
           setSearch={setMatch}
           textFieldProps={{
             label: t('categoriesPage.searchLabel')
