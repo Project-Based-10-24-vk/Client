@@ -101,7 +101,7 @@ const LessonsContainer = () => {
         btnText={t('myResourcesPage.lessons.addBtn')}
         button={
           <AppButton onClick={mockAdd}>
-            {t('myResourcesPage.categories.addBtn')}
+            {t('myResourcesPage.lessons.addBtn')}
           </AppButton>
         }
         fetchData={fetchData}
