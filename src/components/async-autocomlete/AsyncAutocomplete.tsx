@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react'
+
 import { AutocompleteProps } from '@mui/material/Autocomplete'
 import { TextFieldProps } from '@mui/material/TextField'
-
 import AppAutoComplete from '~/components/app-auto-complete/AppAutoComplete'
 import useAxios, { UseAxiosProps } from '~/hooks/use-axios'
 import { defaultResponses } from '~/constants'
-import { ServiceFunction, Category } from '~/types'
+import { Category, ServiceFunction } from '~/types'
 
 interface AsyncAutocompleteProps<T, F extends boolean | undefined>
   extends Omit<
@@ -19,7 +19,10 @@ interface AsyncAutocompleteProps<T, F extends boolean | undefined>
   fetchCondition?: boolean
   textFieldProps?: TextFieldProps
   fetchOnFocus?: boolean
-  axiosProps?: Pick<UseAxiosProps<T[]>, 'onResponse' | 'onResponseError'>
+  axiosProps?: Pick<
+    UseAxiosProps<T[]>,
+    'onResponse' | 'onResponseError' | 'transform'
+  >
 }
 
 const AsyncAutocomplete = <T, F extends boolean | undefined = undefined>({

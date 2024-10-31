@@ -12,7 +12,8 @@ export const styles = {
       margin: 0,
       mb: 0,
       lineHeight: '24px',
-      textAlign: 'start'
+      textAlign: 'start',
+      alignSelf: 'center'
     },
     title: {
       whiteSpace: 'nowrap',
