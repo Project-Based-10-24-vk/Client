@@ -104,7 +104,6 @@ const CategoriesContainer = () => {
     defaultResponse: defaultResponses.itemsWithCount,
     onResponseError
   })
-  console.log(response)
   const onCategoryUpdate = useCallback(() => void fetchData(), [fetchData])
   const onCategoryCreate = useCallback(
     (response: Categories | null) => {
