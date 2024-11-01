@@ -28,6 +28,12 @@ export const URLs = {
     getNames: '/subjects/names'
   },
   resources: {
+    lessons: {
+      get: '/lessons',
+      delete: '/lessons',
+      post: '/lessons',
+      patch: '/lessons'      
+    },
     questions: {
       get: '/questions',
       delete: '/questions',

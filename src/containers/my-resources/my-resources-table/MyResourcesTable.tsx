@@ -1,23 +1,23 @@
-import { useTranslation } from 'react-i18next'
 import { AxiosResponse } from 'axios'
-import { PaginationProps } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
-import { useSnackBarContext } from '~/context/snackbar-context'
-import useAxios from '~/hooks/use-axios'
-import useConfirm from '~/hooks/use-confirm'
+import { PaginationProps } from '@mui/material'
 import AppPagination from '~/components/app-pagination/AppPagination'
 import EnhancedTable, {
   EnhancedTableProps
 } from '~/components/enhanced-table/EnhancedTable'
-
+import { useSnackBarContext } from '~/context/snackbar-context'
+import useAxios from '~/hooks/use-axios'
+import useConfirm from '~/hooks/use-confirm'
 import { snackbarVariants } from '~/constants'
 import {
   ErrorResponse,
-  TableItem,
   ResourcesTableData,
-  TableRowAction,
-  ResourcesTabsEnum
+  ResourcesTabsEnum,
+  TableItem,
+  TableRowAction
 } from '~/types'
+
 // import { roundedBorderTable } from '~/containers/my-cooperations/cooperations-container/CooperationContainer.styles'
 
 interface MyResourcesTableInterface<T>
@@ -53,7 +53,7 @@ const MyResourcesTable = <T extends TableItem>({
   const onDeleteError = (error: ErrorResponse) => {
     setAlert({
       severity: snackbarVariants.error,
-      message: error ? `errors.${error.code}` : ''
+      message: error ? `${error.message}` : ''
     })
   }
 
