@@ -61,7 +61,7 @@ const Categories = () => {
     if (!match) {
       setIsCategoryFound(false)
     }
-  }, [isSearchButtonClicked])
+  }, [isSearchButtonClicked, categoriesNamesItems, match])
 
   return (
     <PageWrapper>
