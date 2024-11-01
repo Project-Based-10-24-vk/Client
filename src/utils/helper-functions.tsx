@@ -5,6 +5,7 @@ import {
   ConvertedSize,
   FormatedDate,
   GroupedByDateItems,
+  Lessons,
   Question,
   RemoveColumnRules,
   ScreenBasedLimits,
@@ -116,7 +117,7 @@ export const getScreenBasedLimit = (
   }
 }
 
-export const ajustColumns = <T extends Question | Categories>(
+export const ajustColumns = <T extends Question | Categories | Lessons>(
   breakpoints: Breakpoints,
   columns: TableColumn<T>[],
   rules: RemoveColumnRules<T>

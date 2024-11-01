@@ -1,13 +1,13 @@
 import { ReactElement } from 'react'
 
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined'
+import CategoryIcon from '@mui/icons-material/Category'
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined'
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined'
-import CategoryIcon from '@mui/icons-material/Category'
 import { ButtonProps } from '@mui/material/Button'
-
-import QuestionsContainer from '~/containers/my-resources/questions-container/QuestionsContainer'
 import CategoriesContainer from '~/containers/my-resources/categories-container/CategoriesContainer'
+import LessonsContainer from '~/containers/my-resources/lessons-container/LessonsContainer'
+import QuestionsContainer from '~/containers/my-resources/questions-container/QuestionsContainer'
 
 export interface MyResoursesTabsData {
   [key: string]: {
@@ -20,7 +20,7 @@ export interface MyResoursesTabsData {
 export const tabsData: MyResoursesTabsData = {
   lessons: {
     title: 'myResourcesPage.tabs.lessons',
-    content: <h4>Lessons</h4>,
+    content: <LessonsContainer />,
     icon: <ArticleOutlinedIcon />
   },
   quizzes: {

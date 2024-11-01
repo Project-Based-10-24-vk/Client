@@ -11,7 +11,10 @@ export const subjectService = {
     categoryId?: string
   ): Promise<AxiosResponse<ItemsWithCount<SubjectInterface>>> => {
     const category = createUrlPath(URLs.categories.get, categoryId)
-    return axiosClient.get(`${category}${URLs.subjects.get}`, { params })
+    return axiosClient.get(
+      `${URLs.subjects.get}${category}${URLs.subjects.get}`,
+      { params }
+    )
   },
   getSubjectsNames: (
     categoryId: string | null

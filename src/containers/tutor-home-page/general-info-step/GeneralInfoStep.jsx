@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Box from '@mui/material/Box'
@@ -10,11 +11,25 @@ import { useStepContext } from '~/context/step-context'
 import { locationService } from '~/services/location-service'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 
-const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
+const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
   const { stepData, handleStepData } = useStepContext()
   const { t } = useTranslation()
 
+  useEffect(() => {
+    if (stepData[stepLabel].errors === undefined) {
+      return
+    }
+
+    const allFieldsAreValid = Object.entries(stepData.generalInfo.data).every(
+      ([key, value]) => key === 'city' || key === 'country' || value !== ''
+    )
+
+    setIsValidated(allFieldsAreValid)
+  }, [setIsValidated, stepData, stepData.generalInfo.data, stepLabel])
+
   const handleInputChange = (field) => (event, newValue) => {
+    const errorMessage =
+      newValue.length === 0 ? `${field} can't be empty` : null
     handleStepData(
       stepLabel,
       {
@@ -22,10 +37,9 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
         [field]: newValue,
         ...(field === 'country' ? { city: {} } : {})
       },
-      {}
+      { ...stepData[stepLabel].errors, [field]: errorMessage }
     )
   }
-
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -39,6 +53,12 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
 
           <Box sx={styles.form}>
             <AppTextField
+              error={stepData[stepLabel].errors?.firstName}
+              errorMsg={
+                stepData[stepLabel].errors?.firstName
+                  ? t('step.generalInfoFields.firstName')
+                  : ''
+              }
               fullWidth
               label={t('common.labels.firstName')}
               onChange={(event) =>
@@ -48,6 +68,12 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
             />
 
             <AppTextField
+              error={!!stepData[stepLabel].errors?.lastName}
+              errorMsg={
+                stepData[stepLabel].errors?.lastName
+                  ? t('step.generalInfoFields.lastname')
+                  : ''
+              }
               fullWidth
               label={t('common.labels.lastName')}
               onChange={(event) =>
@@ -59,6 +85,7 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
 
           <Box sx={styles.form}>
             <AsyncAutocomplete
+              error={!!stepData[stepLabel].errors?.country}
               fullWidth
               labelField='name'
               onChange={(event, newValue) =>
@@ -72,6 +99,7 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
 
             <AsyncAutocomplete
               disabled={!stepData[stepLabel].data.country?.iso2}
+              error={!!stepData[stepLabel].errors?.city}
               fetchCondition={!!stepData[stepLabel].data.country?.iso2}
               fullWidth
               labelField='name'
@@ -88,6 +116,12 @@ const GeneralInfoStep = ({ btnsBox, stepLabel }) => {
           </Box>
 
           <AppTextArea
+            error={!!stepData[stepLabel].errors?.professionalSummary}
+            errorMsg={
+              stepData[stepLabel].errors?.professionalSummary
+                ? t('becomeTutor.experience.title')
+                : ''
+            }
             fullWidth
             label={t('becomeTutor.generalInfo.textFieldLabel')}
             maxLength={70}

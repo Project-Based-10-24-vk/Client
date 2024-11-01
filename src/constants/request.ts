@@ -32,6 +32,12 @@ export const URLs = {
     getCities: '/cities'
   },
   resources: {
+    lessons: {
+      get: '/lessons',
+      delete: '/lessons',
+      post: '/lessons',
+      patch: '/lessons'
+    },
     questions: {
       get: '/questions',
       delete: '/questions',
