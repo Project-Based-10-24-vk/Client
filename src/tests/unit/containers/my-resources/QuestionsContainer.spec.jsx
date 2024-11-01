@@ -1,9 +1,8 @@
 import { screen, waitFor } from '@testing-library/react'
 
 import QuestionsContainer from '~/containers/my-resources/questions-container/QuestionsContainer'
-
 import { URLs } from '~/constants/request'
-import { mockAxiosClient, renderWithProviders } from '~tests/test-utils'
+import { mockAxiosClient, renderWithProviders } from '~/tests/test-utils'
 
 const questionMock = {
   _id: '64fb2c33eba89699411d22bb',

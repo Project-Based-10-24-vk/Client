@@ -98,7 +98,6 @@ const LessonsContainer = () => {
   return (
     <Box>
       <AddResourceWithInput
-        btnText={t('myResourcesPage.lessons.addBtn')}
         button={
           <AppButton onClick={mockAdd}>
             {t('myResourcesPage.lessons.addBtn')}

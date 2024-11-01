@@ -1,10 +1,8 @@
-import userEvent from '@testing-library/user-event'
-import { act, screen, waitFor } from '@testing-library/react'
-import { mockAxiosClient, renderWithProviders } from '~tests/test-utils';
-import { expect, vi } from 'vitest';
-import LessonsContainer from '~/containers/my-resources/lessons-container/LessonsContainer';
-import { URLs } from '~/constants/request';
+import { screen, waitFor } from '@testing-library/react'
 
+import LessonsContainer from '~/containers/my-resources/lessons-container/LessonsContainer'
+import { URLs } from '~/constants/request'
+import { mockAxiosClient, renderWithProviders } from '~/tests/test-utils'
 
 const lessonsMock = {
   _id: 's0Me1D',
@@ -22,7 +20,8 @@ const responseLessonsItemsMock = Array(5)
   .map((_, index) => ({
     ...lessonsMock,
     _id: lessonsMock._id + index,
-    name: index + lessonsMock.title
+    title: index + lessonsMock.title,
+    description: index + lessonsMock.description
   }))
 
 const responseLessonsMock = {
@@ -36,9 +35,11 @@ describe('LessonsContainer test', () => {
       mockAxiosClient
         .onGet(URLs.resources.lessons.get)
         .reply(200, responseLessonsMock)
+
       renderWithProviders(<LessonsContainer />)
     })
   })
+
   afterEach(() => {
     vi.clearAllMocks()
     mockAxiosClient.reset()
@@ -48,5 +49,19 @@ describe('LessonsContainer test', () => {
     const newLessonBtn = screen.getByText('myResourcesPage.lessons.addBtn')
 
     expect(newLessonBtn).toBeInTheDocument()
+  })
+
+  it('should render table with lessons', async () => {
+    const columnLabel = await screen.findByText('myResourcesPage.lessons.title')
+    const lessonTitle = await screen.findByText(
+      responseLessonsItemsMock[4].title
+    )
+    const lessonDescription = await screen.findByText(
+      responseLessonsItemsMock[4].description
+    )
+
+    expect(columnLabel).toBeInTheDocument()
+    expect(lessonTitle).toBeInTheDocument()
+    expect(lessonDescription).toBeInTheDocument()
   })
 })
