@@ -3,7 +3,8 @@ import Typography from '@mui/material/Typography'
 import { styles } from '~/containers/my-resources/lessons-container/LessonsContainer.styles'
 import AppChip from '~/components/app-chip/AppChip'
 import IconTitleDescription from '~/components/icon-title-description/IconTitleDescription'
-import { getFormattedDate } from '~/utils/helper-functions'
+import { authRoutes } from '~/router/constants/authRoutes'
+import { createUrlPath, getFormattedDate } from '~/utils/helper-functions'
 import lessonIcon from '~/assets/img/my-resources-page/lesson.svg'
 import {
   AdditionalPropsInterface,
@@ -13,24 +14,37 @@ import {
   TableColumn
 } from '~/types'
 
+//this will be replaced with real path for lesson view
+const mockLessonViewPath = authRoutes.myResources.root.path
+
 export const columns: TableColumn<Lessons>[] = [
   {
     label: 'myResourcesPage.lessons.title',
     field: 'title',
-    calculatedCellValue: (item: Lessons) => (
-      <Box sx={styles.lessonContainer}>
-        <IconTitleDescription
-          description={item.description}
-          icon={
-            <Box sx={styles.iconWrapper}>
-              <img src={lessonIcon} />
-            </Box>
-          }
-          sx={styles.iconTitleDescription}
-          title={item.title}
-        />
-      </Box>
-    )
+    calculatedCellValue: (
+      item: Lessons,
+      { navigate }: AdditionalPropsInterface
+    ) => {
+      const handleClick = () => {
+        {
+          navigate(createUrlPath(mockLessonViewPath))
+        }
+      }
+      return (
+        <Box onClick={handleClick} sx={styles.lessonContainer}>
+          <IconTitleDescription
+            description={item.description}
+            icon={
+              <Box sx={styles.iconWrapper}>
+                <img src={lessonIcon} />
+              </Box>
+            }
+            sx={styles.iconTitleDescription}
+            title={item.title}
+          />
+        </Box>
+      )
+    }
   },
   {
     label: 'myResourcesPage.categories.category',
@@ -38,7 +52,7 @@ export const columns: TableColumn<Lessons>[] = [
     calculatedCellValue: (item: Lessons, { t }: AdditionalPropsInterface) =>
       item.category ? (
         <AppChip labelSx={styles.categoryChipLabel} sx={styles.categoryChip}>
-          {item.category.name}
+          {item.category}
         </AppChip>
       ) : (
         <Typography sx={styles.date}>

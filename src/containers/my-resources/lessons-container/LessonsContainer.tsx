@@ -10,47 +10,27 @@ import {
   removeColumnRules
 } from '~/containers/my-resources/lessons-container/LessonsContainer.constants'
 import MyResourcesTable from '~/containers/my-resources/my-resources-table/MyResourcesTable'
+import AppButton from '~/components/app-button/AppButton'
+import Loader from '~/components/loader/Loader'
+import { useSnackBarContext } from '~/context/snackbar-context'
 import { ajustColumns, getScreenBasedLimit } from '~/utils/helper-functions'
 import usePagination from '~/hooks/table/use-pagination'
 import useSort from '~/hooks/table/use-sort'
+import useAxios from '~/hooks/use-axios'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { ResourceService } from '~/services/resource-service'
-import { ItemsWithCount, Lessons, ResourcesTabsEnum } from '~/types'
+import { defaultResponses, snackbarVariants } from '~/constants'
+import {
+  ErrorResponse,
+  GetResourcesCategoriesParams,
+  ItemsWithCount,
+  Lessons,
+  ResourcesTabsEnum
+} from '~/types'
 
-//mock data
-const mockLessons: ItemsWithCount<Lessons> = {
-  count: 3,
-  items: [
-    {
-      _id: '100',
-      title: 'Lesson 1',
-      category: { name: 'old category', _id: '' },
-      description: 'description',
-      createdAt: '2024-10-15T19:33:15.640+00:00',
-      updatedAt: '2024-10-28T19:33:15.640+00:00'
-    },
-    {
-      _id: '200',
-      title: 'Lesson 2',
-      category: { name: 'new category', _id: '' },
-      description: 'description',
-      createdAt: '2024-10-19T19:33:15.640+00:00',
-      updatedAt: '2024-10-20T19:33:15.640+00:00'
-    },
-    {
-      _id: '300',
-      title: 'Lesson 3',
-      category: { name: 'new category', _id: '' },
-      description: 'description',
-      createdAt: '2024-10-10T10:33:15.640+00:00',
-      updatedAt: '2024-10-11T11:33:15.640+00:00'
-    }
-  ]
-}
-
+//this will be replaced with handlers that redirect to apropriate page/component
 const mockEdit = (id: string) => console.log(`edit lesson ${id}`)
-
-const mockFetch = () => Promise.resolve()
+const mockAdd = () => console.log(`add new lesson`)
 
 const LessonsContainer = () => {
   const { t } = useTranslation()
@@ -58,14 +38,45 @@ const LessonsContainer = () => {
   const { page, handleChangePage } = usePagination()
   const sortOptions = useSort({ initialSort })
   const breakpoints = useBreakpoints()
+  const { setAlert } = useSnackBarContext()
   const [selectedItems, setSelectedItems] = useState<string[]>([])
   const itemsPerPage = getScreenBasedLimit(breakpoints, itemsLoadLimit)
+  const { sort } = sortOptions
 
-  //later this will be replaced whith apropriate service
+  const onResponseError = useCallback(
+    (error: ErrorResponse) => {
+      setAlert({
+        severity: snackbarVariants.error,
+        message: error ? `${error.message}` : ''
+      })
+    },
+    [setAlert]
+  )
+
+  const getLessons = useCallback(
+    () =>
+      ResourceService.getLessons({
+        limit: itemsPerPage,
+        skip: (page - 1) * itemsPerPage,
+        sort,
+        title: searchTitle.current
+      }),
+    [page, itemsPerPage, sort, searchTitle]
+  )
+
   const deleteLesson = useCallback(
-    (id?: string) => ResourceService.deleteQuestion(id ?? ''),
+    (id?: string) => ResourceService.deleteLesson(id ?? ''),
     []
   )
+
+  const { response, loading, fetchData } = useAxios<
+    ItemsWithCount<Lessons>,
+    GetResourcesCategoriesParams
+  >({
+    service: getLessons,
+    defaultResponse: defaultResponses.itemsWithCount,
+    onResponseError
+  })
 
   const columnsToShow = ajustColumns<Lessons>(
     breakpoints,
@@ -76,7 +87,7 @@ const LessonsContainer = () => {
   const props = {
     actions: { onEdit: mockEdit },
     columns: columnsToShow,
-    data: { response: mockLessons, getData: mockFetch },
+    data: { response, getData: fetchData },
     services: { deleteService: deleteLesson },
     pagination: { page, onChange: handleChangePage },
     sort: sortOptions,
@@ -87,14 +98,22 @@ const LessonsContainer = () => {
   return (
     <Box>
       <AddResourceWithInput
-        btnText={t('myResourcesPage.lessons.addBtn')}
-        fetchData={mockFetch}
+        button={
+          <AppButton onClick={mockAdd}>
+            {t('myResourcesPage.lessons.addBtn')}
+          </AppButton>
+        }
+        fetchData={fetchData}
         link={''}
         searchRef={searchTitle}
         selectedItems={selectedItems}
         setItems={setSelectedItems}
       />
-      <MyResourcesTable<Lessons> {...props} />
+      {loading ? (
+        <Loader pageLoad size={50} />
+      ) : (
+        <MyResourcesTable<Lessons> {...props} />
+      )}
     </Box>
   )
 }
