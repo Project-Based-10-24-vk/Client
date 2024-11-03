@@ -1,6 +1,5 @@
 import {
   Category,
-  CategoryNameInterface,
   CommonEntityFields,
   RequestParams,
   ResourseTypes,
@@ -13,7 +12,7 @@ export interface Lesson extends CommonEntityFields {
   content: string
   author: string
   category: string | null
-  resourceType: ResourseTypes
+  resourceType: string
   attachments: Attachment[] // add backend
 }
 

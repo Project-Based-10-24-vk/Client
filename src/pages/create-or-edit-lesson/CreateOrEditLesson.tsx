@@ -115,7 +115,7 @@ const CreateOrEditLesson = () => {
     return ResourceService.addLesson(data)
   }
 
-  const { fetchData: fetchAddLesson } = useAxios<Lesson, LessonData>({
+  const { fetchData: fetchAddLesson } = useAxios({
     service: addLesson,
     fetchOnMount: false,
     defaultResponse,
@@ -127,10 +127,10 @@ const CreateOrEditLesson = () => {
     return ResourceService.updateLesson(data, id)
   }
 
-  const { fetchData: fetchEditedLesson } = useAxios<Lesson, LessonData>({
+  const { fetchData: fetchEditedLesson } = useAxios({
     service: editLesson,
     fetchOnMount: false,
-    defaultResponse: null,
+    defaultResponse,
     onResponse: handleResponse,
     onResponseError: handleResponseError
   })
@@ -192,7 +192,7 @@ const CreateOrEditLesson = () => {
     <Box key={attachment.size} sx={styles.attachmentList.container}>
       <IconExtensionWithTitle
         size={attachment.size}
-        title={attachment.fileName}
+        title={attachment.name}
       />
       <IconButton onClick={() => handleRemoveAttachment(attachment)}>
         <CloseIcon />
