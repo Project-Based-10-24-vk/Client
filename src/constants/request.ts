@@ -46,6 +46,10 @@ export const URLs = {
       patch: '/resources-categories',
       post: '/resources-categories',
       delete: 'resources-categories'
-    }
+    },
+    attachments: {
+      get: '/attachments',
+      getByiD: '/attachments/:id'    
+    },
   }
 }

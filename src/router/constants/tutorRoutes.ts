@@ -15,6 +15,10 @@ export const tutorRoutes = {
     myResources: {
       route: 'my-resources',
       path: authRoutes.myResources.root.path
+    },
+    addLesson: {
+      route: 'add-lesson',
+      path: '/add-lesson'
     }
   }
 }

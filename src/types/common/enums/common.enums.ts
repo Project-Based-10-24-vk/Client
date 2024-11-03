@@ -17,6 +17,13 @@ export enum LanguagesEnum {
   Arabic = 'Arabic'
 }
 
+export enum ResourseTypes {
+  Lessons = 'lessons', 
+  Attachments ='attachments', 
+  Questions = 'questions', 
+  Quizzes= 'quizzes'
+}
+
 export enum SizeEnum {
   Small = 'small',
   Medium = 'medium',

@@ -124,10 +124,10 @@ const CreateOrEditLesson = () => {
   })
 
   const editLesson = (): Promise<AxiosResponse> => {
-    return ResourceService.editLesson(data, id)
+    return ResourceService.updateLesson(data, id)
   }
 
-  const { fetchData: fetchEditedLesson } = useAxios<null, LessonData>({
+  const { fetchData: fetchEditedLesson } = useAxios<Lesson, LessonData>({
     service: editLesson,
     fetchOnMount: false,
     defaultResponse: null,

@@ -18,9 +18,11 @@ import {
   ItemsWithCount,
   Lessons,
   Question,
-  UpdateLessonParams,
+  UpdateLessonData,
   UpdateQuestionParams,
-  UpdateResourceCategory
+  UpdateResourceCategory,
+  Attachment,
+  CreateLessonData
 } from '~/types'
 
 export const ResourceService = {
@@ -36,10 +38,15 @@ export const ResourceService = {
   createLesson: async (data?: CreateLessonData): Promise<AxiosResponse> => {
     return await axiosClient.post(URLs.resources.lessons.post, data)
   },
-  updateLesson: async (params?: UpdateLessonParams) =>
+  addLesson: async (data?: CreateLessonData, id?: string) =>
+    await axiosClient.post(
+      createUrlPath(URLs.resources.lessons.patch, id),
+      data
+    ),
+  updateLesson: async (data?: UpdateLessonData, id?: string) =>
     await axiosClient.patch(
-      createUrlPath(URLs.resources.lessons.patch, params?.id),
-      params
+      createUrlPath(URLs.resources.lessons.patch, id),
+      data
     ),
   deleteLesson: async (id: string): Promise<AxiosResponse> =>
     await axiosClient.delete(createUrlPath(URLs.resources.lessons.delete, id)),
@@ -77,7 +84,18 @@ export const ResourceService = {
   deleteResourceCategory: async (id: string): Promise<AxiosResponse> =>
     await axiosClient.delete(
       createUrlPath(URLs.resources.resourcesCategories.delete, id)
-    )
+    ),
+    getAttachments: async (): Promise<AxiosResponse> => {
+      const response = await axiosClient.get<Attachment[]>(URLs.resources.attachments.get);
+      
+      return {
+        ...response,
+        data: {
+          count: response.data.length,
+          items: response.data
+        }
+      };
+    }
 }
 
 export const resourceService = appApi.injectEndpoints({

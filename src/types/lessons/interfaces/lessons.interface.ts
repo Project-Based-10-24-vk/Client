@@ -2,8 +2,30 @@ import {
   Category,
   CategoryNameInterface,
   CommonEntityFields,
-  RequestParams
+  RequestParams,
+  ResourseTypes,
+  Attachment
 } from '~/types'
+
+export interface Lesson extends CommonEntityFields {
+  title: string
+  description: string
+  content: string
+  author: string
+  category: string | null
+  resourceType: ResourseTypes
+  attachments: Attachment[] // add backend
+}
+
+export interface LessonData {
+  title: string
+  description: string
+  content: string
+  category?: string | null
+  resourceType?: ResourseTypes 
+  attachments: Attachment[] // add backend
+}
+
 
 export interface Lessons extends CommonEntityFields {
   title: string
@@ -13,18 +35,9 @@ export interface Lessons extends CommonEntityFields {
   category: Category['_id'] | null
 }
 
-export interface CreateLessonData {
-  title: string
-  description: string
-  content: string
-}
+export interface CreateLessonData extends LessonData {}
 
-export interface UpdateLessonParams {
-  title: Lessons['title']
-  id: Lessons['_id']
-  description: Lessons['description']
-  category: CategoryNameInterface | string | null
-}
+export interface UpdateLessonData extends LessonData  {}
 
 export interface GetLessonsParams extends Partial<RequestParams> {
   title?: string
