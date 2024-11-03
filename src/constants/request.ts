@@ -32,7 +32,7 @@ export const URLs = {
       get: '/lessons',
       delete: '/lessons',
       post: '/lessons',
-      patch: '/lessons'      
+      patch: '/lessons'
     },
     questions: {
       get: '/questions',

@@ -20,7 +20,8 @@ import {
   Question,
   UpdateLessonParams,
   UpdateQuestionParams,
-  UpdateResourceCategory
+  UpdateResourceCategory,
+  type Lesson
 } from '~/types'
 
 export const ResourceService = {
