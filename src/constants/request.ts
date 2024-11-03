@@ -29,7 +29,10 @@ export const URLs = {
   },
   resources: {
     lessons: {
-      get: '/lessons'
+      get: '/lessons',
+      delete: '/lessons',
+      post: '/lessons',
+      patch: '/lessons'
     },
     questions: {
       get: '/questions',
