@@ -6,7 +6,10 @@ import CardWithLink from '~/components/card-with-link/CardWithLink'
 import CardsList from '~/components/cards-list/CardsList'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import { authRoutes } from '~/router/constants/authRoutes'
+import { getScreenBasedLimit } from '~/utils/helper-functions'
+import useBreakpoints from '~/hooks/use-breakpoints'
 import { categoryService } from '~/services/category-service'
+import { itemsLoadLimit } from '~/constants'
 import { CategoryInterface, ItemsWithCount } from '~/types'
 
 interface CategoriesListProps {
@@ -15,7 +18,10 @@ interface CategoriesListProps {
 
 const CategoriesList = ({ query }: CategoriesListProps) => {
   const [categories, setCategories] = useState<CategoryInterface[]>([])
-  const [visibleCards, setVisibleCards] = useState(4)
+  const breakpoints = useBreakpoints()
+  const [visibleCards, setVisibleCards] = useState(
+    getScreenBasedLimit(breakpoints, itemsLoadLimit)
+  )
   const params = useMemo(() => ({ name: query }), [query])
 
   const { t } = useTranslation()
