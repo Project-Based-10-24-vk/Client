@@ -18,11 +18,18 @@ interface CategoriesListProps {
 
 const CategoriesList = ({ query }: CategoriesListProps) => {
   const [categories, setCategories] = useState<CategoryInterface[]>([])
+  const [count, setCount] = useState(0)
   const breakpoints = useBreakpoints()
-  const [visibleCards, setVisibleCards] = useState(
-    getScreenBasedLimit(breakpoints, itemsLoadLimit)
+  const ScreenBasedLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
+  const [visibleCards, setVisibleCards] = useState(0)
+  const params = useMemo(
+    () => ({
+      name: query,
+      limit: ScreenBasedLimit,
+      skip: visibleCards
+    }),
+    [query, visibleCards]
   )
-  const params = useMemo(() => ({ name: query }), [query])
 
   const { t } = useTranslation()
 
@@ -32,7 +39,8 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
         const response: AxiosResponse<ItemsWithCount<CategoryInterface>> =
           await categoryService.getCategories(params)
 
-        setCategories(response.data.items)
+        setCategories((prev) => [...prev, ...response.data.items])
+        setCount(response.data.count)
       } catch (error) {
         console.error('error', error)
         setCategories([])
@@ -43,7 +51,7 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
 
   const cardElements =
     categories.length > 0
-      ? categories.slice(0, visibleCards).map((card) => {
+      ? categories.map((card) => {
           return (
             <CardWithLink
               description={'100 offers'}
@@ -57,15 +65,13 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
       : []
 
   const handleLoadMore = () => {
-    setTimeout(() => {
-      setVisibleCards((prev) => {
-        const newValue = prev + 4
-        return newValue
-      })
-    }, 1000)
+    setVisibleCards((prev) => {
+      const newValue = prev + ScreenBasedLimit
+      return newValue
+    })
   }
 
-  const hasMoreCards = visibleCards < categories.length
+  const hasMoreCards = visibleCards < count
 
   return (
     <PageWrapper>
