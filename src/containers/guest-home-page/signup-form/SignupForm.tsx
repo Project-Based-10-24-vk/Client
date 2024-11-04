@@ -18,6 +18,7 @@ import useInputVisibility from '~/hooks/use-input-visibility'
 import { useSignUpMutation } from '~/services/auth-service'
 import { snackbarVariants } from '~/constants'
 import type { UserRole } from '~/types'
+import EmailSendModal from '../email-send-modal/EmailSendModal'
 import style from './SignupForm.styles'
 
 interface SignupFormData {
@@ -68,8 +69,10 @@ const SignupForm = ({ role }: { role: UserRole }) => {
           setIsLoading(true)
           const newUser = { ...data, role }
           const user = await registerUser(newUser).unwrap()
-          // closeModal()
-          console.log(user)
+          closeModal()
+          openModal({
+            component: <EmailSendModal email={user.userEmail} />
+          })
         } catch (e) {
           const error = e as { data: { code: string } }
 
