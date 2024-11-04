@@ -19,7 +19,7 @@ const SignupTutorDialog = () => {
           {t('signup.head.tutor')}
         </Typography>
         <Box sx={style.form}>
-          <SignupForm />
+          <SignupForm role={tutor}/>
           <GoogleLogin
             buttonWidth={style.form.maxWidth}
             role={tutor}
