@@ -19,6 +19,7 @@ const StepWrapper = ({ children, steps }) => {
 
   const [isValidated, setIsValidated] = useState(false)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSetStep = useCallback(
     isValidated
       ? (index) => {

@@ -8,12 +8,12 @@ import AppTextArea from '~/components/app-text-area/AppTextArea'
 import AppTextField from '~/components/app-text-field/AppTextField'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import { useStepContext } from '~/context/step-context'
+import { locationService } from '~/services/location-service'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 
 const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
   const { stepData, handleStepData } = useStepContext()
   const { t } = useTranslation()
-
 
   useEffect(() => {
     if (stepData[stepLabel].errors === undefined) {
@@ -25,20 +25,21 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
     )
 
     setIsValidated(allFieldsAreValid)
+  }, [setIsValidated, stepData, stepData.generalInfo.data, stepLabel])
 
-  }, [setIsValidated, stepData, stepData.generalInfo.data])
-
-  const handleInputChange = (field) => (event) => {
-    const value = event.target.value
-    const errorMessage = value.length === 0 ? `${field} can't be empty` : null
-
+  const handleInputChange = (field) => (event, newValue) => {
+    const errorMessage =
+      newValue.length === 0 ? `${field} can't be empty` : null
     handleStepData(
       stepLabel,
-      { ...stepData[stepLabel].data, [field]: value },
+      {
+        ...stepData[stepLabel].data,
+        [field]: newValue,
+        ...(field === 'country' ? { city: {} } : {})
+      },
       { ...stepData[stepLabel].errors, [field]: errorMessage }
     )
   }
-
   return (
     <Box sx={styles.container}>
       <Box sx={styles.imgContainer}>
@@ -60,7 +61,9 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
               }
               fullWidth
               label={t('common.labels.firstName')}
-              onChange={handleInputChange('firstName')}
+              onChange={(event) =>
+                handleInputChange('firstName')(event, event.target.value)
+              }
               value={stepData[stepLabel].data.firstName}
             />
 
@@ -73,7 +76,9 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
               }
               fullWidth
               label={t('common.labels.lastName')}
-              onChange={handleInputChange('lastName')}
+              onChange={(event) =>
+                handleInputChange('lastName')(event, event.target.value)
+              }
               value={stepData[stepLabel].data.lastName}
             />
           </Box>
@@ -82,17 +87,31 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
             <AsyncAutocomplete
               error={!!stepData[stepLabel].errors?.country}
               fullWidth
-              onChange={handleInputChange('country')}
+              labelField='name'
+              onChange={(event, newValue) =>
+                handleInputChange('country')(event, newValue)
+              }
+              service={locationService.getCountries}
               textFieldProps={{ label: t('common.labels.country') }}
-              value={stepData[stepLabel].data.country}
+              value={stepData[stepLabel].data.country?.name}
+              valueField='name'
             />
 
             <AsyncAutocomplete
+              disabled={!stepData[stepLabel].data.country?.iso2}
               error={!!stepData[stepLabel].errors?.city}
+              fetchCondition={!!stepData[stepLabel].data.country?.iso2}
               fullWidth
-              onChange={handleInputChange('country')}
+              labelField='name'
+              onChange={(event, newValue) =>
+                handleInputChange('city')(event, newValue)
+              }
+              service={() =>
+                locationService.getCities(stepData[stepLabel].data.country.iso2)
+              }
               textFieldProps={{ label: t('common.labels.city') }}
-              value={stepData[stepLabel].data.city}
+              value={stepData[stepLabel].data.city?.name}
+              valueField='name'
             />
           </Box>
 
@@ -106,7 +125,12 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
             fullWidth
             label={t('becomeTutor.generalInfo.textFieldLabel')}
             maxLength={70}
-            onChange={handleInputChange('professionalSummary')}
+            onChange={(event) =>
+              handleInputChange('professionalSummary')(
+                event,
+                event.target.value
+              )
+            }
             sx={styles.textarea}
             value={stepData[stepLabel].data.professionalSummary}
           />

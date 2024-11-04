@@ -1,5 +1,5 @@
-import palette from '~/styles/app-theme/app.pallete'
 import { TypographyVariantEnum } from '~/types'
+import palette from '~/styles/app-theme/app.pallete'
 
 const captionTitle = {
   color: 'primary.400',

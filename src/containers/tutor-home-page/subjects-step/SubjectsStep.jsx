@@ -43,9 +43,7 @@ const SubjectsStep = ({ btnsBox, userRole, stepLabel }) => {
 
   const handleAddItem = () => {
     if (selectedSubject) {
-      if (
-        stepData[stepLabel].some((item) => item._id === selectedSubject._id)
-      ) {
+      if (stepData[stepLabel].some((item) => item.id === selectedSubject._id)) {
         setError(t('becomeTutor.categories.sameSubject'))
       } else {
         setSelectedSubject(null)

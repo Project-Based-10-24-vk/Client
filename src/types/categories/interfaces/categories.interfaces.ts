@@ -20,7 +20,7 @@ export interface ScreenBasedLimits {
   default: number
 }
 
-export interface RemoveColumnRules<T extends Question | Categories | Lessons > {
+export interface RemoveColumnRules<T extends Question | Categories | Lessons> {
   desktop?: TableColumn<T>['label'][]
   tablet?: TableColumn<T>['label'][]
   mobile?: TableColumn<T>['label'][]
