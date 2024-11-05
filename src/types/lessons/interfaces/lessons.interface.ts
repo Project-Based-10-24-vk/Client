@@ -2,7 +2,8 @@ import {
   Category,
   CategoryNameInterface,
   CommonEntityFields,
-  RequestParams
+  RequestParams,
+  ResourceType
 } from '~/types'
 
 export interface Lessons extends CommonEntityFields {
