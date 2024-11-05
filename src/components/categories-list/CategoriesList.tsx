@@ -17,21 +17,28 @@ interface CategoriesListProps {
 }
 
 const CategoriesList = ({ query }: CategoriesListProps) => {
+  const [isFetched, setIsFetched] = useState<boolean>(false)
   const [categories, setCategories] = useState<CategoryInterface[]>([])
   const [count, setCount] = useState(0)
   const breakpoints = useBreakpoints()
-  const ScreenBasedLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
-  const [visibleCards, setVisibleCards] = useState(0)
+  const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
+  const [fetchedItems, setFetchedItems] = useState(0)
   const params = useMemo(
     () => ({
       name: query,
-      limit: ScreenBasedLimit,
-      skip: visibleCards
+      limit: cardsLimit,
+      skip: fetchedItems
     }),
-    [query, visibleCards]
+    [query, fetchedItems, cardsLimit]
   )
 
   const { t } = useTranslation()
+
+  useEffect(() => {
+    setFetchedItems(0)
+    setIsFetched(false)
+    setCategories([])
+  }, [query, cardsLimit])
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -39,8 +46,11 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
         const response: AxiosResponse<ItemsWithCount<CategoryInterface>> =
           await categoryService.getCategories(params)
 
-        setCategories((prev) => [...prev, ...response.data.items])
         setCount(response.data.count)
+        setCategories((prev) =>
+          isFetched ? [...prev, ...response.data.items] : response.data.items
+        )
+        setIsFetched(true)
       } catch (error) {
         console.error('error', error)
         setCategories([])
@@ -49,29 +59,27 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
     void fetchCategories()
   }, [params])
 
-  const cardElements =
-    categories.length > 0
-      ? categories.map((card) => {
-          return (
-            <CardWithLink
-              description={'100 offers'}
-              img={card.appearance.icon}
-              key={card._id}
-              link={authRoutes.subjects.path}
-              title={card.name}
-            />
-          )
-        })
-      : []
+  const cardElements = useMemo(
+    () =>
+      categories.map((card) => {
+        return (
+          <CardWithLink
+            description={'100 offers'}
+            img={card.appearance.icon}
+            key={card._id}
+            link={authRoutes.subjects.path}
+            title={card.name}
+          />
+        )
+      }),
+    [categories]
+  )
 
   const handleLoadMore = () => {
-    setVisibleCards((prev) => {
-      const newValue = prev + ScreenBasedLimit
-      return newValue
-    })
+    setFetchedItems((prev) => prev + cardsLimit)
   }
 
-  const hasMoreCards = visibleCards < count
+  const hasMoreCards = fetchedItems + cardsLimit < count
 
   return (
     <PageWrapper>
