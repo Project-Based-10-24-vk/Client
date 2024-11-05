@@ -2,7 +2,8 @@ import {
   Category,
   CategoryNameInterface,
   CommonEntityFields,
-  RequestParams
+  RequestParams,
+  ResourceType
 } from '~/types'
 
 export interface Lessons extends CommonEntityFields {
@@ -10,7 +11,9 @@ export interface Lessons extends CommonEntityFields {
   description: string
   content: string
   author: string
-  category: Category['_id'] | null
+  category: Category | null
+  resourceType: ResourceType
+  attachments: Attachment[]
 }
 
 export interface CreateLessonData {
@@ -27,7 +30,7 @@ export interface UpdateLessonParams {
 }
 
 export interface GetLessonsParams extends Partial<RequestParams> {
-  title?: string
+  name?: string
 }
 
 export interface Attachment {
