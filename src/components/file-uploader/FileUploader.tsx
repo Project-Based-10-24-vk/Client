@@ -1,18 +1,17 @@
 import { FC, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import CloseIcon from '@mui/icons-material/Close'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { SxProps } from '@mui/material'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import ListItem from '@mui/material/ListItem'
 import List from '@mui/material/List'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import CloseIcon from '@mui/icons-material/Close'
-import { SxProps } from '@mui/material'
-
-import useUpload from '~/hooks/use-upload'
-
+import ListItem from '@mui/material/ListItem'
+import Typography from '@mui/material/Typography'
 import { styles } from '~/components/file-uploader/FileUploader.styles'
+import useUpload from '~/hooks/use-upload'
 import {
   AddDocuments,
   ButtonVariantEnum,
@@ -74,7 +73,13 @@ const FileUploader: FC<FileUploaderProps> = ({
       {isImages && <CloudUploadIcon sx={styles.icon} />}
       {buttonText}
       {icon}
-      <input hidden multiple onChange={addFiles} type={InputEnum.File} />
+      <input
+        accept={validationData.filesTypes.join(', ')}
+        hidden
+        multiple
+        onChange={addFiles}
+        type={InputEnum.File}
+      />
     </Button>
   )
 
