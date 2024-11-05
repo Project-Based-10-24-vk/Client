@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom'
 
 import { Language, TurnedInNot } from '@mui/icons-material'
-import { Avatar, Box, Divider, IconButton, Typography } from '@mui/material'
+import {
+  Avatar,
+  Box,
+  Chip,
+  Divider,
+  IconButton,
+  Typography
+} from '@mui/material'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { styles } from './OfferCard.styles'
 
@@ -30,6 +37,16 @@ export const UpperOfferCard = () => {
       <IconButton sx={styles.addIcon}>
         <TurnedInNot />
       </IconButton>
+      <Box sx={styles.subjectContainer}>
+        <Box sx={styles.subjectContainerLeft}>
+          <Typography sx={styles.subjectContainerLeftText}>Subject:</Typography>
+          <Typography sx={styles.subjectContainerLeftText}>Level:</Typography>
+        </Box>
+        <Box sx={styles.subjectContainerRight}>
+          <Chip label='Operational audit' sx={styles.subjectChip} />
+          <Chip label='advanced' sx={styles.levelChip} />
+        </Box>
+      </Box>
     </Box>
   )
 }
