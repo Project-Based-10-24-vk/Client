@@ -31,6 +31,7 @@ export interface UpdateLessonParams {
 
 export interface GetLessonsParams extends Partial<RequestParams> {
   name?: string
+  category?: string[]
 }
 
 export interface Attachment {
