@@ -11,9 +11,10 @@ import { CategoryInterface, ItemsWithCount } from '~/types'
 
 interface CategoriesListProps {
   query: string
+  setIsCategoryFound: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const CategoriesList = ({ query }: CategoriesListProps) => {
+const CategoriesList = ({ query, setIsCategoryFound }: CategoriesListProps) => {
   const [categories, setCategories] = useState<CategoryInterface[]>([])
   const [visibleCards, setVisibleCards] = useState(4)
   const params = useMemo(() => ({ name: query }), [query])
@@ -27,13 +28,18 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
           await categoryService.getCategories(params)
 
         setCategories(response.data.items)
+        if (response.data.items.length === 0) {
+          setIsCategoryFound(true)
+        } else {
+          setIsCategoryFound(false)
+        }
       } catch (error) {
         console.error('error', error)
         setCategories([])
       }
     }
     void fetchCategories()
-  }, [params])
+  }, [params, setIsCategoryFound])
 
   const cardElements =
     categories.length > 0

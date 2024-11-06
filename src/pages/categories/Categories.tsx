@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { styles } from '~/pages/categories/Categories.styles'
@@ -20,8 +20,6 @@ import { CategoryNameInterface, ItemsWithCount, SizeEnum } from '~/types'
 const Categories = () => {
   const [match, setMatch] = useState<string>('')
   const [isFetched, setIsFetched] = useState<boolean>(false)
-  const [isSearchButtonClicked, setIsSearhButtonClicked] =
-    useState<boolean>(false)
   const [isCategoryFound, setIsCategoryFound] = useState<boolean>(false)
   const { t } = useTranslation()
 
@@ -47,22 +45,6 @@ const Categories = () => {
     setIsFetched(true)
   }
 
-  useEffect(() => {
-    if (match) {
-      const categoryArray = categoriesNamesItems.filter(
-        (category) => category === match
-      )
-      if (categoryArray.length === 0) {
-        setIsCategoryFound(true)
-      } else {
-        setIsCategoryFound(false)
-      }
-    }
-    if (!match) {
-      setIsCategoryFound(false)
-    }
-  }, [isSearchButtonClicked, categoriesNamesItems, match])
-
   return (
     <PageWrapper>
       <OfferRequestBlock />
@@ -82,7 +64,6 @@ const Categories = () => {
         <SearchAutocomplete
           loading={categoryNamesLoading}
           onFocus={getCategoriesNames}
-          onSearchChange={() => setIsSearhButtonClicked(!isSearchButtonClicked)}
           options={categoriesNamesItems}
           search={match}
           setSearch={setMatch}
@@ -97,7 +78,7 @@ const Categories = () => {
           description={t('errorMessages.tryAgainText', { name: 'category' })}
         />
       )}
-      <CategoriesList query={match} />
+      <CategoriesList query={match} setIsCategoryFound={setIsCategoryFound} />
     </PageWrapper>
   )
 }
