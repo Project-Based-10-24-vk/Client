@@ -17,7 +17,6 @@ interface CategoriesListProps {
 }
 
 const CategoriesList = ({ query }: CategoriesListProps) => {
-  const [isFetched, setIsFetched] = useState<boolean>(false)
   const [categories, setCategories] = useState<CategoryInterface[]>([])
   const [count, setCount] = useState(0)
   const breakpoints = useBreakpoints()
@@ -36,7 +35,6 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
 
   useEffect(() => {
     setFetchedItems(0)
-    setIsFetched(false)
     setCategories([])
   }, [query, cardsLimit])
 
@@ -48,9 +46,10 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
 
         setCount(response.data.count)
         setCategories((prev) =>
-          isFetched ? [...prev, ...response.data.items] : response.data.items
+          fetchedItems > 0
+            ? [...prev, ...response.data.items]
+            : response.data.items
         )
-        setIsFetched(true)
       } catch (error) {
         console.error('error', error)
         setCategories([])
