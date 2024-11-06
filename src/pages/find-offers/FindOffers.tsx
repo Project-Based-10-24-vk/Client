@@ -1,7 +1,7 @@
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 
 const FindOffers = () => {
-  return <PageWrapper>Find offers</PageWrapper>
+  return <PageWrapper>hello</PageWrapper>
 }
 
 export default FindOffers
