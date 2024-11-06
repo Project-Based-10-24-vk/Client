@@ -56,7 +56,7 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
       }
     }
     void fetchCategories()
-  }, [params])
+  }, [params, fetchedItems])
 
   const cardElements = useMemo(
     () =>
