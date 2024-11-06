@@ -27,12 +27,16 @@ export const URLs = {
     get: '/subjects',
     getNames: '/subjects/names'
   },
+  location: {
+    getCountries: '/location/countries',
+    getCities: '/cities'
+  },
   resources: {
     lessons: {
       get: '/lessons',
       delete: '/lessons',
       post: '/lessons',
-      patch: '/lessons'      
+      patch: '/lessons'
     },
     questions: {
       get: '/questions',

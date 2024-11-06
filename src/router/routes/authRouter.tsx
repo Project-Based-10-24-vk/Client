@@ -1,11 +1,13 @@
 import { lazy } from 'react'
 import { Route } from 'react-router-dom'
 
+import LessonDetails from '~/pages/lesson-details/LessonDetails'
 import { authRoutes } from '~/router/constants/authRoutes'
 import {
   categories,
   editQuestion,
   findOffers,
+  lessonDetails,
   myProfile,
   myResources,
   newQuestion,
@@ -70,6 +72,11 @@ export const authRouter = (
       element={<CreateOrEditQuestion />}
       handle={{ crumb: [myResources, editQuestion] }}
       path={authRoutes.myResources.editQuestion.route}
+    />
+    <Route
+      element={<LessonDetails />}
+      handle={{ crumb: [myResources, lessonDetails] }}
+      path={authRoutes.lessonDetails.route}
     />
   </Route>
 )

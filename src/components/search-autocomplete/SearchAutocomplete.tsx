@@ -1,34 +1,33 @@
 import {
-  useState,
-  ReactNode,
+  ChangeEvent,
   Dispatch,
+  KeyboardEvent,
+  ReactNode,
   SetStateAction,
   SyntheticEvent,
-  ChangeEvent,
-  KeyboardEvent
+  useState
 } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import ClearIcon from '@mui/icons-material/Clear'
+import SearchIcon from '@mui/icons-material/Search'
 import { createFilterOptions, FilterOptionsState } from '@mui/material'
 import {
   AutocompleteProps,
   AutocompleteRenderInputParams
 } from '@mui/material/Autocomplete'
-import { TextFieldProps } from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import ClearIcon from '@mui/icons-material/Clear'
-import SearchIcon from '@mui/icons-material/Search'
-
+import { TextFieldProps } from '@mui/material/TextField'
 import AppAutoComplete from '~/components/app-auto-complete/AppAutoComplete'
-import useBreakpoints from '~/hooks/use-breakpoints'
 import { styles } from '~/components/search-autocomplete/SearchAutocomplete.styles'
+import useBreakpoints from '~/hooks/use-breakpoints'
 import {
-  SizeEnum,
   ButtonVariantEnum,
-  VisibilityEnum,
-  TextFieldVariantEnum
+  SizeEnum,
+  TextFieldVariantEnum,
+  VisibilityEnum
 } from '~/types'
 
 interface SearchAutocompleteProps

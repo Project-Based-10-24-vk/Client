@@ -20,5 +20,9 @@ export const authRoutes = {
   accountMenu: {
     myProfile: { route: 'my-profile', path: '/my-profile' },
     logout: { route: 'logout', path: '/logout' }
+  },
+  lessonDetails: {
+    route: 'lesson-details/:id',
+    path: '/lesson-details'
   }
 }

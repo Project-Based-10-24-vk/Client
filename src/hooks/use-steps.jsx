@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react'
 
+import { useModalContext } from '~/context/modal-context'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import { useStepContext } from '~/context/step-context'
 import useAxios from '~/hooks/use-axios'
 import { useAppSelector } from '~/hooks/use-redux'
-
-import { useModalContext } from '~/context/modal-context'
-import { useStepContext } from '~/context/step-context'
-import { useSnackBarContext } from '~/context/snackbar-context'
 import { userService } from '~/services/user-service'
 import { snackbarVariants } from '~/constants'
 
@@ -70,11 +69,11 @@ const useSteps = ({ steps }) => {
       firstName,
       lastName,
       address: {
-        country: country ?? '',
-        city: city ?? ''
+        country: country ? country.name : '',
+        city: city ? city.name : ''
       },
       professionalSummary: professionalSummary,
-      mainSubjects: stepData.subjects,
+      mainSubjects: stepData.subjects.map((subj) => `${subj.id}`),
       nativeLanguage: stepData.language ?? ''
     }
 

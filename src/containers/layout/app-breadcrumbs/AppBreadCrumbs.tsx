@@ -23,7 +23,7 @@ const AppBreadCrumbs = () => {
       <Typography
         component={component}
         data-testid='breadCrumb'
-        key={crumb.name}
+        key={crumb.name + idx}
         sx={isLast ? styles.link : styles.previous}
         to={crumb.path}
       >
