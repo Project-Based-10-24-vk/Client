@@ -36,7 +36,9 @@ const SubjectsStep = ({ btnsBox, userRole, stepLabel }) => {
 
   const fetchSubjects = useCallback(async () => {
     if (selectedCategory) {
-      return await subjectService.getSubjects(null, selectedCategory._id)
+      return await subjectService.getSubjects({
+        category: selectedCategory._id
+      })
     }
     return []
   }, [selectedCategory])
