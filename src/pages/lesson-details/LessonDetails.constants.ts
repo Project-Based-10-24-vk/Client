@@ -7,5 +7,6 @@ export const defaultResponse = {
   category: null,
   attachments: [],
   createdAt: '',
-  updatedAt: ''
+  updatedAt: '',
+  resourceType: ''
 }

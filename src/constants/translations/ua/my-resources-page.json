@@ -16,8 +16,8 @@
     "confirmDeletionTitle": "Ви підтверджуєте видалення уроку?",
     "successDeletion": "Урок було успішно видалено",
     "successDuplication": "Урок було успішно продубльовано",
-    "successEditedQuestion":"Урок було успішно відредаговано",
-    "successAddedQuestion":"Урок було успішно створено"
+    "successEditedQuestion": "Урок було успішно відредаговано",
+    "successAddedQuestion": "Урок було успішно створено"
   },
   "questions": {
     "addBtn": "Нове запитання",
@@ -29,8 +29,8 @@
     "confirmDeletionTitle": "Ви підтверджуєте видалення запитання?",
     "successDeletion": "Запитання було успішно видалено",
     "successDuplication": "Запитання було успішно продубльовано",
-    "successEditedQuestion":"Запитання було успішно відредаговано",
-    "successAddedQuestion":"Запитання було успішно створено"
+    "successEditedQuestion": "Запитання було успішно відредаговано",
+    "successAddedQuestion": "Запитання було успішно створено"
   },
   "categories": {
     "category": "Категорія",
@@ -44,6 +44,11 @@
     "successDeletion": "Категорію було успішно видалено",
     "confirmDeletionTitle": "Ви підтверджуєте видалення категорії?",
     "selectCategory": "Виберіть категорію"
+  },
+  "attachments": {
+    "name": "Назва вкладення",
+    "category": "Категорія",
+    "updated": "Останнє оновлення"
   },
   "confirmDeletionMessage": "Ця дія є остаточною, та призведе до видалення всього пов’язаного вмісту. Перш ніж продовжити, перегляньте своє рішення."
 }

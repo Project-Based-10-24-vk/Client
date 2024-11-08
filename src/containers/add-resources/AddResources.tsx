@@ -1,26 +1,24 @@
 import { useCallback, useState } from 'react'
 
-import { useSnackBarContext } from '~/context/snackbar-context'
+import { initialSort } from '~/containers/add-resources/AddResources.constants'
+import AddResourceModal from '~/containers/my-resources/add-resource-modal/AddResourceModal'
 import { useModalContext } from '~/context/modal-context'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import { ajustColumns } from '~/utils/helper-functions'
 import useSelect from '~/hooks/table/use-select'
 import useSort from '~/hooks/table/use-sort'
 import useAxios from '~/hooks/use-axios'
 import useBreakpoints from '~/hooks/use-breakpoints'
-
-import AddResourceModal from '~/containers/my-resources/add-resource-modal/AddResourceModal'
-
-import { initialSort } from '~/containers/add-resources/AddResources.constants'
 import { defaultResponses, snackbarVariants } from '~/constants'
-import { ajustColumns } from '~/utils/helper-functions'
 import {
+  CourseResources,
   ErrorResponse,
   GetResourcesParams,
   ItemsWithCount,
-  CourseResources,
-  TableColumn,
-  RemoveColumnRules,
   Question,
-  ServiceFunction
+  RemoveColumnRules,
+  ServiceFunction,
+  TableColumn
 } from '~/types'
 
 interface AddResourcesProps<T extends CourseResources | Question> {

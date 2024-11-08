@@ -9,7 +9,6 @@ import {
   Categories,
   CategoryNameInterface,
   CreateCategoriesParams,
-  CreateLessonData,
   CreateQuestionData,
   GetLessonsParams,
   GetQuestion,
@@ -18,12 +17,18 @@ import {
   ItemsWithCount,
   Lessons,
   Question,
-  UpdateLessonParams,
   UpdateQuestionParams,
-  UpdateResourceCategory
+  UpdateResourceCategory,
+  type Attachment,
+  type LessonData
 } from '~/types'
 
 export const ResourceService = {
+  getAttachments: async (
+    params?: GetResourcesParams
+  ): Promise<AxiosResponse<ItemsWithCount<Attachment>>> => {
+    return await axiosClient.get(URLs.attachments.get, { params })
+  },
   getLessons: async (
     params?: GetLessonsParams
   ): Promise<AxiosResponse<ItemsWithCount<Lessons>>> => {
@@ -33,14 +38,11 @@ export const ResourceService = {
   },
   getLesson: async (id?: string): Promise<AxiosResponse<Lessons>> =>
     await axiosClient.get(createUrlPath(URLs.resources.lessons.get, id)),
-  createLesson: async (data?: CreateLessonData): Promise<AxiosResponse> => {
+  createLesson: async (data?: LessonData): Promise<AxiosResponse> => {
     return await axiosClient.post(URLs.resources.lessons.post, data)
   },
-  updateLesson: async (params?: UpdateLessonParams) =>
-    await axiosClient.patch(
-      createUrlPath(URLs.resources.lessons.patch, params?.id),
-      params
-    ),
+  updateLesson: async (id: string, data: LessonData) =>
+    await axiosClient.patch(`${URLs.resources.lessons.patch}/${id}`, data),
   deleteLesson: async (id: string): Promise<AxiosResponse> =>
     await axiosClient.delete(createUrlPath(URLs.resources.lessons.delete, id)),
   getQuestions: (
