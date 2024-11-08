@@ -78,7 +78,7 @@ const SignupForm = ({ role }: { role: UserRole }) => {
 
           setAlert({
             severity: snackbarVariants.error,
-            message: `errors.${error.data.code}`
+            message: `errors.${error.data?.code}`
           })
         } finally {
           setIsLoading(false)
