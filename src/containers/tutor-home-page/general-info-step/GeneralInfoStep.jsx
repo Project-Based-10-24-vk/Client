@@ -21,11 +21,24 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
   )
 
   useEffect(() => {
-    stepData.generalInfo.data.firstName = userFirstName
-    stepData.generalInfo.data.lastName = userLastName
-  }, [])
+    const { firstName, lastName } = stepData.generalInfo.data;
+  
+    const newFirstName = firstName || userFirstName;
+    const newLastName = lastName || userLastName;
+  
+    handleStepData(
+      'generalInfo',
+      {
+        ...stepData.generalInfo.data,
+        firstName: newFirstName,
+        lastName: newLastName,
+      },
+      stepData.generalInfo.errors
+    );
+  }, [userFirstName, userLastName]);
 
   useEffect(() => {
+    console.log(stepData.generalInfo)
     if (stepData[stepLabel].errors === undefined) {
       return
     }
