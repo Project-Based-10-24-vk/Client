@@ -39,10 +39,14 @@ export const AuthService = {
 export const authService = appApi.injectEndpoints({
   endpoints: (build) => ({
     signUp: build.mutation<SignupResponse, SignupParams>({
-      query: (body) => ({ url: URLs.auth.signup, method: POST, body })
+      query: (body) => {
+        return { url: URLs.auth.signup, method: POST, body }
+      }
     }),
     login: build.mutation<LoginResponse, LoginParams>({
-      query: (body) => ({ url: URLs.auth.login, method: POST, body }),
+      query: (body) => {
+        return { url: URLs.auth.login, method: POST, body }
+      },
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
