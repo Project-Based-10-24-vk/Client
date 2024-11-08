@@ -38,7 +38,6 @@ const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
   }, [userFirstName, userLastName]);
 
   useEffect(() => {
-    console.log(stepData.generalInfo)
     if (stepData[stepLabel].errors === undefined) {
       return
     }
