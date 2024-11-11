@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import CardWithLink from '~/components/card-with-link/CardWithLink'
 import CardsList from '~/components/cards-list/CardsList'
+import NotFoundResults from '~/components/not-found-results/NotFoundResults'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { categoryService } from '~/services/category-service'
@@ -11,11 +12,11 @@ import { CategoryInterface, ItemsWithCount } from '~/types'
 
 interface CategoriesListProps {
   query: string
-  setIsCategoryFound: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const CategoriesList = ({ query, setIsCategoryFound }: CategoriesListProps) => {
+const CategoriesList = ({ query }: CategoriesListProps) => {
   const [categories, setCategories] = useState<CategoryInterface[]>([])
+  const [isCategoryFound, setIsCategoryFound] = useState<boolean>(false)
   const [visibleCards, setVisibleCards] = useState(4)
   const params = useMemo(() => ({ name: query }), [query])
 
@@ -69,12 +70,19 @@ const CategoriesList = ({ query, setIsCategoryFound }: CategoriesListProps) => {
 
   return (
     <PageWrapper>
-      <CardsList
-        btnText={t('categoriesPage.viewMore')}
-        cards={cardElements}
-        isExpandable={hasMoreCards}
-        onClick={handleLoadMore}
-      />
+      {!isCategoryFound ? (
+        <CardsList
+          btnText={t('categoriesPage.viewMore')}
+          cards={cardElements}
+          isExpandable={hasMoreCards}
+          onClick={handleLoadMore}
+        />
+      ) : (
+        <NotFoundResults
+          buttonText={t('errorMessages.buttonRequest', { name: 'category' })}
+          description={t('errorMessages.tryAgainText', { name: 'category' })}
+        />
+      )}
     </PageWrapper>
   )
 }

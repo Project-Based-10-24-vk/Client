@@ -8,7 +8,6 @@ import OfferRequestBlock from '~/containers/find-offer/offer-request-block/Offer
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import CategoriesList from '~/components/categories-list/CategoriesList'
 import DirectionLink from '~/components/direction-link/DirectionLink'
-import NotFoundResults from '~/components/not-found-results/NotFoundResults'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
@@ -20,7 +19,6 @@ import { CategoryNameInterface, ItemsWithCount, SizeEnum } from '~/types'
 const Categories = () => {
   const [match, setMatch] = useState<string>('')
   const [isFetched, setIsFetched] = useState<boolean>(false)
-  const [isCategoryFound, setIsCategoryFound] = useState<boolean>(false)
   const { t } = useTranslation()
 
   const transform = useCallback(
@@ -72,13 +70,7 @@ const Categories = () => {
           }}
         />
       </AppToolbar>
-      {isCategoryFound && (
-        <NotFoundResults
-          buttonText={t('errorMessages.buttonRequest', { name: 'category' })}
-          description={t('errorMessages.tryAgainText', { name: 'category' })}
-        />
-      )}
-      <CategoriesList query={match} setIsCategoryFound={setIsCategoryFound} />
+      <CategoriesList query={match} />
     </PageWrapper>
   )
 }
