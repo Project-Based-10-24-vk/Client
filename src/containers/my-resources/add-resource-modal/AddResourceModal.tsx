@@ -1,19 +1,18 @@
 import { ChangeEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import SearchIcon from '@mui/icons-material/Search'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-
-import { ResourceService } from '~/services/resource-service'
-import { useModalContext } from '~/context/modal-context'
+import { styles } from '~/containers/my-resources/add-resource-modal/AddResourceModal.styles'
 import AppButton from '~/components/app-button/AppButton'
 import EnhancedTable, {
   EnhancedTableProps
 } from '~/components/enhanced-table/EnhancedTable'
-import InputWithIcon from '~/components/input-with-icon/InputWithIcon'
 import FilterSelector from '~/components/filter-selector/FilterSelector'
-
-import { styles } from '~/containers/my-resources/add-resource-modal/AddResourceModal.styles'
+import InputWithIcon from '~/components/input-with-icon/InputWithIcon'
+import { useModalContext } from '~/context/modal-context'
+import { ResourceService } from '~/services/resource-service'
 import { ButtonVariantEnum, CategoryNameInterface, TableItem } from '~/types'
 
 interface AddResourceModalProps<T>
