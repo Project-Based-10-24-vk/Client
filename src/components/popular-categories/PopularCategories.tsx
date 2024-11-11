@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import App from '~/App'
 import type { AxiosResponse } from 'axios'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -9,7 +8,6 @@ import { authRoutes } from '~/router/constants/authRoutes'
 import { categoryService } from '~/services/category-service'
 import {
   ButtonVariantEnum,
-  SizeEnum,
   type CategoryInterface,
   type ItemsWithCount
 } from '~/types'
@@ -20,6 +18,7 @@ import { styles } from './PopularCategories.styles'
 const PopularCategories = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+
   const [categories, setCategories] = useState<CategoryInterface[]>([])
 
   useEffect(() => {
@@ -29,7 +28,11 @@ const PopularCategories = () => {
           await categoryService.getCategories({ limit: 9, skip: 0 })
 
         if (response.data.items.length > 0) {
-          setCategories(response.data.items)
+          setCategories(
+            response.data.items.sort(
+              (a, b) => Number(b.totalOffers) - Number(a.totalOffers)
+            )
+          )
         }
       } catch (error) {
         console.error(error)
@@ -43,7 +46,9 @@ const PopularCategories = () => {
       categories.map((card) => {
         return (
           <CardWithLink
-            description={'100 offers'}
+            description={
+              String(card.totalOffers) + ' ' + t('common.labels.offers')
+            }
             img={card.appearance.icon}
             key={card._id}
             link={`${authRoutes.subjects.path}?category=${card._id}`}
