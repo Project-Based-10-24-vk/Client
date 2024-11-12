@@ -11,19 +11,18 @@ import AppDrawer from '~/components/app-drawer/AppDrawer'
 import AppTextArea from '~/components/app-text-area/AppTextArea'
 import AppTextField from '~/components/app-text-field/AppTextField'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
-// import useForm from '~/hooks/use-form'
 import TitleBlock from '~/components/title-block/TitleBlock'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { useDrawer } from '~/hooks/use-drawer'
+import useForm from '~/hooks/use-form'
 import { categoryService } from '~/services/category-service'
 import icon from '~/assets/img/find-offer/subject_icon.png'
 import img from '~/assets/img/find-offer/subject-request.svg'
+import { initialValues, validations } from './OfferRequestBlock.constants'
 
 const OfferRequestBlock = () => {
   const { t } = useTranslation()
-  const [reqSubject, setReqSubject] = useState('')
   const [reqCategory, setReqCategory] = useState(null)
-  const [reqInfo, setReqInfo] = useState('')
   const { isMobile } = useBreakpoints()
   const { isOpen, openDrawer, closeDrawer } = useDrawer()
   const filter = createFilterOptions()
@@ -34,17 +33,17 @@ const OfferRequestBlock = () => {
 
   const mockSendReqest = () => {
     closeDrawer()
-    alert(
-      `Request for subject "${reqSubject}" in category "${reqCategory.name}" was sent`
-    )
-    setReqSubject('')
-    setReqCategory(null)
-    setReqInfo('')
+    alert(`Request for subject "${data.reqSubject}" was sent`)
   }
 
-  const handleSubjectChange = (event) => {
-    setReqSubject(event.target.value)
-  }
+  const { data, isDirty, errors, handleInputChange, handleBlur, handleSubmit } =
+    useForm({
+      initialValues: initialValues,
+      validations,
+      onSubmit: () => mockSendReqest()
+    })
+
+  data.reqCategory = reqCategory ? reqCategory.name : ''
 
   const handleCategoryChange = (event, category) => {
     if (category && category.inputValue) {
@@ -54,9 +53,7 @@ const OfferRequestBlock = () => {
     } else setReqCategory(category)
   }
 
-  const handleInfoChange = (event) => {
-    setReqInfo(event.target.value)
-  }
+  const isCategorySet = Boolean(!reqCategory && isDirty)
 
   return (
     <TitleBlock img={icon} translationKey={translationKey}>
@@ -68,7 +65,7 @@ const OfferRequestBlock = () => {
         {t(`${translationKey}.button`)}
       </AppButton>
       <AppDrawer onClose={closeDrawer} open={isOpen}>
-        <Box sx={styles.container}>
+        <Box component='form' onSubmit={handleSubmit} sx={styles.container}>
           <Box sx={styles.imgContainer}>
             <Box component='img' src={img} sx={styles.img} />
           </Box>
@@ -80,12 +77,16 @@ const OfferRequestBlock = () => {
               {t('categoriesPage.newSubject.description')}
             </Typography>
             <AppTextField
-              errorMsg={t('offerPage.errorMessages.category')}
+              errorMsg={t(errors.reqSubject)}
               fullWidth
               label={t('categoriesPage.newSubject.labels.subject')}
-              onChange={handleSubjectChange}
+              onBlur={handleBlur('reqSubject')}
+              onChange={handleInputChange('reqSubject')}
+              required
+              sx={{ mb: '16px' }}
               title={t('categoriesPage.newSubject.subject')}
-              value={reqSubject}
+              type='text'
+              value={data.reqSubject}
             />
             <AsyncAutocomplete
               axiosProps={{
@@ -109,26 +110,36 @@ const OfferRequestBlock = () => {
               fullWidth
               labelField='name'
               onChange={handleCategoryChange}
+              required
               service={categoryService.getCategoriesNames}
               sx={{ mb: '16px' }}
-              textFieldProps={{ label: t('offerPage.labels.category') }}
+              textFieldProps={{
+                label: t('offerPage.labels.category'),
+                error: isCategorySet,
+                helperText: isCategorySet
+                  ? t('offerPage.errorMessages.category')
+                  : ''
+              }}
               title={t('categoriesPage.newSubject.category')}
               value={reqCategory}
               valueField='name'
             />
             <AppTextArea
-              errorMsg={t('offerPage.errorMessages.description')}
+              errorMsg={t(errors.reqInfo)}
               fullWidth
               label={t('offerDetailsPage.enrollOffer.labels.info')}
               maxLength={1000}
-              onChange={handleInfoChange}
+              onBlur={handleBlur('reqInfo')}
+              onChange={handleInputChange('reqInfo')}
+              required
               title={t('categoriesPage.newSubject.info')}
-              value={reqInfo}
+              type='text'
+              value={data.reqInfo}
             />
             <AppButton
               fullWidth={isMobile}
-              onClick={mockSendReqest}
               sx={{ py: '14px', mt: '14px' }}
+              type='submit'
             >
               {t('button.sendRequest')}
             </AppButton>
