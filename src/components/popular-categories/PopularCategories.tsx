@@ -56,7 +56,7 @@ const PopularCategories = () => {
           />
         )
       }),
-    [categories]
+    [categories, t]
   )
 
   return (
