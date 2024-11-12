@@ -63,7 +63,9 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
       categories.map((card) => {
         return (
           <CardWithLink
-            description={'100 offers'}
+            description={
+              String(card.totalOffers) + ' ' + t('common.labels.offers')
+            }
             img={card.appearance.icon}
             key={card._id}
             link={authRoutes.subjects.path}
@@ -71,7 +73,7 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
           />
         )
       }),
-    [categories]
+    [categories, t]
   )
 
   const handleLoadMore = () => {
