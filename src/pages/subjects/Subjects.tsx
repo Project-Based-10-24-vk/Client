@@ -97,14 +97,14 @@ const Subjects = () => {
 
   const cards = useMemo(
     () =>
-      subjects.map((item: SubjectInterface) => {
+      subjects.map((item: SubjectInterface, idx) => {
         return (
           <CardWithLink
-            description={`${item.totalOffers[oppositeRole]} ${t(
+            description={`${item.totalOffers ? item.totalOffers[oppositeRole] : 0} ${t(
               'categoriesPage.offers'
             )}`}
             img={serviceIcon}
-            key={item._id}
+            key={item._id + idx}
             link={`${authRoutes.categories.path}?categoryId=${categoryId}&subjectId=${item._id}`}
             title={item.name}
           />
