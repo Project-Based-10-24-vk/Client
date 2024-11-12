@@ -64,20 +64,26 @@ const useSteps = ({ steps }) => {
     const { firstName, lastName, country, city, professionalSummary } =
       stepData.generalInfo.data
 
-    const data = {
-      photo: stepData.photo[0] ? stepData.photo[0] : '',
-      firstName,
-      lastName,
-      address: {
-        country: country ? country.name : '',
-        city: city ? city.name : ''
-      },
-      professionalSummary: professionalSummary,
-      mainSubjects: stepData.subjects.map((subj) => `${subj.id}`),
-      nativeLanguage: stepData.language ?? ''
+    const formData = new FormData()
+
+    if (stepData.photo[0]) {
+      formData.append('photo', stepData.photo[0])
     }
 
-    !hasErrors && fetchData(data)
+    formData.append('firstName', firstName)
+    formData.append('lastName', lastName)
+    formData.append('address[country]', country ? country.name : '')
+    formData.append('address[city]', city ? city.name : '')
+    formData.append('professionalSummary', professionalSummary)
+    formData.append(
+      'mainSubjects',
+      stepData.subjects.map((subj) => `${subj.id}`)
+    )
+    formData.append('nativeLanguage', stepData.language ?? '')
+
+    if (!hasErrors) {
+      fetchData(formData)
+    }
   }
 
   const stepOperation = {
