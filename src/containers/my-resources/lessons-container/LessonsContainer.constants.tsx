@@ -14,9 +14,6 @@ import {
   TableColumn
 } from '~/types'
 
-//this will be replaced with real path for lesson view
-const mockLessonViewPath = authRoutes.myResources.root.path
-
 export const columns: TableColumn<Lessons>[] = [
   {
     label: 'myResourcesPage.lessons.title',
@@ -27,7 +24,11 @@ export const columns: TableColumn<Lessons>[] = [
     ) => {
       const handleClick = () => {
         {
-          navigate(createUrlPath(mockLessonViewPath))
+          navigate(
+            createUrlPath(
+              `${authRoutes.myResources.lessonDetails.path}/${item._id}`
+            )
+          )
         }
       }
       return (
@@ -52,7 +53,7 @@ export const columns: TableColumn<Lessons>[] = [
     calculatedCellValue: (item: Lessons, { t }: AdditionalPropsInterface) =>
       item.category ? (
         <AppChip labelSx={styles.categoryChipLabel} sx={styles.categoryChip}>
-          {item.category}
+          {item.category.name}
         </AppChip>
       ) : (
         <Typography sx={styles.date}>

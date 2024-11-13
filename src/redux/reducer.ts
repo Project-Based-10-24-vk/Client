@@ -15,6 +15,8 @@ import { AccessToken, ErrorResponse, UserRole } from '~/types'
 
 interface UserState {
   userId: string
+  userFirstName: string
+  userLastName: string
   userRole: UserRole | ''
   authLoading: boolean
   error: string
@@ -26,6 +28,8 @@ interface UserState {
 const initialState: UserState = {
   userId: '',
   userRole: '',
+  userFirstName: '',
+  userLastName: '',
   authLoading: false,
   loading: true,
   pageLoad: false,
@@ -65,6 +69,8 @@ export const mainSlice = createSlice({
   reducers: {
     setUser(state, action: PayloadAction<string>) {
       const userData: AccessToken = parseJwt(action.payload)
+      state.userFirstName = userData.firstName
+      state.userLastName = userData.lastName
       state.userId = userData.id
       state.userRole = userData.role
       state.isFirstLogin = userData.isFirstLogin

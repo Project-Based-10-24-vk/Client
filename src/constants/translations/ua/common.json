@@ -13,7 +13,7 @@
   "next": "Далі",
   "search": "Пошук",
   "create": "Створити",
-  "edit":"Редагувати",
+  "edit": "Редагувати",
   "delete": "Видалити",
   "rename": "Перейменувати",
   "duplicate": "Дублювати",
@@ -37,7 +37,9 @@
   "fileSizeError": "Size for one file cannot be more than 10 MB.",
   "noItems": "Елементів не знайдено",
   "view": "Переглянути",
+  "noAttachments": "Немає вкладень",
   "labels": {
+    "offers": "Пропозицій",
     "sendMessage": "Надіслати повідомлення",
     "viewDetails": "Переглянути деталі",
     "sortBy": "Сортувати за:",

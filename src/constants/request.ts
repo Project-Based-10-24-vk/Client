@@ -31,6 +31,9 @@ export const URLs = {
     getCountries: '/location/countries',
     getCities: '/cities'
   },
+  attachments: {
+    get: '/attachments'
+  },
   resources: {
     lessons: {
       get: '/lessons',

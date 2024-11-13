@@ -10,6 +10,8 @@ import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import DirectionLink from '~/components/direction-link/DirectionLink'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
+import OffersList from '~/containers/offers-list/OffersList'
+import PopularCategories from '~/components/popular-categories/PopularCategories'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 import { authRoutes } from '~/router/constants/authRoutes'
@@ -166,6 +168,8 @@ const FindOffers = () => {
           }}
         />
       </AppToolbar>
+      <OffersList />
+      <PopularCategories />
     </PageWrapper>
   )
 }

@@ -1,10 +1,11 @@
-import { emptyField } from '~/utils/validations/common'
+import { emptyField, textField } from '~/utils/validations/common'
 
 export const validations = {
   title: (value: string | null) =>
     emptyField(value, 'lesson.errorMessages.title'),
   description: (value: string) =>
-    emptyField(value, 'lesson.errorMessages.description')
+    emptyField(value, 'lesson.errorMessages.description'),
+  content: (value: string) => textField(50, 10000)(value)
 }
 
 export const initialValues = {
@@ -12,7 +13,8 @@ export const initialValues = {
   description: '',
   content: '',
   attachments: [],
-  category: null
+  category: null,
+  resourceType: 'lessons'
 }
 
 export const defaultResponse = {
@@ -24,7 +26,8 @@ export const defaultResponse = {
   updatedAt: '',
   _id: '',
   content: '',
-  category: null
+  category: null,
+  resourceType: 'lessons'
 }
 
 export const myResourcesPath = '/my-resources'
