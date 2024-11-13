@@ -66,7 +66,7 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
             description={'100 offers'}
             img={card.appearance.icon}
             key={card._id}
-            link={authRoutes.subjects.path}
+            link={`${authRoutes.subjects.path}?categoryId=${card._id}`}
             title={card.name}
           />
         )
