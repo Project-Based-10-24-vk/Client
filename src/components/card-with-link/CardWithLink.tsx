@@ -10,17 +10,23 @@ interface CardWithLinkProps {
   title: string
   description: string
   link: string
+  color?: string
 }
 
 const CardWithLink: FC<CardWithLinkProps> = ({
   img,
   title,
   description,
+  color = '#79B260',
   link
 }) => {
   return (
-    <AppCard link={link}>
-      <Box alt='item image' component='img' src={img} sx={styles.img} />
+    <AppCard link={link} sx={{ alignItems: 'center' }}>
+      <Box height={64} mr={3} sx={{ position: 'relative' }} width={64}>
+        <Box alt='item image' component='img' src={img} sx={styles.img} />
+        <Box sx={{ ...styles.thumb, background: color }} />
+      </Box>
+
       <TitleWithDescription
         description={description}
         style={styles.titleWithDescription}

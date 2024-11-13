@@ -4,14 +4,10 @@ import PopularCategories from '~/components/popular-categories/PopularCategories
 
 const FindOffers = () => {
   return (
-    (
     <PageWrapper>
-      
       <OffersList />
-    
-      <PopularCategories />
+      <PopularCategories sx={{ paddingTop: '100px' }} />
     </PageWrapper>
-  )
   )
 }
 

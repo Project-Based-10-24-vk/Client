@@ -3,7 +3,7 @@ import type { AxiosResponse } from 'axios'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography, type SxProps } from '@mui/material'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { categoryService } from '~/services/category-service'
 import {
@@ -15,7 +15,15 @@ import AppButton from '../app-button/AppButton'
 import CardWithLink from '../card-with-link/CardWithLink'
 import { styles } from './PopularCategories.styles'
 
-const PopularCategories = () => {
+const PopularCategories = ({
+  description,
+  textAlight = 'center',
+  sx = {}
+}: {
+  description?: string
+  textAlight?: 'center' | 'left' | 'right'
+  sx?: SxProps
+}) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
@@ -46,6 +54,7 @@ const PopularCategories = () => {
       categories.map((card) => {
         return (
           <CardWithLink
+            color={card.appearance.color}
             description={
               String(card.totalOffers) + ' ' + t('common.labels.offers')
             }
@@ -60,8 +69,18 @@ const PopularCategories = () => {
   )
 
   return (
-    <Stack component='section' spacing={4}>
-      <Typography variant='h4'>{t('header.categoriesPopular')}</Typography>
+    <Stack component='section' spacing={4} sx={sx}>
+      <Stack spacing={1}>
+        <Typography sx={{ textAlign: textAlight }} variant='h4'>
+          {t('header.categoriesPopular')}
+        </Typography>
+        {description && (
+          <Typography sx={{ typography: 'body1', textAlign: textAlight }}>
+            {description}
+          </Typography>
+        )}
+      </Stack>
+
       <Stack component='section' spacing='40px'>
         <Box sx={styles.cardsContainer}>{cardElements}</Box>
         <AppButton

@@ -7,6 +7,7 @@ export const styles = {
   container: (isClickable: boolean) => ({
     display: 'flex',
     padding: '20px 30px',
+
     textDecoration: 'none',
     backgroundColor: 'basic.white',
     boxShadow: commonShadow,
