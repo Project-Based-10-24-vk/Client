@@ -77,7 +77,7 @@ const Subjects = () => {
 
   const getSubjects = useCallback(
     (data?: Pick<SubjectInterface, 'name'>) =>
-      subjectService.getSubjects(data, categoryId),
+      subjectService.getSubjectsWithParamsAndCategoryId(data, categoryId),
     [categoryId]
   )
 
@@ -105,7 +105,7 @@ const Subjects = () => {
             )}`}
             img={serviceIcon}
             key={item._id + idx}
-            link={`${authRoutes.categories.path}?categoryId=${categoryId}&subjectId=${item._id}`}
+            link={`${authRoutes.findOffers.path}?categoryId=${categoryId}&subjectId=${item._id}`}
             title={item.name}
           />
         )

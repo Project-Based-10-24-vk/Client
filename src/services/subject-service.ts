@@ -5,7 +5,7 @@ import { URLs } from '~/constants/request'
 import { ItemsWithCount, SubjectInterface, SubjectNameInterface } from '~/types'
 
 export const subjectService = {
-  getSubjects: (
+  getSubjectsWithParamsAndCategoryId: (
     params?: Pick<SubjectInterface, 'name'>,
     categoryId?: string
   ): Promise<AxiosResponse<ItemsWithCount<SubjectInterface>>> => {
