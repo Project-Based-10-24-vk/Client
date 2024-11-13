@@ -20,7 +20,6 @@ interface CategoriesListProps {
 const CategoriesList = ({ query }: CategoriesListProps) => {
   const [categories, setCategories] = useState<CategoryInterface[]>([])
   const [isCategoryFound, setIsCategoryFound] = useState<boolean>(false)
-  const [visibleCards, setVisibleCards] = useState(4)
   const [count, setCount] = useState(0)
   const breakpoints = useBreakpoints()
   const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
@@ -59,16 +58,14 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
           fetchedItems > 0
             ? [...prev, ...response.data.items]
             : response.data.items
-
+        )
       } catch (error) {
         console.error('error', error)
         setCategories([])
       }
     }
     void fetchCategories()
-
   }, [params, setIsCategoryFound, fetchedItems])
-
 
   const cardElements = useMemo(
     () =>
