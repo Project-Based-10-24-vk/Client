@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import CardWithLink from '~/components/card-with-link/CardWithLink'
 import CardsList from '~/components/cards-list/CardsList'
+import NotFoundResults from '~/components/not-found-results/NotFoundResults'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import { authRoutes } from '~/router/constants/authRoutes'
 import { getScreenBasedLimit } from '~/utils/helper-functions'
@@ -18,6 +19,8 @@ interface CategoriesListProps {
 
 const CategoriesList = ({ query }: CategoriesListProps) => {
   const [categories, setCategories] = useState<CategoryInterface[]>([])
+  const [isCategoryFound, setIsCategoryFound] = useState<boolean>(false)
+  const [visibleCards, setVisibleCards] = useState(4)
   const [count, setCount] = useState(0)
   const breakpoints = useBreakpoints()
   const cardsLimit = getScreenBasedLimit(breakpoints, itemsLoadLimit)
@@ -44,19 +47,28 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
         const response: AxiosResponse<ItemsWithCount<CategoryInterface>> =
           await categoryService.getCategories(params)
 
+        setCategories(response.data.items)
+        if (response.data.items.length === 0) {
+          setIsCategoryFound(true)
+        } else {
+          setIsCategoryFound(false)
+        }
+
         setCount(response.data.count)
         setCategories((prev) =>
           fetchedItems > 0
             ? [...prev, ...response.data.items]
             : response.data.items
-        )
+
       } catch (error) {
         console.error('error', error)
         setCategories([])
       }
     }
     void fetchCategories()
-  }, [params, fetchedItems])
+
+  }, [params, setIsCategoryFound, fetchedItems])
+
 
   const cardElements = useMemo(
     () =>
@@ -82,12 +94,19 @@ const CategoriesList = ({ query }: CategoriesListProps) => {
 
   return (
     <PageWrapper>
-      <CardsList
-        btnText={t('categoriesPage.viewMore')}
-        cards={cardElements}
-        isExpandable={hasMoreCards}
-        onClick={handleLoadMore}
-      />
+      {!isCategoryFound ? (
+        <CardsList
+          btnText={t('categoriesPage.viewMore')}
+          cards={cardElements}
+          isExpandable={hasMoreCards}
+          onClick={handleLoadMore}
+        />
+      ) : (
+        <NotFoundResults
+          buttonText={t('errorMessages.buttonRequest', { name: 'category' })}
+          description={t('errorMessages.tryAgainText', { name: 'category' })}
+        />
+      )}
     </PageWrapper>
   )
 }
