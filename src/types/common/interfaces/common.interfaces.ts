@@ -48,6 +48,17 @@ export interface SubjectNameInterface {
   name: string
 }
 
+export interface SubjectParamsInterface {
+  name: string
+  category: string
+  sort: {
+    orderBy: 'name' | 'category' | 'updatedAt'
+    order: 'asc' | 'desc'
+  }
+  skip: number
+  limit: number
+}
+
 export interface ReviewInterface {
   offer: Offer
   author: UserResponse
