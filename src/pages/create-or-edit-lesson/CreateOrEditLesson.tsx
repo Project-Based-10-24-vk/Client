@@ -1,53 +1,52 @@
 import { SyntheticEvent, useEffect } from 'react'
+import { AxiosResponse } from 'axios'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { AxiosResponse } from 'axios'
-import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-import AddIcon from '@mui/icons-material/Add'
-import CloseIcon from '@mui/icons-material/Close'
-import IconButton from '@mui/material/IconButton'
 
-import Loader from '~/components/loader/Loader'
-import AddResources from '~/containers/add-resources/AddResources'
-import IconExtensionWithTitle from '~/components/icon-extension-with-title/IconExtensionWithTitle'
-import { useModalContext } from '~/context/modal-context'
-import AppButton from '~/components/app-button/AppButton'
-import AppTextField from '~/components/app-text-field/AppTextField'
-import FileEditor from '~/components/file-editor/FileEditor'
-import PageWrapper from '~/components/page-wrapper/PageWrapper'
-import CategoryDropdown from '~/containers/category-dropdown/CategoryDropdown'
-import { useSnackBarContext } from '~/context/snackbar-context'
-import useAxios from '~/hooks/use-axios'
-import useForm from '~/hooks/use-form'
-import { ResourceService } from '~/services/resource-service'
-
-import { getErrorMessage } from '~/utils/error-with-message'
-import { snackbarVariants } from '~/constants'
 import {
-  initialValues,
   defaultResponse,
+  initialValues,
   myResourcesPath,
   validations
 } from '~/pages/create-or-edit-lesson/CreateOrEditLesson.constants'
+import { styles } from '~/pages/create-or-edit-lesson/CreateOrEditLesson.styles'
+import AddIcon from '@mui/icons-material/Add'
+import CloseIcon from '@mui/icons-material/Close'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
 import {
   columns,
   removeColumnRules
 } from '~/containers/add-resources/AddAttachments.constants'
-import { styles } from '~/pages/create-or-edit-lesson/CreateOrEditLesson.styles'
+import AddResources from '~/containers/add-resources/AddResources'
+import CategoryDropdown from '~/containers/category-dropdown/CategoryDropdown'
+import AppButton from '~/components/app-button/AppButton'
+import AppTextField from '~/components/app-text-field/AppTextField'
+import FileEditor from '~/components/file-editor/FileEditor'
+import IconExtensionWithTitle from '~/components/icon-extension-with-title/IconExtensionWithTitle'
+import Loader from '~/components/loader/Loader'
+import PageWrapper from '~/components/page-wrapper/PageWrapper'
 import { authRoutes } from '~/router/constants/authRoutes'
+import { useModalContext } from '~/context/modal-context'
+import { useSnackBarContext } from '~/context/snackbar-context'
+import { getErrorMessage } from '~/utils/error-with-message'
+import useAxios from '~/hooks/use-axios'
+import useForm from '~/hooks/use-form'
+import { ResourceService } from '~/services/resource-service'
+import { snackbarVariants } from '~/constants'
 import {
+  Attachment,
   ButtonTypeEnum,
   ButtonVariantEnum,
+  CategoryNameInterface,
   ComponentEnum,
   ErrorResponse,
   Lesson,
   LessonData,
-  SizeEnum,
-  TextFieldVariantEnum,
-  Attachment,
   ResourcesTabsEnum,
-  CategoryNameInterface
+  SizeEnum,
+  TextFieldVariantEnum
 } from '~/types'
 
 const CreateOrEditLesson = () => {
@@ -108,11 +107,11 @@ const CreateOrEditLesson = () => {
   }
 
   const handleEdit = (content: string) => {
-    handleNonInputValueChange('content', content)
+    handleNonInputValueChange('content', content.trim())
   }
 
   const addLesson = (): Promise<AxiosResponse> => {
-    return ResourceService.addLesson(data)
+    return ResourceService.createLesson(data)
   }
 
   const { fetchData: fetchAddLesson } = useAxios<Lesson, LessonData>({
@@ -124,7 +123,7 @@ const CreateOrEditLesson = () => {
   })
 
   const editLesson = (): Promise<AxiosResponse> => {
-    return ResourceService.editLesson(data, id)
+    return ResourceService.updateLesson(id!, data)
   }
 
   const { fetchData: fetchEditedLesson } = useAxios<null, LessonData>({
@@ -139,6 +138,7 @@ const CreateOrEditLesson = () => {
     _: SyntheticEvent,
     value: CategoryNameInterface | null
   ) => {
+    console.log(value)
     handleNonInputValueChange('category', value?._id ?? null)
   }
 
@@ -189,11 +189,8 @@ const CreateOrEditLesson = () => {
   }
 
   const attachmentsList = data.attachments.map((attachment) => (
-    <Box key={attachment.size} sx={styles.attachmentList.container}>
-      <IconExtensionWithTitle
-        size={attachment.size}
-        title={attachment.fileName}
-      />
+    <Box key={attachment._id} sx={styles.attachmentList.container}>
+      <IconExtensionWithTitle size={attachment.size} title={attachment.name} />
       <IconButton onClick={() => handleRemoveAttachment(attachment)}>
         <CloseIcon />
       </IconButton>
@@ -232,7 +229,8 @@ const CreateOrEditLesson = () => {
           variant={TextFieldVariantEnum.Standard}
         />
         <CategoryDropdown
-          category={data.category}
+          authorizedCreateCategory={null}
+          category={data.category?._id ?? null}
           onCategoryChange={onCategoryChange}
         />
         <Divider sx={styles.divider} />
@@ -242,7 +240,11 @@ const CreateOrEditLesson = () => {
         >
           {t('lesson.labels.attachments')} <AddIcon sx={styles.addIcon} />
         </AppButton>
-        <FileEditor onEdit={handleEdit} value={data.content} />
+        <FileEditor
+          errorMsg={t(errors.content)}
+          onEdit={handleEdit}
+          value={data.content}
+        />
         {attachmentsList}
         <Box sx={styles.buttons}>
           <AppButton size={SizeEnum.ExtraLarge} type={ButtonTypeEnum.Submit}>

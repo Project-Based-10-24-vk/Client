@@ -34,10 +34,11 @@ export interface GetLessonsParams extends Partial<RequestParams> {
   category?: string[]
 }
 
-export interface Attachment {
+export interface Attachment extends CommonEntityFields {
   name: string
   size: number
   url: string
+  extension: string
 }
 
 export interface Lesson extends CommonEntityFields {
@@ -45,56 +46,21 @@ export interface Lesson extends CommonEntityFields {
   description: string
   content: string
   author: string
-  category: string | null
-  resourceType: ResourceType
+  category: { _id: string; name: string } | null
+  resourceType: string
   attachments: Attachment[]
 }
 
 export interface LessonData {
+  id?: string
   title: string
   description: string
   content: string
-  author: string
-  category: Category['_id'] | null
-}
-
-export interface CreateLessonData {
-  title: string
-  description: string
-  content: string
-}
-
-export interface UpdateLessonParams {
-  title: Lessons['title']
-  id: Lessons['_id']
-  description: Lessons['description']
-  category: CategoryNameInterface | string | null
+  category: { _id: string; name: string } | null
+  attachments: Attachment[]
+  resourceType: string
 }
 
 export interface GetLessonsParams extends Partial<RequestParams> {
   title?: string
-}
-
-export interface Attachment {
-  name: string
-  size: number
-  url: string
-}
-
-export interface Lesson extends CommonEntityFields {
-  title: string
-  description: string
-  content: string
-  author: string
-  category: string | null
-  resourceType: ResourceType
-  attachments: Attachment[]
-}
-
-export interface LessonData {
-  title: string
-  category: Category | null
-  description: string
-  content: string
-  attachments: Attachment[]
 }

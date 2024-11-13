@@ -1,12 +1,15 @@
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import Typography from '@mui/material/Typography'
-
+import { styles } from '~/containers/add-resources/AddResources.styles'
 import AppChip from '~/components/app-chip/AppChip'
 import IconExtensionWithTitle from '~/components/icon-extension-with-title/IconExtensionWithTitle'
-
-import { styles } from '~/containers/add-resources/AddResources.styles'
 import { getFormattedDate } from '~/utils/helper-functions'
-import { AdditionalPropsInterface, Lesson, RemoveColumnRules } from '~/types'
+import {
+  AdditionalPropsInterface,
+  Lesson,
+  RemoveColumnRules,
+  type Lessons
+} from '~/types'
 
 export const columns = [
   {
@@ -38,6 +41,6 @@ export const columns = [
   }
 ]
 
-export const removeColumnRules: RemoveColumnRules<Lesson> = {
+export const removeColumnRules: RemoveColumnRules<Lessons> = {
   tablet: ['myResourcesPage.lessons.lastUpdates']
 }

@@ -25,7 +25,9 @@ export const columns: TableColumn<Lessons>[] = [
       const handleClick = () => {
         {
           navigate(
-            createUrlPath(`${authRoutes.lessonDetails.path}/${item._id}`)
+            createUrlPath(
+              `${authRoutes.myResources.lessonDetails.path}/${item._id}`
+            )
           )
         }
       }

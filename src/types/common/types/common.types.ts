@@ -10,6 +10,11 @@ export type Category = {
   name: string
 }
 
+export type ResourcesCategory = {
+  _id: string
+  name: string
+}
+
 export type CreatedAt = {
   from: string
   to: string

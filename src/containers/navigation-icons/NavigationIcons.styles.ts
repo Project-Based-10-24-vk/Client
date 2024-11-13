@@ -14,5 +14,21 @@ export const styles = {
     ...hideOnMobile,
     ml: '12px'
   },
-  studentIcons: { ...hideOnMobile, color: 'primary.900' }
+  studentIcons: { ...hideOnMobile, color: 'primary.900' },
+
+  userProfileImage: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '30px',
+    height: '30px',
+    backgroundColor: '#ffffff',
+    border:'2px solid',
+    color: 'black',
+    fontSize: '20px',
+    fontWeight:'normal',
+    borderRadius: '50%',
+    textTransform:'uppercase',
+  },
+  
 }

@@ -1,7 +1,14 @@
 {
   "labels": {
-    "title": "Назва уроку",
+    "title": "Без назви",
+    "description": "Опис...",
     "attachments": "Додатки",
     "chooseCategory": "Виберіть категорію:"
-  }
+  },
+  "errorMessages": {
+    "title": "Обов'язкове поле",
+    "description": "Обов'язкове поле"
+  },
+  "successEditedLesson": "Урок успішно відредаговано",
+  "successAddedLesson": "Урок успішно додано"
 }

@@ -67,10 +67,15 @@ export const numberField = (value: string, errorMessage: string) => {
 export const textField =
   (min: number, max: number) =>
   (value: string): string | undefined => {
-    if (value.length !== 0 && value.length < min) {
+    const string = value.trim()
+
+    if (!string) {
+      return 'common.errorMessages.emptyField'
+    }
+    if (string.length !== 0 && value.length < min) {
       return 'common.errorMessages.shortText'
     }
-    if (value.length > max) {
+    if (string.length > max) {
       return 'common.errorMessages.longText'
     }
   }

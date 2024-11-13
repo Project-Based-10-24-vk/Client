@@ -54,5 +54,15 @@ export const editQuestion = {
 
 export const lessonDetails = {
   name: i18n.t('breadCrumbs.lessonDetails'),
-  path: authRoutes.lessonDetails.route
+  path: authRoutes.myResources.lessonDetails.route
+}
+
+export const lessonCreate = {
+  name: i18n.t('breadCrumbs.lessonCreate'),
+  path: authRoutes.myResources.lessonCreate.route
+}
+
+export const lessonEdit = {
+  name: i18n.t('breadCrumbs.lessonEdit'),
+  path: authRoutes.myResources.lessonEdit.route
 }

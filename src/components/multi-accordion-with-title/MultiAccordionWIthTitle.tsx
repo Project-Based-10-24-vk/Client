@@ -1,16 +1,15 @@
 import { FC, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
-
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Accordions from '~/components/accordion/Accordions'
 import {
   AccordionItem,
   MultiAccordionWithTitleSx,
   TypographyVariantEnum
 } from '~/types'
-import Accordions from '~/components/accordion/Accordions'
 
 interface MultiAccordionWithTitleProps {
   items: AccordionItem[]

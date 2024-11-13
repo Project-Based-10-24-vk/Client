@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
 import AddResourceWithInput from '~/containers/my-resources/add-resource-with-input/AddResourceWithInput'
@@ -12,6 +13,7 @@ import {
 import MyResourcesTable from '~/containers/my-resources/my-resources-table/MyResourcesTable'
 import AppButton from '~/components/app-button/AppButton'
 import Loader from '~/components/loader/Loader'
+import { authRoutes } from '~/router/constants/authRoutes'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import { ajustColumns, getScreenBasedLimit } from '~/utils/helper-functions'
 import usePagination from '~/hooks/table/use-pagination'
@@ -28,12 +30,9 @@ import {
   ResourcesTabsEnum
 } from '~/types'
 
-//this will be replaced with handlers that redirect to apropriate page/component
-const mockEdit = (id: string) => console.log(`edit lesson ${id}`)
-const mockAdd = () => console.log(`add new lesson`)
-
 const LessonsContainer = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const searchTitle = useRef<string>('')
   const { page, handleChangePage } = usePagination()
   const sortOptions = useSort({ initialSort })
@@ -70,6 +69,9 @@ const LessonsContainer = () => {
     []
   )
 
+  const editLesson = (id: string) =>
+    navigate(`${authRoutes.myResources.lessonEdit.path}/${id}`)
+
   const { response, loading, fetchData } = useAxios<
     ItemsWithCount<Lessons>,
     GetResourcesCategoriesParams
@@ -86,7 +88,7 @@ const LessonsContainer = () => {
   )
 
   const props = {
-    actions: { onEdit: mockEdit },
+    actions: { onEdit: editLesson },
     columns: columnsToShow,
     data: { response, getData: fetchData },
     services: { deleteService: deleteLesson },
@@ -100,7 +102,9 @@ const LessonsContainer = () => {
     <Box>
       <AddResourceWithInput
         button={
-          <AppButton onClick={mockAdd}>
+          <AppButton
+            onClick={() => navigate(authRoutes.myResources.lessonCreate.path)}
+          >
             {t('myResourcesPage.lessons.addBtn')}
           </AppButton>
         }
