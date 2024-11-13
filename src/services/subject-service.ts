@@ -12,6 +12,11 @@ export const subjectService = {
     const queryParams = { ...params, category: categoryId }
     return axiosClient.get(URLs.subjects.get, { params: queryParams })
   },
+  getSubjects: (
+    params?: Partial<SubjectInterface>
+  ): Promise<AxiosResponse<ItemsWithCount<SubjectInterface>>> => {
+    return axiosClient.get(URLs.subjects.get, { params })
+  },
   getSubjectsNames: (
     categoryId: string | null
   ): Promise<AxiosResponse<SubjectNameInterface[]>> => {

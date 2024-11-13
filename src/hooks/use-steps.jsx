@@ -66,20 +66,27 @@ const useSteps = ({ steps }) => {
 
     const formData = new FormData()
 
+    formData.append('firstName', firstName)
+    formData.append('lastName', lastName)
+    formData.append('professionalSummary', professionalSummary)
+
     if (stepData.photo[0]) {
       formData.append('photo', stepData.photo[0])
     }
-
-    formData.append('firstName', firstName)
-    formData.append('lastName', lastName)
-    formData.append('address[country]', country ? country.name : '')
-    formData.append('address[city]', city ? city.name : '')
-    formData.append('professionalSummary', professionalSummary)
-    formData.append(
-      'mainSubjects',
-      stepData.subjects.map((subj) => `${subj.id}`)
-    )
-    formData.append('nativeLanguage', stepData.language ?? '')
+    if (stepData.language) {
+      formData.append('nativeLanguage', stepData.language)
+    }
+    if (stepData.subjects.length > 0) {
+      stepData.subjects.forEach((subj) => {
+        formData.append('mainSubjects', subj.id)
+      })
+    }
+    if (country) {
+      formData.append('address[country]', country.name)
+    }
+    if (city) {
+      formData.append('address[city]', city.name)
+    }
 
     if (!hasErrors) {
       fetchData(formData)
