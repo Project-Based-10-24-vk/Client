@@ -63,7 +63,7 @@ const AsyncAutocomplete = <T, F extends boolean | undefined = undefined>({
   )
 
   const isOptionEqualToValue = (option: T, value: T) => {
-    if (freeSolo) return value === value
+    if (freeSolo) return true
     if (valueField) {
       return option?.[valueField] === value?.[valueField]
     }

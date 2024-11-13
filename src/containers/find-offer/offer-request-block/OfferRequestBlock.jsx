@@ -12,17 +12,21 @@ import AppTextArea from '~/components/app-text-area/AppTextArea'
 import AppTextField from '~/components/app-text-field/AppTextField'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import TitleBlock from '~/components/title-block/TitleBlock'
+import { useSnackBarContext } from '~/context/snackbar-context'
 import useBreakpoints from '~/hooks/use-breakpoints'
 import { useDrawer } from '~/hooks/use-drawer'
 import useForm from '~/hooks/use-form'
 import { categoryService } from '~/services/category-service'
+import { subjectService } from '~/services/subject-service'
+import { snackbarVariants } from '~/constants'
 import icon from '~/assets/img/find-offer/subject_icon.png'
 import img from '~/assets/img/find-offer/subject-request.svg'
 import { initialValues, validations } from './OfferRequestBlock.constants'
 
 const OfferRequestBlock = () => {
   const { t } = useTranslation()
-  const [reqCategory, setReqCategory] = useState(null)
+  const { setAlert } = useSnackBarContext()
+  const [reqCategory, setReqCategory] = useState('')
   const { isMobile } = useBreakpoints()
   const { isOpen, openDrawer, closeDrawer } = useDrawer()
   const filter = createFilterOptions()
@@ -31,17 +35,41 @@ const OfferRequestBlock = () => {
     openDrawer()
   }
 
-  const mockSendReqest = () => {
-    closeDrawer()
-    alert(`Request for subject "${data.reqSubject}" was sent`)
+  const isSubjectExist = async (name) => {
+    const subjects = await subjectService.getSubjectsWithParamsAndCategoryId({
+      name: name
+    })
+    const names = subjects.data.items.map((i) => i.name)
+    return names.includes(name)
   }
 
-  const { data, isDirty, errors, handleInputChange, handleBlur, handleSubmit } =
-    useForm({
-      initialValues: initialValues,
-      validations,
-      onSubmit: () => mockSendReqest()
-    })
+  const mockSendReqest = async () => {
+    closeDrawer()
+    if (await isSubjectExist(data.reqSubject))
+      setAlert({
+        severity: snackbarVariants.error,
+        message: t('categoriesPage.newSubject.error')
+      })
+    else
+      setAlert({
+        message: t('categoriesPage.newSubject.successMessage')
+      })
+    resetData()
+  }
+
+  const {
+    data,
+    isDirty,
+    errors,
+    handleInputChange,
+    handleBlur,
+    handleSubmit,
+    resetData
+  } = useForm({
+    initialValues: initialValues,
+    validations,
+    onSubmit: () => mockSendReqest()
+  })
 
   data.reqCategory = reqCategory ? reqCategory.name : ''
 
