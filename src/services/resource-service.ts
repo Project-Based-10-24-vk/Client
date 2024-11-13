@@ -29,6 +29,20 @@ export const ResourceService = {
   ): Promise<AxiosResponse<ItemsWithCount<Attachment>>> => {
     return await axiosClient.get(URLs.attachments.get, { params })
   },
+  createAttachments: async (files: File[]): Promise<Attachment[]> => {
+    const formData = new FormData()
+
+    files.forEach((file) => {
+      formData.append('files', file)
+    })
+
+    return axiosClient.post(URLs.attachments.get, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  },
+
   getLessons: async (
     params?: GetLessonsParams
   ): Promise<AxiosResponse<ItemsWithCount<Lessons>>> => {

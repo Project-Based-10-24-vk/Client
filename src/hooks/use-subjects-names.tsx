@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
-import { defaultResponses } from '~/constants'
 
 import useAxios from '~/hooks/use-axios'
 import { subjectService } from '~/services/subject-service'
+import { defaultResponses } from '~/constants'
 import { ErrorResponse, SubjectNameInterface } from '~/types'
 
 interface UseSubjectsNamesProps<T> {
