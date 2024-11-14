@@ -17,6 +17,7 @@ interface UserState {
   userId: string
   userFirstName: string
   userLastName: string
+  userPhoto: string
   userRole: UserRole | ''
   authLoading: boolean
   error: string
@@ -28,6 +29,7 @@ interface UserState {
 const initialState: UserState = {
   userId: '',
   userRole: '',
+  userPhoto: '',
   userFirstName: '',
   userLastName: '',
   authLoading: false,
@@ -74,6 +76,7 @@ export const mainSlice = createSlice({
       state.userId = userData.id
       state.userRole = userData.role
       state.isFirstLogin = userData.isFirstLogin
+      state.userPhoto = userData.photo
     },
     logout(state) {
       state.userId = initialState.userId
