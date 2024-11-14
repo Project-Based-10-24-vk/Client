@@ -15,14 +15,12 @@ import testimg from './mockData/test.jpeg'
 const CardLarge = ({ user }) => {
   const [value, setValue] = useState(0)
 
-  user = mockData[0]
-
   return (
     <Box elevation={24} sx={styles.cardBody}>
       <Box sx={styles.userReview}>
         <Avatar
           alt='User avatar'
-          src={user.avatar || testimg}
+          src={user.avatarUrl || testimg}
           sx={styles.avatar}
         />
         <Box sx={styles.raitinContainer}>
