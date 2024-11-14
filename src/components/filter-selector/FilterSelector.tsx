@@ -1,25 +1,24 @@
-import { useState, ChangeEvent, useMemo, Dispatch, SetStateAction } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SimpleBar from 'simplebar-react'
-import Box from '@mui/material/Box'
-import Menu, { MenuProps } from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import { PopoverOrigin } from '@mui/material/Popover'
-import Divider from '@mui/material/Divider'
-import Checkbox from '@mui/material/Checkbox'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
+
 import ClearIcon from '@mui/icons-material/Clear'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-
-import useAxios from '~/hooks/use-axios'
-import Loader from '~/components/loader/Loader'
+import Box from '@mui/material/Box'
+import Checkbox from '@mui/material/Checkbox'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import Menu, { MenuProps } from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { PopoverOrigin } from '@mui/material/Popover'
+import Typography from '@mui/material/Typography'
 import AppButton from '~/components/app-button/AppButton'
-import InputWithIcon from '~/components/input-with-icon/InputWithIcon'
-
-import { defaultResponses } from '~/constants'
 import { styles } from '~/components/filter-selector/FilterSelector.styles'
+import InputWithIcon from '~/components/input-with-icon/InputWithIcon'
+import Loader from '~/components/loader/Loader'
+import useAxios from '~/hooks/use-axios'
+import { defaultResponses } from '~/constants'
 import {
   ButtonVariantEnum,
   CategoryNameInterface,
@@ -93,13 +92,24 @@ const FilterSelector = <T extends Pick<CategoryNameInterface, '_id'>>({
       name: 'None'
     }
 
+    const sortBySelect = (a: { _id: string }, b: { _id: string }) => {
+      if (selectedItems.includes(a._id) && !selectedItems.includes(b._id)) {
+        return -1
+      }
+      if (!selectedItems.includes(a._id) && selectedItems.includes(b._id)) {
+        return 1
+      }
+      return 0
+    }
+
     const filtered = response.filter((item) =>
       String(valueField ? item[valueField] : item)
         .toLowerCase()
         .includes(inputValue.toLowerCase())
     )
-    return showNoneProperty ? [noneItem, ...filtered] : filtered
-  }, [response, inputValue, valueField, showNoneProperty])
+    const items = showNoneProperty ? [noneItem, ...filtered] : filtered
+    return items.toSorted(sortBySelect)
+  }, [response, inputValue, valueField, showNoneProperty, selectedItems])
 
   const menuItems = filteredItems.map((item) => {
     const field = String(valueField ? item[valueField] : item)

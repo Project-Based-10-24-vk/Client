@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Box, Typography } from '@mui/material'
 import { style } from '~/containers/tutor-home-page/add-photo-step/AddPhotoStep.style'
 import FileUploader from '~/components/file-uploader/FileUploader'
+import { useStepContext } from '~/context/step-context'
 import { useCreateImgUrl } from '~/hooks/use-create-img-url'
 import { ButtonVariantEnum } from '~/types'
 import { validationData } from './constants'
@@ -13,12 +14,14 @@ const AddPhotoStep = ({ btnsBox }) => {
   const [uploadedFiles, setUploadedFiles] = useState([])
   const [error, setError] = useState('')
   const { urls, createUrl } = useCreateImgUrl()
+  const { handleStepData } = useStepContext()
 
   const handleFilesEmit = ({ files, error }) => {
     createUrl(files)
 
     setUploadedFiles(files)
     setError(error)
+    handleStepData('photo', files, {})
   }
 
   return (

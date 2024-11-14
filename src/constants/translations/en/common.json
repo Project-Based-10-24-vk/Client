@@ -42,6 +42,7 @@
   "view": "View",
   "noAttachments": "No attachments",
   "labels": {
+    "offers": "Offers",
     "email": "Email",
     "firstName": "First name",
     "lastName": "Last name",

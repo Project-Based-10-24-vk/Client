@@ -4,8 +4,9 @@
   "who-we-are": "Про нас",
   "findOffers": "Знайти Пропозицію",
   "allOffers": "Всі пропозиції",
-  "subjects":"Предмети",
+  "subjects": "Предмети",
   "categories": "Категорії",
+  "categoriesPopular": "Популярні категорії",
   "homePage": "Домашня сторінка",
   "faq": "Поширені питання",
   "becomeTutor": "Стати викладачем",
@@ -27,5 +28,4 @@
       "CANCEL_COOPERATION": "Вашу співпрацю відхилено"
     }
   }
-  
 }
