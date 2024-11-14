@@ -169,7 +169,7 @@ const FindOffers = () => {
         />
       </AppToolbar>
       <OffersList />
-      <PopularCategories />
+      <PopularCategories sx={{ paddingTop: '100px' }} />
     </PageWrapper>
   )
 }

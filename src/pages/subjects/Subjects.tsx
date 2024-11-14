@@ -28,7 +28,7 @@ import useSubjectsNames from '~/hooks/use-subjects-names'
 import { categoryService } from '~/services/category-service'
 import { subjectService } from '~/services/subject-service'
 import { itemsLoadLimit } from '~/constants'
-import serviceIcon from '~/assets/img/student-home-page/service_icon.png'
+import serviceIcon from '~/assets/icons/default-subject.svg'
 import {
   CategoryNameInterface,
   ItemsWithCount,

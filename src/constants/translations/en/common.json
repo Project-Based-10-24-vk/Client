@@ -64,6 +64,9 @@
     "subject": "Subject:",
     "level": "Level:"
   },
+  "descriptions": {
+    "tutorPopularCategories": "Explore tutoring categories you're passionate about."
+  },
   "errorMessages": {
     "emailValid": "Email should be of the following format: “local-part@domain.com”",
     "passwordLength": "Password cannot be shorter than 8 and longer than 25 characters",

@@ -49,6 +49,9 @@
     "moveToDraft": "Перемістити до чернетки",
     "closeOffer": "Закрити пропозицію"
   },
+  "descriptions": {
+    "tutorPopularCategories": "Оберіть категорії, в яких ви спеціалізуєтеся"
+  },
   "levels": {
     "beginner": "Початковий",
     "intermediate": "Середній",
