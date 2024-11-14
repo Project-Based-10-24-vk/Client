@@ -2,8 +2,7 @@ import { AxiosResponse } from 'axios'
 
 import { axiosClient } from '~/plugins/axiosClient'
 import { URLs } from '~/constants/request'
-import { ItemsWithCount, SubjectInterface, SubjectParamsInterface } from '~/types'
-
+import { ItemsWithCount, SubjectInterface, SubjectParamsInterface, SubjectNameInterface } from '~/types'
 
 export const subjectService = {
   getSubjects: ( 
