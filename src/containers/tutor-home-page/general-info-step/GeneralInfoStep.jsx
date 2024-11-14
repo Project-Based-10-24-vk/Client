@@ -8,12 +8,34 @@ import AppTextArea from '~/components/app-text-area/AppTextArea'
 import AppTextField from '~/components/app-text-field/AppTextField'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import { useStepContext } from '~/context/step-context'
+import { useAppSelector } from '~/hooks/use-redux'
 import { locationService } from '~/services/location-service'
 import img from '~/assets/img/tutor-home-page/become-tutor/general-info.svg'
 
 const GeneralInfoStep = ({ btnsBox, setIsValidated, stepLabel }) => {
   const { stepData, handleStepData } = useStepContext()
   const { t } = useTranslation()
+
+  const { userFirstName, userLastName } = useAppSelector(
+    (state) => state.appMain
+  )
+
+  useEffect(() => {
+    const { firstName, lastName } = stepData.generalInfo.data;
+  
+    const newFirstName = firstName || userFirstName;
+    const newLastName = lastName || userLastName;
+  
+    handleStepData(
+      'generalInfo',
+      {
+        ...stepData.generalInfo.data,
+        firstName: newFirstName,
+        lastName: newLastName,
+      },
+      stepData.generalInfo.errors
+    );
+  }, [userFirstName, userLastName]);
 
   useEffect(() => {
     if (stepData[stepLabel].errors === undefined) {

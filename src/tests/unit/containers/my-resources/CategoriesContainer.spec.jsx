@@ -2,8 +2,8 @@ import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { expect, vi } from 'vitest'
 
 import CategoriesContainer from '~/containers/my-resources/categories-container/CategoriesContainer'
-import { mockAxiosClient, renderWithProviders } from '~tests/test-utils'
 import { URLs } from '~/constants/request'
+import { mockAxiosClient, renderWithProviders } from '~/tests/test-utils'
 
 const categoriesMock = {
   _id: 's0Me1D',

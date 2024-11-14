@@ -1,10 +1,9 @@
 import { FC } from 'react'
+
 import Box from '@mui/material/Box'
-
 import AppCard from '~/components/app-card/AppCard'
-import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
-
 import { styles } from '~/components/card-with-link/CardWithLink.styles'
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 
 interface CardWithLinkProps {
   img: string

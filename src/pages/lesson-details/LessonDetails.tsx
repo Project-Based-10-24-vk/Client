@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import type { AxiosResponse } from 'axios'
+import parse from 'html-react-parser'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -11,37 +12,15 @@ import IconExtensionWithTitle from '~/components/icon-extension-with-title/IconE
 import Loader from '~/components/loader/Loader'
 import MultiAccordionWithTitle from '~/components/multi-accordion-with-title/MultiAccordionWIthTitle'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
+import { authRoutes } from '~/router/constants/authRoutes'
 import { useSnackBarContext } from '~/context/snackbar-context'
 import { getErrorMessage } from '~/utils/error-with-message'
 import useAxios from '~/hooks/use-axios'
 import { ResourceService } from '~/services/resource-service'
 import { snackbarVariants } from '~/constants'
-import {
-  Attachment,
-  ButtonVariantEnum,
-  ErrorResponse,
-  LessonData
-} from '~/types'
+import { ButtonVariantEnum, ErrorResponse, type Lesson } from '~/types'
 import { defaultResponse } from './LessonDetails.constants'
 import { styles } from './LessonDetails.styles'
-
-const attachments: Attachment[] = [
-  {
-    name: 'Additional materials-Advanced Quantum Mechanics.pdf',
-    size: 123,
-    url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-  },
-  {
-    name: 'Additional materials-Advanced Quantum Mechanics.pdf',
-    size: 123456,
-    url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-  },
-  {
-    name: 'Additional materials-Advanced Quantum Mechanics.pdf',
-    size: 123456789,
-    url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-  }
-]
 
 const LessonDetails = () => {
   const { t } = useTranslation()
@@ -69,7 +48,7 @@ const LessonDetails = () => {
     loading: getLessonLoading,
     fetchData: fetchDataLesson,
     response
-  } = useAxios<LessonData, string>({
+  } = useAxios<Lesson, string>({
     service: getLesson,
     fetchOnMount: false,
     defaultResponse,
@@ -77,7 +56,7 @@ const LessonDetails = () => {
   })
 
   const handleEdit = () => {
-    navigate(`/edit-lesson/${id}`)
+    navigate(`${authRoutes.myResources.lessonEdit.path}/${id}`)
   }
 
   useEffect(() => {
@@ -91,13 +70,24 @@ const LessonDetails = () => {
     return <Loader pageLoad />
   }
 
-  const attachmentsList = attachments.map((attachment, index) => (
-    <Box key={index} sx={styles.attachmentList.container}>
-      <IconExtensionWithTitle size={attachment.size} title={attachment.name} />
-    </Box>
-  ))
+  const attachmentsList =
+    response.attachments.length > 0 ? (
+      response.attachments.map((attachment) => (
+        <Box key={attachment._id} sx={styles.attachmentList.container}>
+          <IconExtensionWithTitle
+            size={attachment.size}
+            title={attachment.name}
+          />
+        </Box>
+      ))
+    ) : (
+      <Typography sx={{ typography: 'subtitle2', color: 'warning.600' }}>
+        {t('common.noAttachments')}
+      </Typography>
+    )
+
   const accordionItems = [
-    { title: 'Content', content: <>{response.content}</> },
+    { title: 'Content', content: <>{parse(response.content)}</> },
     { title: 'Attachments', content: <>{attachmentsList}</> }
   ]
 
