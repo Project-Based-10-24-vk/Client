@@ -7,6 +7,7 @@
   "offers": "offers",
   "newSubject": {
     "successMessage": "Request send successfully",
+    "error": "Subject already exist!",
     "title": "Request a new study",
     "description": "If you can’t find a specific category or subject that you need, you can submit a request to our team to review your request and take necessary actions.",
     "subject": "Create a new subject",

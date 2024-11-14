@@ -32,6 +32,7 @@ const AsyncAutocomplete = <T, F extends boolean | undefined = undefined>({
   valueField,
   labelField,
   value,
+  freeSolo,
   service,
   axiosProps,
   ...props
@@ -62,6 +63,7 @@ const AsyncAutocomplete = <T, F extends boolean | undefined = undefined>({
   )
 
   const isOptionEqualToValue = (option: T, value: T) => {
+    if (freeSolo) return true
     if (valueField) {
       return option?.[valueField] === value?.[valueField]
     }
@@ -81,7 +83,7 @@ const AsyncAutocomplete = <T, F extends boolean | undefined = undefined>({
       onFocus={handleFocus}
       options={response}
       textFieldProps={textFieldProps}
-      value={valueOption}
+      value={freeSolo ? value : valueOption}
       {...props}
     />
   )

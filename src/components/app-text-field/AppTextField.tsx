@@ -15,6 +15,7 @@ interface AppTextFieldProps
 const AppTextField: FC<AppTextFieldProps> = ({
   errorMsg,
   multiline,
+  title,
   withHelperText = true,
   ...props
 }) => {
@@ -28,14 +29,19 @@ const AppTextField: FC<AppTextFieldProps> = ({
     ' '
   )
 
+  const titleEl = title && <Typography sx={styles.title}>{title}</Typography>
+
   return (
-    <TextField
-      FormHelperTextProps={{ sx: styles.helperText(multiline) }}
-      error={Boolean(errorMsg)}
-      helperText={withHelperText && helperText}
-      multiline={multiline}
-      {...props}
-    />
+    <>
+      {titleEl}
+      <TextField
+        FormHelperTextProps={{ sx: styles.helperText(multiline) }}
+        error={Boolean(errorMsg)}
+        helperText={withHelperText && helperText}
+        multiline={multiline}
+        {...props}
+      />
+    </>
   )
 }
 
