@@ -1,24 +1,24 @@
-import { useMatch } from 'react-router-dom'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useMatch } from 'react-router-dom'
 
+import CopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import CopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
-
-import AppRatingMobile from '~/components/app-rating-mobile/AppRatingMobile'
 import ProfileContainerDesktop from '~/containers/tutor-profile/profile-info/ProfileContainerDesktop'
 import ProfileContainerMobile from '~/containers/tutor-profile/profile-info/ProfileContainerMobile'
+import { styles } from '~/containers/tutor-profile/profile-info/ProfileInfo.styles'
+import AppRatingMobile from '~/components/app-rating-mobile/AppRatingMobile'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
-import useBreakpoints from '~/hooks/use-breakpoints'
-
 import { authRoutes } from '~/router/constants/authRoutes'
 import { useSnackBarContext } from '~/context/snackbar-context'
-import { styles } from '~/containers/tutor-profile/profile-info/ProfileInfo.styles'
+import { getDifferenceDates } from '~/utils/helper-functions'
+import useBreakpoints from '~/hooks/use-breakpoints'
+import { subjectService } from '~/services/subject-service'
 import { snackbarVariants } from '~/constants'
 import { SizeEnum } from '~/types'
-import { getDifferenceDates } from '~/utils/helper-functions'
 
 const ProfileInfo = ({ userData }) => {
   const { t } = useTranslation()
@@ -26,7 +26,6 @@ const ProfileInfo = ({ userData }) => {
   const { setAlert } = useSnackBarContext()
   const isMyProfile = useMatch(authRoutes.accountMenu.myProfile.path)
   const { number, format } = getDifferenceDates(userData.createdAt, new Date())
-
   const copyProfileLink = () => {
     navigator.clipboard.writeText(window.location.href)
     setAlert({
@@ -119,7 +118,23 @@ const ProfileInfo = ({ userData }) => {
     </Box>
   )
 
-  const subjectData = userData.mainSubjects.tutor.map((item) => item.name)
+  const getSubjects = useCallback(async () => {
+    const response = await subjectService.getSubjects()
+    return response.data.items
+      .filter((item) => userData.mainSubjects.tutor.includes(item._id))
+      .map((item) => item.name)
+  }, [userData.mainSubjects.tutor])
+
+  const [subjectData, setSubjectData] = useState([])
+
+  useEffect(() => {
+    const fetchSubjectData = async () => {
+      const data = await getSubjects()
+      setSubjectData(data)
+    }
+
+    fetchSubjectData()
+  }, [getSubjects])
 
   return !isMobile ? (
     <ProfileContainerDesktop

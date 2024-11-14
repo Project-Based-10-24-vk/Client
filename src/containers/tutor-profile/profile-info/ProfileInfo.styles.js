@@ -1,5 +1,5 @@
-import palette from '~/styles/app-theme/app.pallete'
 import { TypographyVariantEnum } from '~/types'
+import palette from '~/styles/app-theme/app.pallete'
 
 export const styles = {
   container: {
@@ -38,6 +38,7 @@ export const styles = {
   accInfoWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
+    width: '70%',
     justifyContent: 'space-around',
     gap: '20px 10px',
     py: { xs: '10px', lg: '25px' }

@@ -1,13 +1,11 @@
-import Box from '@mui/material/Box'
-import SchoolIcon from '@mui/icons-material/School'
 import DoneIcon from '@mui/icons-material/Done'
+import SchoolIcon from '@mui/icons-material/School'
 import Avatar from '@mui/material/Avatar'
-
-import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
+import Box from '@mui/material/Box'
+import { styles } from '~/containers/tutor-profile/profile-info/ProfileInfo.styles'
 import AppChipList from '~/components/app-chips-list/AppChipList'
 import ProfileDoneItemsList from '~/components/icon-with-text-list/ProfileDoneItemsList'
-
-import { styles } from '~/containers/tutor-profile/profile-info/ProfileInfo.styles'
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
 
 const ProfileContainerDesktop = ({
   userData,
@@ -21,13 +19,7 @@ const ProfileContainerDesktop = ({
   return (
     <Box sx={styles.container}>
       <Box sx={styles.avatarContainer}>
-        <Avatar
-          src={
-            userData.photo &&
-            `${import.meta.env.VITE_APP_IMG_USER_URL}${userData.photo}`
-          }
-          sx={styles.img}
-        />
+        <Avatar src={userData.photo} sx={styles.img} />
       </Box>
       {actionIcon}
 

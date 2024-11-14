@@ -12,7 +12,7 @@ export const styles = {
     display: 'grid',
     rowGap: '5px',
     justifyContent: 'space-between',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 240px))'
+    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 260px))'
   },
   itemWrapper: {
     display: 'flex',
