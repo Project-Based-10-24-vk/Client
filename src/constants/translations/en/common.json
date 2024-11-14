@@ -40,7 +40,9 @@
   "fileSizeError": "Розмір одного файлу не може перевищувати 10 Мб.",
   "noItems": "No items found",
   "view": "View",
+  "noAttachments": "No attachments",
   "labels": {
+    "offers": "Offers",
     "email": "Email",
     "firstName": "First name",
     "lastName": "Last name",

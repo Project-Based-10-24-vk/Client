@@ -46,5 +46,10 @@
     "categoryDropdown": "Category...",
     "selectCategory": "Select category"
   },
+  "attachments": {
+    "name": "Attachment name",
+    "category": "Category",
+    "updated": "Last updates"
+  },
   "confirmDeletionMessage": "This action is permanent and will remove all related content. Please review your decision before proceeding."
 }

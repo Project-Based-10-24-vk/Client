@@ -1,6 +1,6 @@
-import { emptyField, helperTextHandler, textField } from './common'
+import { emptyField, helperTextHandler, nameField, textField } from './common'
 
-interface DataWithPassword {
+export interface DataWithPassword {
   password: string
   [key: string]: string
 }
@@ -14,7 +14,19 @@ export const password = (value: string) => {
 }
 
 export const names = (value: string) => {
-  return textField(2, 15)(value)
+  if (value.length === 0) {
+    return nameField(value)
+  } else {
+    return textField(2, 15)(value)
+  }
+}
+
+export const firstName = (value: string) => {
+  return names(value.trim())
+}
+
+export const lastName = (value: string) => {
+  return names(value.trim())
 }
 
 export const confirmPassword = (password: string, data: DataWithPassword) => {

@@ -1,7 +1,14 @@
 {
   "labels": {
-    "title": "Lesson title",
+    "title": "Untitled",
+    "description": "Description...",
     "attachments": "Attachments",
     "chooseCategory": "Choose the category:"
-  }
+  },
+  "errorMessages": {
+    "title": "Title is required",
+    "description": "Description is required"
+  },
+  "successEditedLesson": "Lesson successfully edited",
+  "successAddedLesson": "Lesson successfully added"
 }

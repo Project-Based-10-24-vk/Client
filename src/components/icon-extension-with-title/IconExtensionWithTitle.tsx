@@ -1,11 +1,10 @@
-import { ReactElement, FC } from 'react'
+import { FC, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import Box from '@mui/material/Box'
-
-import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
-
-import { convertBytesToProperFormat } from '~/utils/helper-functions'
 import { styles } from '~/components/icon-extension-with-title/IconExtensionWithTitle.styles'
+import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
+import { convertBytesToProperFormat } from '~/utils/helper-functions'
 
 interface IconExtensionWithTitleProps {
   title: string
@@ -21,7 +20,6 @@ const IconExtensionWithTitle: FC<IconExtensionWithTitleProps> = ({
   icon
 }) => {
   const { t } = useTranslation()
-
   const [fileExtension] = title.split('.').reverse()
 
   const convertSize = (incomingSize: number) => {
