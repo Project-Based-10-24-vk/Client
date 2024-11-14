@@ -146,8 +146,8 @@ const FindOffers = () => {
       <Box sx={styles.navigation}>
         <DirectionLink
           before={<ArrowBackIcon fontSize={SizeEnum.Small} />}
-          linkTo={authRoutes.findOffers.path}
-          title={t('categoriesPage.showAllOffers')}
+          linkTo={authRoutes.subjects.path}
+          title={t('offerPage.backToAllSubjects')}
         />
       </Box>
       <Box sx={styles.autocompleteWrapper}>
