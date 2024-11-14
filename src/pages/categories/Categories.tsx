@@ -54,8 +54,8 @@ const Categories = () => {
       <Box sx={styles.navigation}>
         <DirectionLink
           after={<ArrowForwardIcon fontSize={SizeEnum.Small} />}
-          linkTo={authRoutes.findOffers.path}
-          title={t('categoriesPage.showAllOffers')}
+          linkTo={authRoutes.subjects.path}
+          title={t('categoriesPage.showAllSubjects')}
         />
       </Box>
       <AppToolbar sx={styles.searchToolbar}>
