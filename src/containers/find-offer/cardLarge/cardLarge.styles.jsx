@@ -1,14 +1,13 @@
 export const styles = {
   cardBody: (theme) => ({
     display: 'flex',
-    width: 'fit-content',
     height: 'fit-content',
     padding: '31px 30px',
     boxShadow: '0 0 10px 5px #90A4AE8F',
     borderRadius: '6px',
     backgroundColor: '#FFFFFF',
     flexDirection: 'row',
-
+    width:'100%',
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column'
     }
@@ -62,10 +61,9 @@ export const styles = {
 
   //Main content
   mainContent: {
-    flexGrow: 2,
+    flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: '600px'
   },
 
   userName: {
@@ -137,7 +135,8 @@ export const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '16px',
-    borderTop: '1px solid #ECEFF1'
+    borderTop: '1px solid #ECEFF1',
+    minWidth:'200px'
   },
   price: {
     fontSize: '18px',
