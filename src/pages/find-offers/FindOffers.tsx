@@ -6,11 +6,11 @@ import { styles } from '~/pages/find-offers/FindOffers.styles'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Box from '@mui/material/Box'
 import OfferRequestBlock from '~/containers/find-offer/offer-request-block/OfferRequestBlock'
+import OffersList from '~/containers/offers-list/OffersList'
 import AppToolbar from '~/components/app-toolbar/AppToolbar'
 import AsyncAutocomplete from '~/components/async-autocomlete/AsyncAutocomplete'
 import DirectionLink from '~/components/direction-link/DirectionLink'
 import PageWrapper from '~/components/page-wrapper/PageWrapper'
-import OffersList from '~/containers/offers-list/OffersList'
 import PopularCategories from '~/components/popular-categories/PopularCategories'
 import SearchAutocomplete from '~/components/search-autocomplete/SearchAutocomplete'
 import TitleWithDescription from '~/components/title-with-description/TitleWithDescription'
@@ -24,7 +24,8 @@ import {
   CategoryNameInterface,
   ItemsWithCount,
   SizeEnum,
-  SubjectNameInterface, SubjectInterface
+  SubjectInterface,
+  SubjectNameInterface
 } from '~/types'
 
 const FindOffers = () => {
@@ -36,7 +37,6 @@ const FindOffers = () => {
   const subjectId = searchParams.get('subjectId') ?? ''
   const [subjectName, setSubjectName] = useState<string>('')
   const [isFetched, setIsFetched] = useState<boolean>(false)
- 
 
   const getCategoriesNames = useCallback(
     (data: ItemsWithCount<CategoryNameInterface>) => {
@@ -55,7 +55,7 @@ const FindOffers = () => {
   )
 
   const fetchSubjects = useCallback(async () => {
-      return await subjectService.getSubjects({category: categoryId})
+    return await subjectService.getSubjects({ category: categoryId })
   }, [categoryId])
 
   const onCategoryChange = (
@@ -93,42 +93,41 @@ const FindOffers = () => {
   const AutoCompleteCategories = () => {
     return (
       <AsyncAutocomplete<CategoryNameInterface>
-        sx={styles.categoryInput}
         axiosProps={{
           onResponse: onResponseCategory,
           transform: getCategoriesNames
         }}
-        onChange={onCategoryChange}
         labelField='name'
+        onChange={onCategoryChange}
+        service={categoryService.getCategoriesNames}
+        sx={styles.categoryInput}
         textFieldProps={{
           label: t('breadCrumbs.categories'),
           variant: 'outlined'
         }}
-        valueField='_id'
         value={categoryId}
-        service={categoryService.getCategoriesNames}
+        valueField='_id'
       />
     )
   }
 
-
   const AutoCompleteSubjects = () => {
     return (
       <AsyncAutocomplete<SubjectNameInterface>
-        sx={styles.categoryInput}
         axiosProps={{
           onResponse: onResponseSubject,
           transform: getSubjectsNames
         }}
-        onChange={onSubjectChange}
         labelField='name'
+        onChange={onSubjectChange}
+        service={fetchSubjects}
+        sx={styles.categoryInput}
         textFieldProps={{
           label: t('breadCrumbs.subjects'),
           variant: 'outlined'
         }}
-        valueField='_id'
         value={subjectId}
-        service={fetchSubjects}
+        valueField='_id'
       />
     )
   }

@@ -7,7 +7,6 @@ export const styles = {
     borderRadius: '6px',
     backgroundColor: '#FFFFFF',
     flexDirection: 'row',
-    width:'100%',
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column'
     }
@@ -63,7 +62,7 @@ export const styles = {
   mainContent: {
     flexGrow: 1,
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
 
   userName: {
@@ -136,7 +135,7 @@ export const styles = {
     alignItems: 'center',
     padding: '16px',
     borderTop: '1px solid #ECEFF1',
-    minWidth:'200px'
+    minWidth: '200px'
   },
   price: {
     fontSize: '18px',
